@@ -12,9 +12,11 @@ const hazards = ['Przeciążenie układu ruchu',
 //generowanie formularza 
 const hazardIdentyfication = props => {
 
-    const hazardsList = hazards.map(el => {
+    const hazardsList = hazards.map((el,index) => {
         return <HazardForm 
-                hazard={el}/>
+                key={index}
+                hazard={el}
+                change={props.change}/>
     });
 
     return(
