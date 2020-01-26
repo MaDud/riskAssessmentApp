@@ -3,15 +3,9 @@ import React from 'react';
 import classes from './hazardForm.module.css';
 
 const hazardForm = props => {
+
     return (
         <div className={classes.HazardForm}>
-            <div className={classes.Hazard}>
-                <h1>{props.hazard}</h1>
-                <label className={classes.Switch}>
-                    <input type="checkbox" />
-                    <span className={classes.Slider}>NIE</span> 
-                </label>
-            </div>
             <form className={classes.HazardBox}>
                 <label>Źródło zagrożenia:</label>
                 <input type='textarea' onChange={props.change}/>

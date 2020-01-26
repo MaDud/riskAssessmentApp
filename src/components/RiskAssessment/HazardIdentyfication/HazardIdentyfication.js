@@ -1,28 +1,22 @@
 import React from 'react';
 
+import classes from './hazardIdentyfication.module.css';
+import Auxiliary from '../../../hoc/Auxiliary';
+
 import HazardForm from './HazardForm/HazardForm';
 
-//lista zagrożeń
-const hazards = ['Przeciążenie układu ruchu', 
-                'Upadek na tym samym poziomie',
-                'Uderzenie o nieruchome przedmioty',
-                'Uderzenie przez spadające lub poruszające się przedmioty'
-];
-
-//generowanie formularza 
 const hazardIdentyfication = props => {
-
-    const hazardsList = hazards.map((el,index) => {
-        return <HazardForm 
-                key={index}
-                hazard={el}
-                change={props.change}/>
-    });
-
+    
     return(
-        <div>
-            {hazardsList}
-        </div>
+        <Auxiliary>
+            <div className={classes.HazardIdentyfication}>
+                <h1>{props.hazard}</h1>
+                <label className={classes.Switch}>
+                    <input type="checkbox" onClick={props.checked}/>
+                    <span className={classes.Slider}>NIE</span> 
+                </label>
+            </div>
+        </Auxiliary>
     )
 };
 
