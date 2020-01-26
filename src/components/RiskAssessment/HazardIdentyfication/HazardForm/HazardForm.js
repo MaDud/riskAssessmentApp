@@ -9,7 +9,7 @@ const hazardForm = props => {
                 <h1>{props.hazard}</h1>
                 <label className={classes.Switch}>
                     <input type="checkbox" />
-                    <span className={classes.Slider}></span>
+                    <span className={classes.Slider}>NIE</span> 
                 </label>
             </div>
             <form className={classes.HazardBox}>
