@@ -22,7 +22,13 @@ class RiskAssessmentForm extends React.Component {
         let hazardState = {...this.state.hazardList};
         hazards.map((el,index) => {
             let key = "hazard"+index;
-            return hazardState[key] = {value: el, checked: false}
+            return hazardState[key] = {value: el,
+                                    checked: false,
+                                    source: "",
+                                    possibleEffects: "",
+                                    protection: "",
+                                    effect: "",
+                                    propability: ""}
         });
         this.setState({hazardList: hazardState});
     }
@@ -37,7 +43,21 @@ class RiskAssessmentForm extends React.Component {
         this.setState({hazardList:hazardArray})
     }
 
+    inputHander = (event, id) => {
+        event.preventDefault();
+
+        const hazardArray = {...this.state.hazardList};
+        const hazardElement = {...hazardArray[id]};
+        const elementName = event.target.name;
+
+        hazardElement[elementName] = event.target.value;
+        hazardArray[id] = hazardElement;
+
+        this.setState({hazardList:hazardArray})
+    }
+
     render() {   
+        console.log(this.state)
 
         let hazardArray = [];
         for (let key in this.state.hazardList) {
@@ -53,7 +73,8 @@ class RiskAssessmentForm extends React.Component {
                 key={el.id}
                 hazard={el.value}
                 checked={()=>this.hazardUpdate(el.id)}>
-                    {this.state.hazardList[el.id].checked? <HazardForm/>: null}
+                    {this.state.hazardList[el.id].checked? <HazardForm 
+                                                            change={(e)=>this.inputHander(e, el.id)}/>: null}
                 </HazardIdentyfication>
                 })
         }  
