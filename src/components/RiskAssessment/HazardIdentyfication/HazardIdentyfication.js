@@ -3,7 +3,6 @@ import React from 'react';
 import classes from './hazardIdentyfication.module.css';
 import Auxiliary from '../../../hoc/Auxiliary';
 
-import HazardForm from './HazardForm/HazardForm';
 
 const hazardIdentyfication = props => {
     
@@ -16,6 +15,7 @@ const hazardIdentyfication = props => {
                     <span className={classes.Slider}>NIE</span> 
                 </label>
             </div>
+            {props.children}
         </Auxiliary>
     )
 };

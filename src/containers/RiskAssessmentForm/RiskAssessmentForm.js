@@ -3,6 +3,7 @@ import React from 'react';
 import Auxiliary from '../../hoc/Auxiliary';
 
 import HazardIdentyfication from '../../components/RiskAssessment/HazardIdentyfication/HazardIdentyfication';
+import HazardForm from '../../components/RiskAssessment/HazardIdentyfication/HazardForm/HazardForm';
 
 const hazards = ['Przeciążenie układu ruchu', 
                 'Upadek na tym samym poziomie',
@@ -51,8 +52,10 @@ class RiskAssessmentForm extends React.Component {
                 return <HazardIdentyfication
                 key={el.id}
                 hazard={el.value}
-                checked={()=>this.hazardUpdate(el.id)}
-                />})
+                checked={()=>this.hazardUpdate(el.id)}>
+                    {this.state.hazardList[el.id].checked? <HazardForm/>: null}
+                </HazardIdentyfication>
+                })
         }  
 
         return (
