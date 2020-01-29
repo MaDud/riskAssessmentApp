@@ -2,38 +2,75 @@ import React from 'react';
 
 const riskMatric = props => {
 
-    let risk = null;
+    let value = props.effect+'|'+props.propability;
+    let risk;    
 
-    switch (props.effect, props.propability) {
-        case ("small", "small"):
-            risk = <div>Bardzo małe</div>;
+    switch (value) {
+        case ("small|small"):
+            risk = (<div>
+                        <p>Ryzyko:  
+                            <span>Bardzo małe</span>
+                        </p>
+                    </div>);
             break;
-        case ("small", "medium"):
-            risk = <div>Małe</div>;
+        case ("small|medium"):
+            risk = (<div>
+                <p>Ryzyko:  
+                    <span>Małe</span>
+                </p>
+            </div>);
             break;
-        case ("small", "big"):
-            risk = <div>Średnie</div>;
+        case ("small|big"):
+            risk = (<div>
+                <p>Ryzyko:  
+                    <span>Średnie</span>
+                </p>
+            </div>);
             break;
-        case ("medium", "small"):
-            risk = <div>Małe</div>;
+        case ("medium|small"):
+            risk = (<div>
+                <p>Ryzyko:  
+                    <span>Małe</span>
+                </p>
+            </div>);
             break;
-        case ("medium", "medium"):
-            risk = <div>Średnie</div>;
+        case ("medium|medium"):
+            risk = (<div>
+                <p>Ryzyko:  
+                    <span>Średnie</span>
+                </p>
+            </div>);
             break;
-        case ("medium", "big"):
-            risk = <div>Duże</div>;
+        case ("medium|big"):
+            risk = (<div>
+                <p>Ryzyko:  
+                    <span>Duże</span>
+                </p>
+            </div>);
             break;
-        case ("big", "small"):
-            risk = <div>Średnie</div>;
+        case ("big|small"):
+            risk = (<div>
+                <p>Ryzyko:  
+                    <span>Średnie</span>
+                </p>
+            </div>);
             break;
-        case ("big", "medium"):
-            risk = <div>Duże</div>;
+        case ("big|medium"):
+            risk = (<div>
+                <p>Ryzyko:  
+                    <span>Duże</span>
+                </p>
+            </div>);
             break;
-        case ("big", "big"):
-            risk = <div>Bardzo duże</div>;
+        case ("big|big"):
+            risk = (<div>
+                <p>Ryzyko:  
+                    <span>Bardzo duże</span>
+                </p>
+            </div>);
             break;
         default:
-            null;
+            risk = null;
     };
 
     return risk;

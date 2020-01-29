@@ -28,7 +28,8 @@ class RiskAssessmentForm extends React.Component {
                                     possibleEffects: "",
                                     protection: "",
                                     effect: "",
-                                    propability: ""}
+                                    propability: "",
+                                    risk: ""}
         });
         this.setState({hazardList: hazardState});
     }
@@ -74,7 +75,9 @@ class RiskAssessmentForm extends React.Component {
                 hazard={el.value}
                 checked={()=>this.hazardUpdate(el.id)}>
                     {this.state.hazardList[el.id].checked? <HazardForm 
-                                                            change={(e)=>this.inputHander(e, el.id)}/>: null}
+                                                            change={(e)=>this.inputHander(e, el.id)}
+                                                            effect={this.state.hazardList[el.id].effect}
+                                                            propability={this.state.hazardList[el.id].propability}/>: null}
                 </HazardIdentyfication>
                 })
         }  
