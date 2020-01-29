@@ -28,8 +28,8 @@ class RiskAssessmentForm extends React.Component {
                                     possibleEffects: "",
                                     protection: "",
                                     effect: "",
-                                    propability: "",
-                                    risk: ""}
+                                    propability: ""
+                                    }
         });
         this.setState({hazardList: hazardState});
     }
@@ -44,7 +44,7 @@ class RiskAssessmentForm extends React.Component {
         this.setState({hazardList:hazardArray})
     }
 
-    inputHander = (event, id) => {
+    inputHandler = (event, id) => {
         event.preventDefault();
 
         const hazardArray = {...this.state.hazardList};
@@ -56,6 +56,7 @@ class RiskAssessmentForm extends React.Component {
 
         this.setState({hazardList:hazardArray})
     }
+
 
     render() {   
         console.log(this.state)
@@ -74,10 +75,12 @@ class RiskAssessmentForm extends React.Component {
                 key={el.id}
                 hazard={el.value}
                 checked={()=>this.hazardUpdate(el.id)}>
-                    {this.state.hazardList[el.id].checked? <HazardForm 
-                                                            change={(e)=>this.inputHander(e, el.id)}
+                    {this.state.hazardList[el.id].checked ? <HazardForm 
+                                                            change={(e)=>this.inputHandler(e, el.id)}
                                                             effect={this.state.hazardList[el.id].effect}
-                                                            propability={this.state.hazardList[el.id].propability}/>: null}
+                                                            propability={this.state.hazardList[el.id].propability}
+                                                            />
+                                                            : null}
                 </HazardIdentyfication>
                 })
         }  
