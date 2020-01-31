@@ -10,21 +10,21 @@ const hazardForm = props => {
         <div className={classes.HazardForm}>
             <form className={classes.HazardBox}>
                 <label>Źródło zagrożenia:</label>
-                <textarea name="source" onChange={props.change}/>
+                <textarea name="source" onChange={props.change} value={props.source}/>
                 <label>Możliwe skutki zagrożenia:</label>
-                <textarea name="possibleEffects" onChange={props.change}/>
+                <textarea name="possibleEffects" onChange={props.change} value={props.possibleEffects}/>
                 <label>Środki ochrony przed zagrożeniem:</label>
-                <textarea name="protection" onChange={props.change}/>
+                <textarea name="protection" onChange={props.change} value={props.protection}/>
                 <div className={classes.RiskBox}>
                     <label>Skutek</label>
-                    <select onChange={props.change} name="effect">
+                    <select onChange={props.change} name="effect" value={props.effectOption}>
                         <option value=""></option>
                         <option value="small">Mały</option>
                         <option value="medium">Średni</option>
                         <option value="big">Duży</option>
                     </select>
                     <label>Prawdopodobieństwo</label>
-                    <select onChange={props.change} name="propability">
+                    <select onChange={props.change} name="propability" value={props.propabilityOption}>
                         <option value=""></option>
                         <option value="small">Małe</option>
                         <option value="medium">Średnie</option>
@@ -34,6 +34,10 @@ const hazardForm = props => {
                 <RiskMatric effect={props.effect} 
                             propability={props.propability}
                             />
+                <div className={classes.ButtonBox}>
+                    <button onClick={props.save}>ZAPISZ</button>
+                    <button onClick={props.clean}>WYCZYŚĆ DANE</button>
+                </div>
             </form>
         </div>
     )

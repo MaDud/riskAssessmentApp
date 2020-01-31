@@ -9,64 +9,34 @@ const riskMatric = props => {
 
     switch (value) {
         case ("small|small"):
-            risk = (<div className={classes.Risk}>
-                        <p>Ryzyko:</p>
-                        <p className={[classes.Level,classes.ExtraSmall].join(' ')}>Bardzo małe</p>
-                    </div>);
+            risk = <p className={[classes.Level,classes.ExtraSmall].join(' ')}>Bardzo małe</p>;
             break;
         case ("small|medium"):
-            risk = (<div className={classes.Risk}>
-                        <p>Ryzyko:</p>  
-                        <p className={[classes.Level,classes.Small].join(' ')}>Małe</p>
-                    </div>);
+        case ("medium|small"):
+            risk = <p className={[classes.Level,classes.Small].join(' ')}>Małe</p>;
             break;
         case ("small|big"):
-            risk = (<div className={classes.Risk}>
-                        <p>Ryzyko:</p>
-                        <p className={[classes.Level,classes.Medium].join(' ')}>Średnie</p>
-                    </div>);
-            break;
-        case ("medium|small"):
-            risk = (<div className={classes.Risk}>
-                        <p>Ryzyko:</p>  
-                        <p className={[classes.Level,classes.Small].join(' ')}>Małe</p>
-                    </div>);
-            break;
         case ("medium|medium"):
-            risk = (<div className={classes.Risk}>
-                        <p>Ryzyko:</p>
-                        <p className={[classes.Level,classes.Medium].join(' ')}>Średnie</p>
-                    </div>);
+        case ("big|small"):
+            risk = <p className={[classes.Level,classes.Medium].join(' ')}>Średnie</p>;
             break;
         case ("medium|big"):
-            risk = (<div className={classes.Risk}>
-                        <p>Ryzyko:</p>
-                        <p className={[classes.Level,classes.Big].join(' ')}>Duże</p>
-                    </div>);
-            break;
-        case ("big|small"):
-            risk = (<div className={classes.Risk}>
-                        <p>Ryzyko:</p>
-                        <p className={[classes.Level,classes.Medium].join(' ')}>Średnie</p>
-                    </div>);
-            break;
         case ("big|medium"):
-            risk = (<div className={classes.Risk}>
-                        <p>Ryzyko:</p>
-                        <p className={[classes.Level,classes.Big].join(' ')}>Duże</p>
-                    </div>);
+            risk = <p className={[classes.Level,classes.Big].join(' ')}>Duże</p>;
             break;
         case ("big|big"):
-            risk = (<div className={classes.Risk}>
-                        <p>Ryzyko:</p>
-                        <p className={[classes.Level,classes.ExtraBig].join(' ')}>Bardzo duże</p>
-                    </div>);
+            risk = <p className={[classes.Level,classes.ExtraBig].join(' ')}>Bardzo duże</p>;
             break;
         default:
             risk = null;
     };
 
-    return risk;
+    return risk !== null ? 
+            (<div className={classes.Risk}>
+                <p>Ryzyko:</p>
+                {risk}
+            </div>)
+            : null;
 
 };
 

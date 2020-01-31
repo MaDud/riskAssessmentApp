@@ -21,11 +21,39 @@
     margin: 5px 0;
 }
 
+.HazardBox select {
+    width: 6rem;
+}
+
 .RiskBox {
     display: inline-flex;
     justify-content: space-between;
     margin: 10px 0;
 }
+
+.ButtonBox {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ButtonBox button {
+    margin: 10px 0 0 10px;
+    display: block;
+    background-color: rgba(55, 125, 255, 0.3);
+    border: #fff solid 2px;
+    border-radius: 7px 5px;
+    padding: 10px;
+    color: #377dff;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.ButtonBox button:hover {
+    background-color: #377dff;
+    color: #fff;
+}
+
+
 
 
   
