@@ -9,19 +9,14 @@
 .HazardIdentyfication h1 {
     color: #1e2022;
     font-weight: normal;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
-
-.HazardIdentyficationActive h1{
-    color: #377dff;
-}
-
 /* toggle style */
 
 .Switch {
     position: relative;
     display: inline-block;
-    width: 50px;
+    width: 55px;
     height: 20px;
     margin: auto 0;
 }
@@ -39,13 +34,21 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #ccc;
     transition: .4s;
     border-radius: 20px;
     text-align: right;
     padding-right: 7px;
     font-size: 0.9rem;
+}
+
+.Not {
+    background-color: #ccc;
     color: #77838f;
+}
+
+.Yes {
+    background-color: rgba(0, 201, 167, 0.3);
+    color: #00c9A7;
 }
 
 .Slider:before {
@@ -60,12 +63,18 @@
     top: 1px
 }
 
-.Switch input:checked + .Slider {
+.Switch input:checked + .Not {
     background-color: rgb(55,125,255);
     color:  rgb(55,125,255);
     opacity: 0.8;
 }
 
+.Switch input:checked + .Yes {
+    background-color: #00c9A7;
+    color:  rgba(0,201,167,0.3);
+    opacity: 0.8;
+}
+
 .Switch input:checked + .Slider:before {
-    transform: translateX(28px);
+    transform: translateX(33px);
 }

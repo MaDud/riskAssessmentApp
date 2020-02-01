@@ -32,8 +32,6 @@ class RiskAssessmentForm extends React.Component {
                                     propability: "",
                                     save: false,
                                     clean: true,
-                                    touched: false,
-                                    extraSave: false,
                                     }
         });
 
@@ -44,7 +42,7 @@ class RiskAssessmentForm extends React.Component {
     hazardUpdate = (id) => {
         const hazardArray = {...this.state.hazardList};
         let hazardElement = {...hazardArray[id]};
-
+        
         hazardElement.checked = !this.state.hazardList[id].checked;
 
         if (!hazardElement.checked && !hazardElement.save) {
@@ -57,17 +55,17 @@ class RiskAssessmentForm extends React.Component {
                             propability: "",
                             save: false,
                             clean: false,
-                            touched: false,
-                            extraSave: false
                             };
-        } 
+        }
 
         hazardArray[id] = hazardElement;
+        console.log(hazardArray)
 
         this.setState({hazardList:hazardArray})
     }
 
     //aktualizacja stanu na podstawie wartości inputu
+    
     inputHandler = (event, id) => {
         event.preventDefault();
 
@@ -76,27 +74,9 @@ class RiskAssessmentForm extends React.Component {
         const elementName = event.target.name;
 
         hazardElement[elementName] = event.target.value;
-        hazardElement.touched = true;
-        hazardElement.extraSave = false;
-        hazardArray[id] = hazardElement;
-        
-        this.setState({hazardList:hazardArray})
-    }
-
-    //zapisywanie zmian
-    saveChanges = (event, id) => {
-        event.preventDefault();
-
-        const hazardArray = {...this.state.hazardList};
-        const hazardElement = {...hazardArray[id]};
-
         hazardElement.save = true;
-        hazardElement.clean = false;
-        hazardElement.touched = false;
-        hazardElement.extraSave = true;
-        
         hazardArray[id] = hazardElement;
-
+        
         this.setState({hazardList:hazardArray})
     }
 
@@ -108,7 +88,7 @@ class RiskAssessmentForm extends React.Component {
         let hazardElement = {...hazardArray[id]};
 
         hazardElement = {value: this.state.hazardList[id].value,
-                        checked: true,
+                        checked: false,
                         source: "",
                         possibleEffects: "",
                         protection: "",
@@ -116,8 +96,6 @@ class RiskAssessmentForm extends React.Component {
                         propability: "",
                         save: false,
                         clean: true,
-                        touched: false,
-                        extraSave: false,
                         };
         hazardArray[id] = hazardElement;
 
@@ -138,7 +116,6 @@ class RiskAssessmentForm extends React.Component {
                             propabilityOption={this.state.hazardList[id].propability}
                             effect={this.state.hazardList[id].effect}
                             propability={this.state.hazardList[id].propability}
-                            save={(e) => this.saveChanges(e, id)}
                             clean={(e) => this.cleanChanges(e, id)}
                         />
         }
@@ -163,7 +140,9 @@ class RiskAssessmentForm extends React.Component {
                 return <HazardIdentyfication
                         key={el.id}
                         hazard={el.value}
-                        checked={()=>this.hazardUpdate(el.id)}>
+                        click={()=>this.hazardUpdate(el.id)}
+                        checked={this.state.hazardList[el.id].checked}
+                        save={this.state.hazardList[el.id].save}>
                             {this.hazardForm(el.id)}
                         </HazardIdentyfication>
                          })

@@ -35,7 +35,6 @@ const hazardForm = props => {
                             propability={props.propability}
                             />
                 <div className={classes.ButtonBox}>
-                    <button onClick={props.save}>ZAPISZ</button>
                     <button onClick={props.clean}>WYCZYŚĆ DANE</button>
                 </div>
             </form>
