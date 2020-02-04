@@ -16,7 +16,7 @@ const hazardIdentyfication = props => {
     return(
         <Auxiliary>
             <div className={classes.HazardIdentyfication}>
-                <h1>{props.hazard}</h1>
+                <h2>{props.hazard}</h2>
                 <label className={classes.Switch}>
                     <input type="checkbox" onChange={props.click} checked={props.checked}/>
                     <span className={styleClasses.join(' ')}>{props.save? 'TAK' : 'NIE'}</span> 

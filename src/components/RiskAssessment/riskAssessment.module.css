@@ -1,0 +1,209 @@
+.RiskAssessment {
+    width: 70%;
+    margin: 20px auto;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    color: #1e2022;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 0.5rem;
+    grid-template-areas: "title         title       title       title       title       title"
+                         "label-11      input-11    space       space       label-12    input-12"
+                         "label-21      input-21    space       space       label-22    input-22"
+                         "label-3       label-3     label-3     label-3     label-3     label-3"
+                         "textarea-3    teaxtarea-3 teaxtarea-3 teaxtarea-3 teaxtarea-3 teaxtarea-3"
+                         "label-4       label-4     label-4     label-4     label-4     label-4"
+                         "textarea-4    teaxtarea-4 teaxtarea-4 teaxtarea-4 teaxtarea-4 teaxtarea-4"
+                         "label-5       label-5     label-5     label-5     label-5     label-5"
+                         "textarea-5    teaxtarea-5 teaxtarea-5 teaxtarea-5 teaxtarea-5 teaxtarea-5"
+                         "hazards       hazards     hazards     hazards     hazards     hazards"
+                         "label-6       label-6     label-6     label-6     label-6     label-6"
+                         "textarea-6    textarea-6  textarea-6  textarea-6  textarea-6  textarea-6"
+                         "label-71      input-71    space2      space2      label-72    input-72"
+                         "btn           btn         btn         add         add         cancel"                          
+}
+
+.RiskAssessmen .Label {
+    text-transform: uppercase;
+}
+
+.RiskAssessment input, textarea {
+    border: solid 1px #77838f;
+    border-radius: 4px;
+    opacity: 0.6;
+}
+
+.RiskAssessment input {
+    height: 2rem;
+}
+
+.RiskAssessment textarea {
+    height: 5rem;
+}
+
+.RiskAssessment h1 {
+    display: block;
+    grid-area: title;
+    text-align: center;
+    font-weight: normal;
+    background-color:rgb(55, 125, 255,0.2);
+    color: #377dff;
+    opacity: 0.7;
+    border-radius: 4px;
+    font-size: 1.3rem;
+}
+
+.Label.Number {
+    grid-area: label-11;
+}
+
+.Number {
+    grid-area: input-11;
+}
+
+.Label.Date {
+    grid-area: label-12;
+}
+
+.Date {
+    grid-area: input-12;
+}
+
+.Label.Version {
+    grid-area: label-21;
+}
+
+.Version {
+    grid-area: input-21;
+}
+
+.Label.Team {
+    grid-area: label-22;
+}
+
+.Team{
+    grid-area: input-22;
+}
+
+.Label.Position {
+    grid-area: label-3;
+}
+
+.Position{
+    grid-area: textarea-3;
+    grid-column: 1/-1;
+}
+
+.Label.Localization {
+    grid-area: label-4;
+}
+
+.Localization {
+    grid-area: textarea-4;
+    grid-column: 1/-1;
+}
+
+.Label.Description {
+    grid-area: label-5;
+}
+
+.Description {
+    grid-area: textarea-5;
+    grid-column: 1/-1;
+}
+
+.Hazards {
+    grid-area: hazards;
+    grid-column: 1/-1;  
+}
+
+.Label.Notice {
+    grid-area: label-6;
+    grid-column: 1/-1;
+}
+
+.Notice {
+    grid-area: textarea-6;
+}
+
+.Label.ReviewDate {
+    grid-area: label-71;
+}
+
+.ReviewDate {
+    grid-area: input-71;
+}
+
+.Label.Owner {
+    grid-area: label-72;
+}
+
+.Owner{
+    grid-area: input-72;
+} 
+
+.Submit {
+    grid-area: add;
+    display: block;
+    background-color: rgba(55, 125, 255, 0.3);
+    border: #fff solid 2px;
+    border-radius: 7px 5px;
+    margin-top: 10px;
+    padding: 10px;
+    color: #377dff;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.Submit:hover {
+    background-color: #377dff;
+    color: #fff;
+}
+
+.Cancel {
+    grid-area: cancel;
+    display: block;
+    background-color: rgba(222,68,55, 0.3);
+    border: #fff solid 2px;
+    border-radius: 7px 5px;
+    margin-top: 10px;
+    padding: 10px;
+    color: #de4437;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.Cancel:hover {
+    background-color: #de4437;
+    color: #fff;
+}
+
+@media (max-width: 500px) {
+    .RiskAssessment {
+        width: 80%;
+        font-size: 0.9rem;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 0.5rem;
+        grid-template-areas: "title      title"
+                             "label-11   input-11"      
+                             "label-12   input-12"
+                             "label-21   input-21"          
+                             "label-22   input-22"
+                             "label-3    label-3"
+                             "textarea-3 teaxtarea-3"
+                             "label-4    label-4"
+                             "textarea-4 teaxtarea-4"
+                             "label-5    label-5"
+                             "textarea-5 teaxtarea-5"
+                             "hazards    hazards"
+                             "label-6    label-6"
+                             "textarea-6 textarea-6"
+                             "label-71   input-71"       
+                             "label-72   input-72"
+                             "add        add"
+                             "cancel     cancel";
+    }
+}
+
+

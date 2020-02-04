@@ -2,6 +2,7 @@ import React from 'react';
 
 import Auxiliary from '../../hoc/Auxiliary';
 
+import RiskAssessment from '../../components/RiskAssessment/RiskAssessment';
 import HazardIdentyfication from '../../components/RiskAssessment/HazardIdentyfication/HazardIdentyfication';
 import HazardForm from '../../components/RiskAssessment/HazardIdentyfication/HazardForm/HazardForm';
 
@@ -150,7 +151,9 @@ class RiskAssessmentForm extends React.Component {
 
         return (
             <Auxiliary>
-                {hazardIdentyfication}
+                <RiskAssessment>
+                    {hazardIdentyfication}
+                </RiskAssessment>
             </Auxiliary>
         )
     }

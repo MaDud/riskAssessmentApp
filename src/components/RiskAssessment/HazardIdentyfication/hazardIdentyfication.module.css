@@ -1,12 +1,12 @@
 .HazardIdentyfication {
-    width: 70%;
+    width: 90%;
     margin: auto;
     font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: space-between;
 }
 
-.HazardIdentyfication h1 {
+.HazardIdentyfication h2 {
     color: #1e2022;
     font-weight: normal;
     font-size: 1rem;
@@ -77,4 +77,32 @@
 
 .Switch input:checked + .Slider:before {
     transform: translateX(33px);
+}
+
+@media (max-width: 500px) {
+    .HazardIdentyfication h2 {
+        font-size: 0.8rem;
+        width: 80%;
+    }
+
+    .Switch {
+        width: 38px;
+        height: 15px;
+    }
+
+    .Slider {
+        border-radius: 15px;
+        padding-right: 5px;
+        font-size: 0.7rem;
+    }
+
+    .Slider:before {
+        height: 12px;
+        width: 12px;
+        border-radius: 15px;
+    }
+
+    .Switch input:checked + .Slider:before {
+        transform: translateX(23px);
+    }
 }
