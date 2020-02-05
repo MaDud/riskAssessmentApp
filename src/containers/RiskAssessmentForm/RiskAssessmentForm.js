@@ -15,6 +15,18 @@ const hazards = ['Przeciążenie układu ruchu',
 class RiskAssessmentForm extends React.Component {
 
     state = {
+        assesmentData: {
+                        number: null,
+                        version: null,
+                        date: null,
+                        team: null,
+                        position: null,
+                        localization: null,
+                        description: null,
+                        notice: null,
+                        reviewDate: null,
+                        owner: null
+                        },
         hazardList: null,
     };
 
@@ -66,10 +78,7 @@ class RiskAssessmentForm extends React.Component {
     }
 
     //aktualizacja stanu na podstawie wartości inputu
-    
     inputHandler = (event, id) => {
-        event.preventDefault();
-
         const hazardArray = {...this.state.hazardList};
         const hazardElement = {...hazardArray[id]};
         const elementName = event.target.name;
@@ -79,6 +88,16 @@ class RiskAssessmentForm extends React.Component {
         hazardArray[id] = hazardElement;
         
         this.setState({hazardList:hazardArray})
+    }
+
+    dataInputHandler = (e) => {
+        const dataArray = {...this.state.assesmentData};
+        const elementId = e.target.id;
+        let dataElement = e.target.value;
+        
+        dataArray[elementId] = dataElement;
+
+        this.setState({assesmentData:dataArray})
     }
 
     //czyszczenie zapisanych danych
@@ -117,6 +136,7 @@ class RiskAssessmentForm extends React.Component {
                             propabilityOption={this.state.hazardList[id].propability}
                             effect={this.state.hazardList[id].effect}
                             propability={this.state.hazardList[id].propability}
+                            disabled={!this.state.hazardList[id].save}
                             clean={(e) => this.cleanChanges(e, id)}
                         />
         }
@@ -151,7 +171,8 @@ class RiskAssessmentForm extends React.Component {
 
         return (
             <Auxiliary>
-                <RiskAssessment>
+                <RiskAssessment
+                    change={e=>this.dataInputHandler(e)}>
                     {hazardIdentyfication}
                 </RiskAssessment>
             </Auxiliary>

@@ -1,6 +1,7 @@
 import React from 'react';
 
 import classes from './hazardForm.module.css';
+import Button from '../../../UI/Button/Button';
 
 import RiskMatric from '../RiskMatric/RiskMatric';
 
@@ -35,7 +36,7 @@ const hazardForm = props => {
                             propability={props.propability}
                             />
                 <div className={classes.ButtonBox}>
-                    <button onClick={props.clean}>WYCZYŚĆ DANE</button>
+                    <Button clicked={props.clean} disabled={props.disabled} btnType="Submit">WYCZYŚĆ DANE</Button>
                 </div>
             </form>
         </div>

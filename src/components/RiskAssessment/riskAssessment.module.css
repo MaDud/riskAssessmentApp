@@ -143,40 +143,12 @@
     grid-area: input-72;
 } 
 
-.Submit {
+.SubmitPosition {
     grid-area: add;
-    display: block;
-    background-color: rgba(55, 125, 255, 0.3);
-    border: #fff solid 2px;
-    border-radius: 7px 5px;
-    margin-top: 10px;
-    padding: 10px;
-    color: #377dff;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.Submit:hover {
-    background-color: #377dff;
-    color: #fff;
 }
 
 .Cancel {
     grid-area: cancel;
-    display: block;
-    background-color: rgba(222,68,55, 0.3);
-    border: #fff solid 2px;
-    border-radius: 7px 5px;
-    margin-top: 10px;
-    padding: 10px;
-    color: #de4437;
-    font-weight: bold;
-    font-size: 0.9rem;
-}
-
-.Cancel:hover {
-    background-color: #de4437;
-    color: #fff;
 }
 
 @media (max-width: 500px) {
@@ -187,8 +159,8 @@
         grid-gap: 0.5rem;
         grid-template-areas: "title      title"
                              "label-11   input-11"      
-                             "label-12   input-12"
-                             "label-21   input-21"          
+                             "label-21   input-21" 
+                             "label-12   input-12"         
                              "label-22   input-22"
                              "label-3    label-3"
                              "textarea-3 teaxtarea-3"

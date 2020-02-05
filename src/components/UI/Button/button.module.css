@@ -1,0 +1,35 @@
+.Button {
+    display: block;
+    border: #fff solid 2px;
+    border-radius: 7px 5px;
+    margin-top: 10px;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.Button:disabled, .Button:disabled:hover{
+    background-color: #ccc;
+    color: #77838f
+}
+
+.Submit {
+    background-color: rgba(55, 125, 255, 0.3);
+    color: #377dff;
+}
+
+.Submit:hover {
+    background-color: #377dff;
+    color: #fff;
+}
+
+.Cancel {
+    background-color: rgba(222,68,55, 0.3);
+    color: #de4437;
+}
+
+.Cancel:hover {
+    background-color: #de4437;
+    color: #fff;
+}
+
