@@ -24,11 +24,11 @@
                          "btn           btn         btn         add         add         cancel"                          
 }
 
-.RiskAssessmen .Label {
+/* .RiskAssessmen .Label {
     text-transform: uppercase;
-}
+} */
 
-.RiskAssessment input, textarea {
+/* .RiskAssessment input, textarea {
     border: solid 1px #77838f;
     border-radius: 4px;
     opacity: 0.6;
@@ -40,7 +40,7 @@
 
 .RiskAssessment textarea {
     height: 5rem;
-}
+} */
 
 .RiskAssessment h1 {
     display: block;
@@ -54,7 +54,7 @@
     font-size: 1.3rem;
 }
 
-.Label.Number {
+.LabelNumber {
     grid-area: label-11;
 }
 
@@ -62,7 +62,7 @@
     grid-area: input-11;
 }
 
-.Label.Date {
+.LabelDate {
     grid-area: label-12;
 }
 
@@ -70,7 +70,7 @@
     grid-area: input-12;
 }
 
-.Label.Version {
+.LabelVersion {
     grid-area: label-21;
 }
 
@@ -78,7 +78,7 @@
     grid-area: input-21;
 }
 
-.Label.Team {
+.LabelTeam {
     grid-area: label-22;
 }
 
@@ -86,7 +86,7 @@
     grid-area: input-22;
 }
 
-.Label.Position {
+.LabelPosition {
     grid-area: label-3;
 }
 
@@ -95,7 +95,7 @@
     grid-column: 1/-1;
 }
 
-.Label.Localization {
+.LabelLocalization {
     grid-area: label-4;
 }
 
@@ -104,7 +104,7 @@
     grid-column: 1/-1;
 }
 
-.Label.Description {
+.LabelDescription {
     grid-area: label-5;
 }
 
@@ -118,7 +118,7 @@
     grid-column: 1/-1;  
 }
 
-.Label.Notice {
+.LabelNotice {
     grid-area: label-6;
     grid-column: 1/-1;
 }
@@ -127,7 +127,7 @@
     grid-area: textarea-6;
 }
 
-.Label.ReviewDate {
+.LabelReviewDate {
     grid-area: label-71;
 }
 
@@ -135,7 +135,7 @@
     grid-area: input-71;
 }
 
-.Label.Owner {
+.LabelOwner {
     grid-area: label-72;
 }
 
@@ -147,7 +147,7 @@
     grid-area: add;
 }
 
-.Cancel {
+.CancelPosition {
     grid-area: cancel;
 }
 

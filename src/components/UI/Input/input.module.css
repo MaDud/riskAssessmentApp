@@ -1,0 +1,14 @@
+.Style {
+    border: solid 1px #77838f;
+    border-radius: 4px;
+    opacity: 0.6;
+    padding-left: 4px;
+}
+
+.Textarea {
+    height: 5rem;
+}
+
+.Input {
+    height: 1.5rem;
+}

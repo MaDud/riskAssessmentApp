@@ -4,66 +4,87 @@ import classes from './riskAssessment.module.css';
 
 import Auxiliary from '../../hoc/Auxiliary';
 import Button from '../UI/Button/Button';
+import Input from '../UI/Input/Input';
 
 const riskAssessment = props => {
     return(
         <Auxiliary>
             <form className={classes.RiskAssessment}>
                 <h1>Ocena ryzyka zawodowego</h1>
-                <label  htmlFor="number" 
-                        className={[classes.Label, classes.Number].join(' ')}>
-                        Numer:
-                </label>
-                <input type="text" id="number" className={classes.Number} onChange={props.change}/>
-                <label  htmlFor="version" 
-                        className={[classes.Label, classes.Version].join(' ')}>
-                        Wersja:
-                </label>
-                <input type="text" id="version" className={classes.Version} onChange={props.change}/>
-                <label  htmlFor="date" 
-                        className={[classes.Label, classes.Date].join(' ')}>
-                        Data sporządzenia:
-                </label>
-                <input type="date" id="date" className={classes.Date} onChange={props.change}/>
-                <label  htmlFor="team" 
-                        className={[classes.Label, classes.Team].join(' ')}>
-                        Zespół sporządzający:
-                </label>
-                <input type="text" id="team" className={classes.Team} onChange={props.change}/>
-                <label  htmlFor="position" 
-                        className={[classes.Label, classes.Position].join(' ')}>
-                        Nazwa stanowiska:
-                </label>
-                <textarea id="position" className={classes.Position} onChange={props.change}/>
-                <label  htmlFor="localization"  
-                        className={[classes.Label, classes.Localization].join(' ')}>
-                        Lokalizacja:
-                </label>
-                <textarea id="localization" className={classes.Localization} onChange={props.change}/>
-                <label  htmlFor="description" 
-                        className={[classes.Label, classes.Description].join(' ')}>
-                        Charakterystyka stanowiska pracy:
-                </label>
-                <textarea id="description" className={classes.Description} onChange={props.change}/>
+                <Input for='number'
+                       labelPosition={classes.LabelNumber}
+                       label='Numer:'
+                       elementType='input'
+                       changed={props.change}
+                       id='number'
+                       inputPosition={classes.Number}/>
+                <Input for='version'
+                       labelPosition={classes.LabelVersion}
+                       label='Wersja:'
+                       elementType='input'
+                       changed={props.change}
+                       id='version'
+                       inputPosition={classes.Version}/>
+                <Input for='date'
+                       labelPosition={classes.LabelDate}
+                       label='Data sporządzenia:'
+                       elementType='input'
+                       changed={props.change}
+                       id='date'
+                       inputPosition={classes.Date}/>
+                <Input for='team'
+                       labelPosition={classes.LabelTeam}
+                       label='Zespół sprządzający:'
+                       elementType='input'
+                       changed={props.change}
+                       id='team'
+                       inputPosition={classes.Team}/>
+                <Input for='position'
+                       labelPosition={classes.LabelPosition}
+                       label='Nazwa stanowiska:'
+                       elementType='textarea'
+                       changed={props.change}
+                       id='position'
+                       inputPosition={classes.Position}/>
+                <Input for='localization'
+                       labelPosition={classes.LabelLocalization}
+                       label='Lokalizacja:'
+                       elementType='textarea'
+                       changed={props.change}
+                       id='localization'
+                       inputPosition={classes.Localization}/>
+                <Input for='description'
+                       labelPosition={classes.LabelDescription}
+                       label='Charakterystyka stanowiska pracy:'
+                       elementType='textarea'
+                       changed={props.change}
+                       id='description'
+                       inputPosition={classes.Description}/>
                 <div className={classes.Hazards}>
                         <p>Zagrożenia na stanowisku pracy</p>
                         {props.children}
                 </div>
-                <label htmlFor="notice" 
-                        className={[classes.Label, classes.Notice].join(' ')}>
-                        Uwagi:
-                </label>
-                <textarea id="notice" className={classes.Notice} onChange={props.change}/>
-                <label  htmlFor="reviewDate" 
-                        className={[classes.Label, classes.ReviewDate].join(' ')}>
-                        Data kolejnego przeglądu:
-                </label>
-                <input type="date" id="reviewDate" className={classes.ReviewDate} onChange={props.change}/>
-                <label  htmlFor="owner" 
-                        className={[classes.Label, classes.Owner].join(' ')}>  
-                        Właściciel:
-                </label>
-                <input type="text" id="owner" className={classes.Owner} onChange={props.change}/>
+                <Input for='notice'
+                       labelPosition={classes.LabelNotice}
+                       label='Uwagi:'
+                       elementType='textarea'
+                       changed={props.change}
+                       id='notice'
+                       inputPosition={classes.Notice}/>
+                <Input for='reviewDate'
+                       labelPosition={classes.LabelReviewDate}
+                       label='Data kolejnego przeglądu:'
+                       elementType='input'
+                       changed={props.change}
+                       id='reviwDate'
+                       inputPosition={classes.ReviewDate}/>
+                <Input for='owner'
+                       labelPosition={classes.LabelOwner}
+                       label='Właściciel:'
+                       elementType='input'
+                       changed={props.change}
+                       id='owner'
+                       inputPosition={classes.Owner}/>
                 <Button clicked={props.add} 
                         btnType="Submit" 
                         btnPosition={classes.SubmitPosition}>
@@ -71,7 +92,7 @@ const riskAssessment = props => {
                 </Button>
                 <Button clicked={props.cancel} 
                         btnType="Cancel" 
-                        btnPosition={classes.Cancel}>
+                        btnPosition={classes.CancelPosition}>
                         Anuluj
                 </Button>
             </form>
