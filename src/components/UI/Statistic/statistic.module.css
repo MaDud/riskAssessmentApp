@@ -1,0 +1,26 @@
+.StatisticBox {
+    width: 80%;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: row;
+    font-family: 'Poppins', sans-serif;
+    
+}
+
+.StatisticBox h1 {
+    display: flex;
+    flex-direction: column;
+    color: #377dff;
+    font-weight: normal;
+    font-size: 4rem;
+    text-align: center;
+    margin: auto 20px;
+    flex: 1;
+}
+
+.StatisticBox span {
+    color: #77838f;
+    font-size: 1rem;
+    text-transform: uppercase;
+    text-align: center;
+}
