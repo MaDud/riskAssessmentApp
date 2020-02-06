@@ -28,6 +28,7 @@ class RiskAssessmentForm extends React.Component {
                         owner: null
                         },
         hazardList: null,
+        status: null
     };
 
     //aktualizacja stanu dla listy zagrożeń i mapowanie ich do state
@@ -122,6 +123,23 @@ class RiskAssessmentForm extends React.Component {
         this.setState({hazardList:hazardArray})
     }
 
+    //dodawanie nowej oceny ryzyka do bazy
+    addNew = e => {
+        e.preventDefault();
+
+        let hazardArray = {...this.state.status};
+        hazardArray = "active";
+
+        this.setState({status:hazardArray})
+        this.props.history.push('/userPanel')
+    }
+
+    //anulowanie dodawania do bazy
+    discardChanges = e => {
+        e.preventDefault();
+    }
+
+    //generowanie formularza po kliknięciu przycisku
     hazardForm = (id) => {
 
         let hazardForm = null;
@@ -172,7 +190,9 @@ class RiskAssessmentForm extends React.Component {
         return (
             <Auxiliary>
                 <RiskAssessment
-                    change={e=>this.dataInputHandler(e)}>
+                    change={e => this.dataInputHandler(e)}
+                    add={e => this.addNew(e)}
+                    cancel={e => this.discardChanges(e)}>
                     {hazardIdentyfication}
                 </RiskAssessment>
             </Auxiliary>
