@@ -2,7 +2,6 @@
     display: block;
     border: #fff solid 2px;
     border-radius: 7px 5px;
-    margin-top: 10px;
     padding: 10px;
     font-weight: bold;
     font-size: 0.9rem;
@@ -33,3 +32,30 @@
     color: #fff;
 }
 
+.Active {
+    background-color: rgba(0, 201, 167, 0.2);
+    color: #00c9a7;
+}
+
+.Active:hover {
+    background-color: #00c9a7;
+    color: #fff;
+}
+
+.Warning {
+    background-color: rgba(255, 193,7 , 0.2);
+    color: #ffc107;
+}
+
+.Warning:hover {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.Icon {
+    color: #77838f;
+}
+
+.Icon:hover {
+    color: #377dff;
+}

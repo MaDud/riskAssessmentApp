@@ -1,0 +1,7 @@
+.ElementNavbar {
+    display: flex;
+    width: 60%;
+    margin: auto;
+    justify-content: space-around;
+    align-items: baseline;
+}
