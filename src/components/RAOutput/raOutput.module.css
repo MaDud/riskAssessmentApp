@@ -1,0 +1,13 @@
+.RAOutput {
+    width: 70%;
+    margin: auto;
+}
+
+.Top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.RAOutput button {
+    margin: 10px 0 auto auto;
+}

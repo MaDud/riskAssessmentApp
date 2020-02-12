@@ -9,6 +9,7 @@ import ElementNavbar from '../../components/UserNav/ElementNavbar/ElementNavbar'
 
 const heads = ["Numer", "Nazwa stanowiska", "Właściciel", "Opcje"];
 const values = [[1,2,3], [2,3,4]];
+// generuje przyciski dla każdego wiersza tabeli
 for (let el in values) {
     values[el].push(<ElementNavbar/>);;
     console.log(values)
@@ -29,8 +30,10 @@ class UserPanel extends React.Component {
             <Auxiliary>
                 <Statistic matric={matric}/>
                 <StatisticNavbar />
-                <Table head={heads}
-                       list={values}/>
+                <div style={{margin: "auto 15%"}}>
+                    <Table head={heads}
+                        list={values}/>
+                </div>
             </Auxiliary>
         )
     }
