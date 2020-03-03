@@ -5,12 +5,7 @@ import Auxiliary from '../../hoc/Auxiliary';
 import RiskAssessment from '../../components/RiskAssessment/RiskAssessment';
 import HazardIdentyfication from '../../components/RiskAssessment/HazardIdentyfication/HazardIdentyfication';
 import HazardForm from '../../components/RiskAssessment/HazardIdentyfication/HazardForm/HazardForm';
-
-const hazards = ['Przeciążenie układu ruchu', 
-                'Upadek na tym samym poziomie',
-                'Uderzenie o nieruchome przedmioty',
-                'Uderzenie przez spadające lub poruszające się przedmioty'
-                ];  
+import instance from '../../instance';
 
 class RiskAssessmentForm extends React.Component {
 
@@ -27,29 +22,31 @@ class RiskAssessmentForm extends React.Component {
                         reviewDate: null,
                         owner: null
                         },
-        hazardList: null,
-        status: null
+        hazardList: null
     };
 
-    //aktualizacja stanu dla listy zagrożeń i mapowanie ich do state
+    //pobieranie zagrożeń z bazy danych i dodawanie ich do state
     componentDidMount () {
-        let hazardState = {...this.state.hazardList};
-
-        hazards.map((el,index) => {
-            let key = "hazard"+index;
-            return hazardState[key] = {value: el,
-                                    checked: false,
+        instance.get('/hazardList.json')
+            .then(response => {
+                const data = response.data;
+                let hazardState= {...this.state.hazardList};
+                for (let el in data) {
+                    let id = 'hazard'+el;
+                    hazardState[id] = {value:data[el], 
+                                    checked:false,
                                     source: "",
                                     possibleEffects: "",
                                     protection: "",
                                     effect: "",
                                     propability: "",
                                     save: false,
-                                    clean: true,
-                                    }
-        });
-
-        this.setState({hazardList: hazardState});
+                                    clean: true};
+                };
+                console.log(hazardState);
+                this.setState({hazardList: hazardState})
+            })
+            .catch(error => console.log(error))
     }
 
     // funkcja pokazująca formularz identyfikacji zagrożeń w zależności od przycisku typu switch
@@ -127,10 +124,15 @@ class RiskAssessmentForm extends React.Component {
     addNew = e => {
         e.preventDefault();
 
-        let hazardArray = {...this.state.status};
-        hazardArray = "active";
+        const data = {
+            ...this.state,
+            status: "active"
+        }
 
-        this.setState({status:hazardArray})
+        instance.post('/riskAssessment.json', data)
+            .then(response => console.log(response))
+            .catch(error => console.log(error));
+
         this.props.history.push('/userPanel')
     }
 
@@ -174,7 +176,7 @@ class RiskAssessmentForm extends React.Component {
         }
 
         let hazardIdentyfication = "Spinner in future";
-        if (this.state.hazardList !==null) {
+        if (this.state.hazardList !== null) {
             hazardIdentyfication = hazardArray.map( el => {
                 return <HazardIdentyfication
                         key={el.id}

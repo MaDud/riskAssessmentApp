@@ -31,7 +31,8 @@ const riskAssessment = props => {
                        elementType='input'
                        changed={props.change}
                        id='date'
-                       inputPosition={classes.Date}/>
+                       inputPosition={classes.Date}
+                       type='date'/>
                 <Input for='team'
                        labelPosition={classes.LabelTeam}
                        label='Zespół sprządzający:'
@@ -77,7 +78,8 @@ const riskAssessment = props => {
                        elementType='input'
                        changed={props.change}
                        id='reviwDate'
-                       inputPosition={classes.ReviewDate}/>
+                       inputPosition={classes.ReviewDate}
+                       type='date'/>
                 <Input for='owner'
                        labelPosition={classes.LabelOwner}
                        label='Właściciel:'

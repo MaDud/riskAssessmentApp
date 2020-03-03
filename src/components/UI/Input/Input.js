@@ -13,7 +13,8 @@ const input = props => {
                               onChange={props.changed}
                               name={props.name}
                               id={props.id}
-                              value={props.value}/>
+                              value={props.value}
+                              type={props.type}/>
             break;
         case 'textarea':
             newInput = <textarea className={[classes.Style, classes.Textarea, props.inputPosition].join(' ')}
