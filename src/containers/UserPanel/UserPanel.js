@@ -28,18 +28,51 @@ class UserPanel extends React.Component {
             .then(response => {
                 const data = response.data;
                 let values = {};
+                const date = new Date();
+                const statistics = {...this.state.statistic};
+                const activeStatistic = {...this.state.statistic.active};
+                const reviewStatistic = {...this.state.statistic.review};
+                const overdueStatistic = {...this.state.statistic.overdue};
+                let active = 0;
+                let review = 0;
+                let overdue = 0;
 
                 for (let id in data) {
-                    if (data[id].status === 'active') {
+
                     const target = data[id].assesmentData;
-                    values[id] = {no: target.number + ' v.' + target.version,
+                    const reviewDate = new Date(target.reviwDate);
+                    const timeDiffrence= reviewDate-date;
+                    const days= Math.floor(timeDiffrence/(1000 * 60 * 60 * 24));
+
+                    
+                    if (data[id].status === 'active') {
+                        values[id] = {no: target.number + ' v.' + target.version,
                                 position: target.position,
                                 owner: target.owner,
-                                nextReview: target.reviwDate,
-                                status: data[id].status}
+                                nextReview: reviewDate,
+                                status: data[id].status,
+                                review: days <= 30 ? true:false,
+                                overdue: days < 0 ? true:false};
+                        active += 1;
+
+                        if (values[id].review) {
+                            review += 1
+                        } 
+                        if (values[id].overdue) {
+                            overdue += 1
+                        }
                 }};
 
-                this.setState({assessmentsList:values})
+                activeStatistic.value = active;
+                reviewStatistic.value = review;
+                overdueStatistic.value = overdue;
+
+                statistics.active = activeStatistic;
+                statistics.review = reviewStatistic;
+                statistics.overdue = overdueStatistic;
+
+                this.setState({assessmentsList:values,
+                                statistic:statistics})
             })
             .catch(error => console.log(error))
     }
@@ -56,11 +89,11 @@ class UserPanel extends React.Component {
         //wprowadzanie danych do tabeli
         const tableData = {...this.state.assessmentsList};
         let list = Object.keys(tableData).map(el => {
-            return {key: el,
+            return {id: el,
                     values: [tableData[el].no, tableData[el].position, tableData[el].owner, <ElementNavbar/>]}
         })
-        let tableList = list.map(el => {
-            return <TableList key={el.key} list={el.values}/>
+        let tableList = list.map( el => {
+            return <TableList id={el.id} list={el.values} key={el.id}/>
         })
 
         return (
@@ -69,7 +102,9 @@ class UserPanel extends React.Component {
                 <StatisticNavbar />
                 <table className={classes.Table}>
                     <TableHead head={this.state.tableHeads}/>
-                    {tableList}
+                    <tbody>
+                        {tableList}
+                    </tbody>
                 </table>
             </Auxiliary>
         )

@@ -1,15 +1,18 @@
 import React from 'react';
 
 const tableList = props => {
-    const list = props.list.map( (el,index) => {
-        return <td key={index}>{el}</td>});
+    
+    const rowItem = props.list;
+    const list = rowItem.map( (el,index) => {
+        let no = props.id + index;
+        return <td key={no}>{el}</td>
+    });
+
 
     return (
-        <tbody>
-            <tr key={props.key}>
-                {list}
-            </tr>
-        </tbody>
+        <tr>
+            {list}
+        </tr>
     )
     };
 
