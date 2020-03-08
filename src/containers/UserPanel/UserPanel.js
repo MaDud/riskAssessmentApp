@@ -10,7 +10,6 @@ import TableHead from '../../components/UI/Table/TableHead/TableHead';
 import TableList from '../../components/UI/Table/TableList/TableList';
 import Statistic from '../../components/UI/Statistic/Statistic';
 import Button from '../../components/UI/Button/Button';
-import StatisticNavbar from '../../components/UserNav/StatisticNavbar/StatisticNavbar';
 import ElementNavbar from '../../components/UserNav/ElementNavbar/ElementNavbar';
 
 class UserPanel extends React.Component {
