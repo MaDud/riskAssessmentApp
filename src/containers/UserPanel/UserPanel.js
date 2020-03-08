@@ -9,6 +9,7 @@ import classes from "./userPanel.module.css";
 import TableHead from '../../components/UI/Table/TableHead/TableHead';
 import TableList from '../../components/UI/Table/TableList/TableList';
 import Statistic from '../../components/UI/Statistic/Statistic';
+import Button from '../../components/UI/Button/Button';
 import StatisticNavbar from '../../components/UserNav/StatisticNavbar/StatisticNavbar';
 import ElementNavbar from '../../components/UserNav/ElementNavbar/ElementNavbar';
 
@@ -123,7 +124,12 @@ class UserPanel extends React.Component {
         return (
             <Auxiliary>
                 <Statistic matric={statistic}/>
-                <StatisticNavbar />
+                <div className={classes.Navigation}>
+                    <Button btnType="Active" btnPosition={classes.Active}>Aktywne</Button>
+                    <Button btnType="Warning" btnPosition={classes.Warning}>Do przeglądu</Button>
+                    <Button btnType="Cancel" btnPosition={classes.Cancel}>Przeterminowane</Button>
+                    <Button btnType="Submit" btnPosition={classes.Submit}>Dodaj nową ocenę</Button>
+                </div>
                 <table className={classes.Table}>
                     <TableHead head={this.state.tableHeads}/>
                     <tbody>
