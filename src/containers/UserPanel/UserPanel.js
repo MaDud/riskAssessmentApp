@@ -27,16 +27,16 @@ class UserPanel extends React.Component {
         instance.get('/riskAssessment.json')
             .then(response => {
                 const data = response.data;
-                let values = {};
                 const date = new Date();
+                let values = {};
+                let active = 0;
+                let review = 0;
+                let overdue = 0;
                 const statistics = {...this.state.statistic};
                 const activeStatistic = {...this.state.statistic.active};
                 const reviewStatistic = {...this.state.statistic.review};
                 const overdueStatistic = {...this.state.statistic.overdue};
-                let active = 0;
-                let review = 0;
-                let overdue = 0;
-
+                
                 for (let id in data) {
 
                     const target = data[id].assesmentData;
@@ -53,6 +53,7 @@ class UserPanel extends React.Component {
                                 status: data[id].status,
                                 review: days <= 30 ? true:false,
                                 overdue: days < 0 ? true:false};
+                       
                         active += 1;
 
                         if (values[id].review) {
@@ -63,21 +64,44 @@ class UserPanel extends React.Component {
                         }
                 }};
 
-                activeStatistic.value = active;
-                reviewStatistic.value = review;
-                overdueStatistic.value = overdue;
+                this.setState({assessmentsList: values}) 
 
-                statistics.active = activeStatistic;
-                statistics.review = reviewStatistic;
-                statistics.overdue = overdueStatistic;
+                //timer dla statystyk
+                let activeCount = 0;
+                let reviewCount = 0;
+                let overdueCount = 0;
+                this.timer = setInterval( () => {
+                    if (activeCount < active) {
+                        activeCount += 1;
+                    }
+                    if (reviewCount < review) {
+                        reviewCount += 1;
+                    }
+                    if (overdueCount < overdue) {
+                        overdueCount += 1
+                    }
 
-                this.setState({assessmentsList:values,
-                                statistic:statistics})
+                    activeStatistic.value = activeCount;
+                    reviewStatistic.value = reviewCount;
+                    overdueStatistic.value = overdueCount;
+    
+                    statistics.active = activeStatistic;
+                    statistics.review = reviewStatistic;
+                    statistics.overdue = overdueStatistic;
+    
+                    this.setState({
+                        statistic: statistics
+                    })  
+
+                    if (active === activeCount && review === reviewCount && overdue === overdueCount) {
+                        clearInterval(this.timer)
+                    }
+                }, 400)
+  
             })
             .catch(error => console.log(error))
-    }
-
-
+    } 
+ 
     render () {
 
         //wprowadzanie danych z state do statystyk
