@@ -20,7 +20,8 @@ class UserPanel extends React.Component {
         statistic: 
             {active: {value: 0, description: "Aktywnych ocen ryzyka zawodowego"},
             review: {value: 0, description: "Wymagających przeglądu ocen ryzyka zawodowego"},
-            overdue: {value: 0, description: "Przeterminowanych ocen ryzyka zawodowego"}}
+            overdue: {value: 0, description: "Przeterminowanych ocen ryzyka zawodowego"}},
+        activeBtn: "active"
     };
 
     componentDidMount () {
@@ -101,6 +102,20 @@ class UserPanel extends React.Component {
             })
             .catch(error => console.log(error))
     } 
+
+    ActiveTable = () => {
+        this.setState({activeBtn: 'active'});
+    };
+
+    ReviewTable = () => {
+        this.setState({activeBtn: 'review'});
+    }; 
+    
+    OverdueTable = () => {
+        this.setState({activeBtn: 'overdue'});
+    };
+
+    
  
     render () {
 
@@ -114,27 +129,67 @@ class UserPanel extends React.Component {
         const tableData = {...this.state.assessmentsList};
         let list = Object.keys(tableData).map(el => {
             return {id: el,
+                    review: tableData[el].review,
+                    overdue: tableData[el].overdue,
                     values: [tableData[el].no, tableData[el].position, tableData[el].owner, <ElementNavbar/>]}
         })
-        let tableList = list.map( el => {
+
+        // let tableList = list.map( el => {
+        //     return <TableList id={el.id} list={el.values} key={el.id}/>
+        // })
+        let newList = null;
+        if (this.state.activeBtn === 'review') {
+            newList = list.filter(el => {
+                return el.review
+            })
+        } else if (this.state.activeBtn === 'overdue') {
+            newList = list.filter(el => {
+                return el.overdue
+            })
+        }
+        else {newList = list};
+        
+        let tableList = newList.map( el => {
             return <TableList id={el.id} list={el.values} key={el.id}/>
         })
+
+        console.log(newList)
 
         return (
             <Auxiliary>
                 <Statistic matric={statistic}/>
                 <div className={classes.Navigation}>
-                    <Button btnType="Active" btnPosition={classes.Active}>Aktywne</Button>
-                    <Button btnType="Warning" btnPosition={classes.Warning}>Do przeglądu</Button>
-                    <Button btnType="Cancel" btnPosition={classes.Cancel}>Przeterminowane</Button>
-                    <Button btnType="Submit" btnPosition={classes.Submit}>Dodaj nową ocenę</Button>
+                    <Button btnType={this.state.activeBtn === 'active' ? 'ActiveFocus':'Active'}
+                            btnPosition={classes.Active}
+                            clicked={this.ActiveTable}>
+                            Aktywne
+                    </Button>
+                    <Button btnType={this.state.activeBtn === 'review' ? 'WarningFocus':'Warning'}
+                            btnPosition={classes.Warning}
+                            clicked={this.ReviewTable}>
+                            Do przeglądu
+                    </Button>
+                    <Button btnType={this.state.activeBtn === 'overdue' ? 'CancelFocus':'Cancel'}
+                            btnPosition={classes.Cancel}
+                            clicked={this.OverdueTable}>
+                            Przeterminowane
+                    </Button>
+                    <Button btnType="Submit" 
+                            btnPosition={classes.Submit}>
+                            Dodaj nową ocenę
+                    </Button>
                 </div>
-                <table className={classes.Table}>
-                    <TableHead head={this.state.tableHeads}/>
-                    <tbody>
-                        {tableList}
-                    </tbody>
-                </table>
+                {tableList.length !== 0 ?
+                    (<table className={classes.Table}>
+                        <TableHead head={this.state.tableHeads}/>
+                        <tbody>
+                            {tableList}
+                        </tbody>
+                    </table>)
+                    : (<div className={classes.EmptyTable}>
+                            <h3>Brak elementów do wyświetlenia</h3>
+                       </div>)
+                }
             </Auxiliary>
         )
     }
