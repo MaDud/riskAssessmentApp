@@ -5,3 +5,42 @@
     justify-content: space-around;
     align-items: baseline;
 }
+
+/* Tooltip container */
+.ElementNavbar button {
+    position: relative;
+  }
+  
+/* Tooltip text */
+.ElementNavbar button span {
+    visibility: hidden;
+    width: 80px;
+    background-color: rgba(55, 125, 255, 0.8);
+    color: #f8f9fa;
+    text-align: center;
+    padding: 3px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    bottom: 110%;
+    left: 40%;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+  
+  /* Tooltip arrow */
+.ElementNavbar button span::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 10%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #377DFF transparent transparent transparent;
+}
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+.ElementNavbar button:hover span {
+    visibility: visible;
+    opacity: 1;
+  }
