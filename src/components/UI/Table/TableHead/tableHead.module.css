@@ -1,0 +1,13 @@
+.TableHead {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.TableHead span {
+    flex: 1;
+}
+
+.TableHead i {
+    margin: auto 5px;
+    color: #377DFF;
+}

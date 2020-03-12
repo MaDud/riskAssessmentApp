@@ -5,7 +5,7 @@ import classes from './statistic.module.css';
 const statistic = props => {
 
     let statisticMatric = props.matric.map( (el, index) => {
-        return <div key={index}><h1>{el.value} <span>{el.description}</span></h1></div>
+        return <h1 key={index}>{el.value} <span>{el.description}</span></h1>
     });
 
     return (
