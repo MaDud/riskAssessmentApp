@@ -6,7 +6,10 @@ const tableHead = props => {
     return <th key={index}>
                 <div className={classes.TableHead}>
                     <span>{head}</span>
-                    <i class="fas fa-chevron-circle-down"></i>
+                    <div className={classes.Filtering}>
+                        <span className={classes.Top} onClick={props.filtering}></span>
+                        <span className={classes.Down}></span>
+                    </div>
                 </div>
             </th>})
 

@@ -6,16 +6,25 @@ import Auxiliary from '../../hoc/Auxiliary';
 
 import classes from "./userPanel.module.css";
 
-import TableHead from '../../components/UI/Table/TableHead/TableHead';
-import TableList from '../../components/UI/Table/TableList/TableList';
+// import TableHead from '../../components/UI/Table/TableHead/TableHead';
+// import TableList from '../../components/UI/Table/TableList/TableList';
+import Table from '../../components/UI/Table/Table';
 import Statistic from '../../components/UI/Statistic/Statistic';
 import Button from '../../components/UI/Button/Button';
 import ElementNavbar from '../../components/UserNav/ElementNavbar/ElementNavbar';
 
+// const tableHeads = [{label:'Numer', id:'number'},
+//                     {label: 'Nazwa stanowiska', id: 'position'}, 
+//                     {label: 'Właściciel', id:'owner'},
+//                     {label: 'Opcje', id: 'option'}]
+
 class UserPanel extends React.Component {
 
     state = {
-        tableHeads: ["Numer", "Nazwa stanowiska", "Właściciel", "Opcje"],
+        tableHeads: [{label:'Numer', id:'number'},
+                    {label: 'Nazwa stanowiska', id: 'position'}, 
+                    {label: 'Właściciel', id:'owner'},
+                    {label: 'Opcje', id: 'option'}],
         assessmentsList: null,
         statistic: 
             {active: {value: 0, description: "Aktywnych ocen ryzyka zawodowego"},
@@ -115,6 +124,10 @@ class UserPanel extends React.Component {
         this.setState({activeBtn: 'overdue'});
     };
 
+    FilteringTop = id => {
+        console.log(id)
+    }
+
     
  
     render () {
@@ -126,34 +139,46 @@ class UserPanel extends React.Component {
         });
 
         //wprowadzanie danych do tabeli
-        const tableData = {...this.state.assessmentsList};
-        let list = Object.keys(tableData).map(el => {
-            return {id: el,
-                    review: tableData[el].review,
-                    overdue: tableData[el].overdue,
-                    values: [tableData[el].no, tableData[el].position, tableData[el].owner, <ElementNavbar/>]}
-        })
+        // const tableData = {...this.state.assessmentsList};
+        // let list = Object.keys(tableData).map(el => {
+        //     return {id: el,
+        //             review: tableData[el].review,
+        //             overdue: tableData[el].overdue,
+        //             values: [tableData[el].no, tableData[el].position, tableData[el].owner, <ElementNavbar/>]}
+        // })
 
-        // let tableList = list.map( el => {
+        // let newList = null;
+        // if (this.state.activeBtn === 'review') {
+        //     newList = list.filter(el => {
+        //         return el.review
+        //     })
+        // } else if (this.state.activeBtn === 'overdue') {
+        //     newList = list.filter(el => {
+        //         return el.overdue
+        //     })
+        // }
+        // else {newList = list};
+        
+        // let tableList = newList.map( el => {
         //     return <TableList id={el.id} list={el.values} key={el.id}/>
         // })
-        let newList = null;
-        if (this.state.activeBtn === 'review') {
-            newList = list.filter(el => {
-                return el.review
-            })
-        } else if (this.state.activeBtn === 'overdue') {
-            newList = list.filter(el => {
-                return el.overdue
-            })
-        }
-        else {newList = list};
-        
-        let tableList = newList.map( el => {
-            return <TableList id={el.id} list={el.values} key={el.id}/>
-        })
 
-        console.log(newList)
+        //filtrowanie wyników dla poszcególnych tabeli
+        let data = {...this.state.assessmentsList};
+        let list = Object.keys(data).filter( el => {
+            if(this.state.activeBtn === 'review') {
+                return el.review } 
+            else if (this.state.activeBtn === 'overdue') {
+                return el.overdue }
+            else return el
+        });
+        //wprowadzanie danych do tabel
+        let rowData = {}
+        for (let el in list) {
+            rowData[list[el]] = {number: data[list[el]].no,
+                                position: data[list[el]].position,
+                                owner: data[list[el]].owner}
+        }
 
         return (
             <Auxiliary>
@@ -179,9 +204,9 @@ class UserPanel extends React.Component {
                             Dodaj nową ocenę
                     </Button>
                 </div>
-                {tableList.length !== 0 ?
+                {/* {tableList.length !== 0 ?
                     (<table className={classes.Table}>
-                        <TableHead head={this.state.tableHeads}/>
+                        <TableHead head={tableHeads}/>
                         <tbody>
                             {tableList}
                         </tbody>
@@ -189,7 +214,10 @@ class UserPanel extends React.Component {
                     : (<div className={classes.EmptyTable}>
                             <h3>Brak elementów do wyświetlenia</h3>
                        </div>)
-                }
+                } */}
+                <Table columns={this.state.tableHeads}
+                        rows={rowData}
+                    />
             </Auxiliary>
         )
     }
