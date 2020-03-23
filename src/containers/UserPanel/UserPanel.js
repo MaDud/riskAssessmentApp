@@ -13,11 +13,6 @@ import Statistic from '../../components/UI/Statistic/Statistic';
 import Button from '../../components/UI/Button/Button';
 import ElementNavbar from '../../components/UserNav/ElementNavbar/ElementNavbar';
 
-// const tableHeads = [{label:'Numer', id:'number'},
-//                     {label: 'Nazwa stanowiska', id: 'position'}, 
-//                     {label: 'Właściciel', id:'owner'},
-//                     {label: 'Opcje', id: 'option'}]
-
 class UserPanel extends React.Component {
 
     state = {
@@ -129,7 +124,6 @@ class UserPanel extends React.Component {
     }
 
     
- 
     render () {
 
         //wprowadzanie danych z state do statystyk
@@ -137,31 +131,6 @@ class UserPanel extends React.Component {
         let statistic = Object.keys(statisticData).map(el => {
             return statisticData[el]
         });
-
-        //wprowadzanie danych do tabeli
-        // const tableData = {...this.state.assessmentsList};
-        // let list = Object.keys(tableData).map(el => {
-        //     return {id: el,
-        //             review: tableData[el].review,
-        //             overdue: tableData[el].overdue,
-        //             values: [tableData[el].no, tableData[el].position, tableData[el].owner, <ElementNavbar/>]}
-        // })
-
-        // let newList = null;
-        // if (this.state.activeBtn === 'review') {
-        //     newList = list.filter(el => {
-        //         return el.review
-        //     })
-        // } else if (this.state.activeBtn === 'overdue') {
-        //     newList = list.filter(el => {
-        //         return el.overdue
-        //     })
-        // }
-        // else {newList = list};
-        
-        // let tableList = newList.map( el => {
-        //     return <TableList id={el.id} list={el.values} key={el.id}/>
-        // })
 
         //filtrowanie wyników dla poszcególnych tabeli
         let data = {...this.state.assessmentsList};
@@ -204,17 +173,6 @@ class UserPanel extends React.Component {
                             Dodaj nową ocenę
                     </Button>
                 </div>
-                {/* {tableList.length !== 0 ?
-                    (<table className={classes.Table}>
-                        <TableHead head={tableHeads}/>
-                        <tbody>
-                            {tableList}
-                        </tbody>
-                    </table>)
-                    : (<div className={classes.EmptyTable}>
-                            <h3>Brak elementów do wyświetlenia</h3>
-                       </div>)
-                } */}
                 <Table columns={this.state.tableHeads}
                         rows={rowData}
                     />
