@@ -48,8 +48,34 @@ const tableData = {11:{
 
 const table = props => {
 
+    // let sortIcon = null;
+    // switch (props.sortType) {
+    //     case 'asc':
+    //         sortIcon = <i class="fas fa-sort-up"></i>;
+    //         break;
+    //     case 'dsc' :
+    //         sortIcon = <i class="fas fa-sort-down"></i>;
+    //         break;
+    //     default:
+    //         sortIcon = <i class="fas fa-sort"></i>;
+    // }
+
     const tableHead = props.columns.map( (head) => {
-        return <th key={head.id} id={head.id}>{head.label}</th>}
+
+        let sortIcon = null;
+        if (head.id === props.sortOption.id) {
+            if (props.sortOption.sortType === 'asc') {
+                sortIcon = <i class="fas fa-sort-up"></i>
+            } else {
+                sortIcon = <i class="fas fa-sort-down"></i>}
+        } else {
+            sortIcon = sortIcon = <i class="fas fa-sort"></i>
+        }
+
+        return <th key={head.id} id={head.id}>
+                    <span>{head.label}</span>
+                    {props.sortable ? <span onClick={props.sort}>{sortIcon}</span> : null}
+               </th>}
     );
 
     const tableList = Object.keys(props.rows).map( row => {

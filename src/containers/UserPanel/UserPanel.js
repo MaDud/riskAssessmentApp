@@ -18,14 +18,16 @@ class UserPanel extends React.Component {
     state = {
         tableHeads: [{label:'Numer', id:'number'},
                     {label: 'Nazwa stanowiska', id: 'position'}, 
-                    {label: 'Właściciel', id:'owner'},
-                    {label: 'Opcje', id: 'option'}],
+                    {label: 'Właściciel', id:'owner'}],
         assessmentsList: null,
         statistic: 
             {active: {value: 0, description: "Aktywnych ocen ryzyka zawodowego"},
             review: {value: 0, description: "Wymagających przeglądu ocen ryzyka zawodowego"},
             overdue: {value: 0, description: "Przeterminowanych ocen ryzyka zawodowego"}},
-        activeBtn: "active"
+        activeBtn: 'active',
+        sorted: {id: 'number',
+                sortType: 'asc',
+                sort: true}
     };
 
     componentDidMount () {
@@ -119,13 +121,28 @@ class UserPanel extends React.Component {
         this.setState({activeBtn: 'overdue'});
     };
 
-    FilteringTop = id => {
-        console.log(id)
+    SortTable = e => {
+        const sortData= {...this.state.sorted};
+        const targetHead = e.target.parentElement.parentElement.id;
+
+        if (targetHead === sortData.id) {
+            if (sortData.sortType === 'asc') {
+                sortData.sortType = 'desc'
+            } else {
+                sortData.sortType = 'asc'
+            }
+        } else {
+            sortData.id = targetHead;
+            sortData.sortType = 'asc';
+        }
+
+        this.setState({sorted:sortData})      
     }
+        
 
     
     render () {
-
+        
         //wprowadzanie danych z state do statystyk
         const statisticData = {...this.state.statistic};
         let statistic = Object.keys(statisticData).map(el => {
@@ -175,6 +192,9 @@ class UserPanel extends React.Component {
                 </div>
                 <Table columns={this.state.tableHeads}
                         rows={rowData}
+                        sortable= {this.state.sorted.sort}
+                        sortOption= {this.state.sorted}
+                        sort={e => this.SortTable(e)}
                     />
             </Auxiliary>
         )
