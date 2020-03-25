@@ -65,16 +65,18 @@ const table = props => {
         let sortIcon = null;
         if (head.id === props.sortOption.id) {
             if (props.sortOption.sortType === 'asc') {
-                sortIcon = <i class="fas fa-sort-up"></i>
+                sortIcon = <i className={["fas fa-sort-up", classes.Sorted].join(' ')}></i>
             } else {
-                sortIcon = <i class="fas fa-sort-down"></i>}
+                sortIcon = <i className={["fas fa-sort-down", classes.Sorted].join(' ')}></i>}
         } else {
-            sortIcon = sortIcon = <i class="fas fa-sort"></i>
+            sortIcon = sortIcon = <i className="fas fa-sort"></i>
         }
 
         return <th key={head.id} id={head.id}>
-                    <span>{head.label}</span>
-                    {props.sortable ? <span onClick={props.sort}>{sortIcon}</span> : null}
+                    <div className={classes.Head}>
+                        <span className={classes.Text}>{head.label}</span>
+                        {props.sortable ? <span onClick={props.sort} className={classes.Filtering}>{sortIcon}</span> : null}
+                    </div>
                </th>}
     );
 
@@ -88,7 +90,7 @@ const table = props => {
 
     return (
         <Auxiliary>
-            <table className={classes.Table}>
+            <table className={[classes.Table, props.table].join(' ')}>
                 <thead>
                     <tr>
                         {tableHead}

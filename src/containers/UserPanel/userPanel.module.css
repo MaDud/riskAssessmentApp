@@ -1,39 +1,3 @@
-.Table {
-    width: 70%;
-    margin: auto;
-    text-align: center;
-    border: solid #77838f 1px;
-    border-collapse: collapse;
-    table-layout: fixed;
-    opacity: 0.8;
-}
-
-.Table th {
-    text-transform: uppercase;
-    font-weight: normal;
-    border: solid #77838f 1px;
-}
-
-.Table td {
-    border: solid #77838f 1px;
-}
-
-.EmptyTable {
-    width: 70%;
-    height: 100px;
-    margin: auto;
-    border: solid #77838f 1px;
-    opacity: 0.8;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;    
-}
-
-.EmptyTable h3 {
-    color: #377DFF;
-    text-align: center;   
-}
-
 .Navigation {
     width: 70%;
     margin: auto;
@@ -45,3 +9,16 @@
 .Submit {
     grid-area: f-6;
 }
+
+.Table {
+    width: 70%;
+    border: solid #77838f 1px;
+    border-radius: 4px;
+    opacity: 0.9
+}
+
+.Table th, tbody td {
+    border: solid #77838f 1px;
+}
+
+

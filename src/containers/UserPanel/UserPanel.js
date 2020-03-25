@@ -123,7 +123,7 @@ class UserPanel extends React.Component {
 
     SortTable = e => {
         const sortData= {...this.state.sorted};
-        const targetHead = e.target.parentElement.parentElement.id;
+        const targetHead = e.target.parentElement.parentElement.parentElement.id;
 
         if (targetHead === sortData.id) {
             if (sortData.sortType === 'asc') {
@@ -153,9 +153,9 @@ class UserPanel extends React.Component {
         let data = {...this.state.assessmentsList};
         let list = Object.keys(data).filter( el => {
             if(this.state.activeBtn === 'review') {
-                return el.review } 
+                return data[el].review } 
             else if (this.state.activeBtn === 'overdue') {
-                return el.overdue }
+                return data[el].overdue }
             else return el
         });
         //wprowadzanie danych do tabel
@@ -190,7 +190,8 @@ class UserPanel extends React.Component {
                             Dodaj nową ocenę
                     </Button>
                 </div>
-                <Table columns={this.state.tableHeads}
+                <Table table={classes.Table}
+                        columns={this.state.tableHeads}
                         rows={rowData}
                         sortable= {this.state.sorted.sort}
                         sortOption= {this.state.sorted}
