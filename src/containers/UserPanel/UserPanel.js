@@ -158,6 +158,7 @@ class UserPanel extends React.Component {
                 return data[el].overdue }
             else return el
         });
+        
         //wprowadzanie danych do tabel
         let rowData = {}
         for (let el in list) {

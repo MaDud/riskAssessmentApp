@@ -65,7 +65,7 @@ const table = props => {
         let sortIcon = null;
         if (head.id === props.sortOption.id) {
             if (props.sortOption.sortType === 'asc') {
-                sortIcon = <i className={["fas fa-sort-up", classes.Sorted].join(' ')}></i>
+                sortIcon = <i className={["fas fa-sort-up", classes.Sorted].join(' ')}></i>;
             } else {
                 sortIcon = <i className={["fas fa-sort-down", classes.Sorted].join(' ')}></i>}
         } else {
@@ -80,7 +80,26 @@ const table = props => {
                </th>}
     );
 
-    const tableList = Object.keys(props.rows).map( row => {
+    const data = props.rows;
+    let test = Object.values(data);
+    let dataToSort = [];
+    for (let el in test) {
+        dataToSort.push(test[el][props.sortOption.id])
+    }
+    //sortowanie
+    dataToSort.sort()
+
+    //rekonstruowanie danych do tablicy
+    let finalData={};  
+        for (let el in dataToSort) {
+            for (let sth in data) {
+                if (dataToSort[el] === data[sth][props.sortOption.id])
+                finalData[sth] = data[sth]
+            }
+    }
+    console.log(finalData)
+
+    const tableList = Object.keys(finalData).map( row => {
             return  <tr key={row} id={row}>
                         {Object.keys(props.rows[row]).map( (cell, index) => {
                         return <td key={index} headers={cell}>{props.rows[row][cell]}</td>})}
