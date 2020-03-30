@@ -84,10 +84,17 @@ const table = props => {
     let test = Object.values(data);
     let dataToSort = [];
     for (let el in test) {
+        let value = test[el][props.sortOption.id];
+        console.log(value)
         dataToSort.push(test[el][props.sortOption.id])
     }
     //sortowanie
-    dataToSort.sort()
+    dataToSort.sort( (a,b) => {
+        return a.toLowerCase().localeCompare(b.toLowerCase())
+    });
+    if (props.sortOption.sortType !== 'asc') {
+        dataToSort.reverse()
+    }
 
     //rekonstruowanie danych do tablicy
     let finalData={};  
@@ -97,7 +104,7 @@ const table = props => {
                 finalData[sth] = data[sth]
             }
     }
-    console.log(finalData)
+
 
     const tableList = Object.keys(finalData).map( row => {
             return  <tr key={row} id={row}>
