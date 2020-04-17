@@ -6,12 +6,9 @@ import Auxiliary from '../../hoc/Auxiliary';
 
 import classes from "./userPanel.module.css";
 
-// import TableHead from '../../components/UI/Table/TableHead/TableHead';
-// import TableList from '../../components/UI/Table/TableList/TableList';
 import Table from '../../components/UI/Table/Table';
 import Statistic from '../../components/UI/Statistic/Statistic';
-import Button from '../../components/UI/Button/Button';
-import ElementNavbar from '../../components/UserNav/ElementNavbar/ElementNavbar';
+import UserNav from '../../components/UserNav/UserNav';
 
 class UserPanel extends React.Component {
 
@@ -109,7 +106,7 @@ class UserPanel extends React.Component {
             .catch(error => console.log(error))
     } 
 
-    dataView = (e) => {
+    DataView = (e) => {
         const buttonId = e.target.id
         this.setState({activeBtn: buttonId})
     }
@@ -163,30 +160,8 @@ class UserPanel extends React.Component {
         return (
             <Auxiliary>
                 <Statistic matric={statistic}/>
-                <div className={classes.Navigation}>
-                    <Button btnType={this.state.activeBtn === 'active' ? 'ActiveFocus':'Active'}
-                            id= 'active'
-                            btnPosition={classes.Active}
-                            clicked={(e) => this.dataView(e)}>
-                            Aktywne
-                    </Button>
-                    <Button btnType={this.state.activeBtn === 'review' ? 'WarningFocus':'Warning'}
-                            id= 'review'
-                            btnPosition={classes.Warning}
-                            clicked={(e) => this.dataView(e)}>
-                            Do przeglądu
-                    </Button>
-                    <Button btnType={this.state.activeBtn === 'overdue' ? 'CancelFocus':'Cancel'}
-                            id= 'overdue'
-                            btnPosition={classes.Cancel}
-                            clicked={(e) => this.dataView(e)}>>
-                            Przeterminowane
-                    </Button>
-                    <Button btnType="Submit" 
-                            btnPosition={classes.Submit}>
-                            Dodaj nową ocenę
-                    </Button>
-                </div>
+                <UserNav clicked={(e) => this.DataView(e)}
+                         activeBtn= {this.state.activeBtn}/>
                 <Table table={classes.Table}
                         columns={this.state.tableHeads}
                         rows={rowData}

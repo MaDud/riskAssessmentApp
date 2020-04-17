@@ -1,4 +1,4 @@
-/* .Navigation {
+.Navigation {
     width: 70%;
     margin: auto;
     display: grid;
@@ -8,17 +8,4 @@
 
 .Submit {
     grid-area: f-6;
-} */
-
-.Table {
-    width: 70%;
-    border: solid #77838f 1px;
-    border-radius: 4px;
-    opacity: 0.9
 }
-
-.Table th, tbody td {
-    border: solid #77838f 1px;
-}
-
-
