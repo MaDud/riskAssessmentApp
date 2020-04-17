@@ -3,64 +3,9 @@ import React from 'react';
 import Auxiliary from '../../../hoc/Auxiliary';
 import classes from './table.module.css';
 
-// const data = {
-//     col: [{
-//         label: 'Numer',
-//         id: 'number'
-//         },
-//         {label: 'Stanowisko',
-//         id: 'position'},
-//         {label: 'Właściciel',
-//         id: 'owner'}
-//     ],
-//     rows: [{
-//         number: 1,
-//         position: 'Stanowisko administracyjno- biurowe',
-//         owner: 'Aaaa'
-//         },
-//         {number: 2,
-//         position: 'Stanowisko inżyniryjne',
-//         owner: 'Bbbb'
-//         }
-//     ]
-// }
-
-const tableHeads = [{
-    label: 'Numer',
-    id: 'number'
-    },
-    {label: 'Stanowisko',
-    id: 'position'},
-    {label: 'Właściciel',
-    id: 'owner'}
-]
-
-const tableData = {11:{
-    number: 1,
-    position: 'Stanowisko administracyjno- biurowe',
-    owner: 'Aaaa'
-    },
-    12:{number: 2,
-    position: 'Stanowisko inżyniryjne',
-    owner: 'Bbbb'
-    }
-}
-
 const table = props => {
 
-    // let sortIcon = null;
-    // switch (props.sortType) {
-    //     case 'asc':
-    //         sortIcon = <i class="fas fa-sort-up"></i>;
-    //         break;
-    //     case 'dsc' :
-    //         sortIcon = <i class="fas fa-sort-down"></i>;
-    //         break;
-    //     default:
-    //         sortIcon = <i class="fas fa-sort"></i>;
-    // }
-
-    const tableHead = props.columns.map( (head) => {
+     const tableHead = props.columns.map( (head) => {
 
         let sortIcon = null;
         if (head.id === props.sortOption.id) {
@@ -76,43 +21,39 @@ const table = props => {
                     <div className={classes.Head}>
                         <span className={classes.Text}>{head.label}</span>
                         {props.sortable ? <span onClick={props.sort} className={classes.Filtering}>{sortIcon}</span> : null}
+                        {props.searchable ? <span><i className="fas fa-search"></i></span>: null}
                     </div>
                </th>}
     );
 
     const data = props.rows;
-    let test = Object.values(data);
-    let dataToSort = [];
-    for (let el in test) {
-        let value = test[el][props.sortOption.id];
-        console.log(value)
-        dataToSort.push(test[el][props.sortOption.id])
-    }
-    //sortowanie
-    dataToSort.sort( (a,b) => {
-        return a.toLowerCase().localeCompare(b.toLowerCase())
-    });
+    let dataToSort = Object.values(data);
+
+    let sortedData = dataToSort.sort((a,b) => {
+        if (a[props.sortOption.id] === undefined || b[props.sortOption.id] === undefined) {
+            return 1
+        } else {
+        return a[props.sortOption.id].toLowerCase().localeCompare(b[props.sortOption.id].toLowerCase())
+    }});
+
     if (props.sortOption.sortType !== 'asc') {
-        dataToSort.reverse()
+        sortedData.reverse()
     }
 
-    //rekonstruowanie danych do tablicy
-    let finalData={};  
-        for (let el in dataToSort) {
-            for (let sth in data) {
-                if (dataToSort[el] === data[sth][props.sortOption.id])
-                finalData[sth] = data[sth]
-            }
+    let dataOutput={};  
+    for (let el in sortedData) {
+        for (let sth in data) {
+            if (sortedData[el][props.sortOption.id] === data[sth][props.sortOption.id])
+            dataOutput[sth] = data[sth]
+        }
     }
 
-
-    const tableList = Object.keys(finalData).map( row => {
+    const tableList = Object.keys(dataOutput).map( row => {
             return  <tr key={row} id={row}>
                         {Object.keys(props.rows[row]).map( (cell, index) => {
                         return <td key={index} headers={cell}>{props.rows[row][cell]}</td>})}
                     </tr>
-        });
-    
+        });    
 
     return (
         <Auxiliary>

@@ -8,6 +8,7 @@ const button = props => {
          onClick={props.clicked}
          disabled={props.disabled}
          className={[classes.Button, classes[props.btnType], props.btnPosition,].join(" ")}
+         id={props.id}
          >
              {props.children}
         </button>

@@ -27,7 +27,7 @@ class UserPanel extends React.Component {
         activeBtn: 'active',
         sorted: {id: 'number',
                 sortType: 'asc',
-                sort: true}
+                sort: true},
     };
 
     componentDidMount () {
@@ -109,17 +109,10 @@ class UserPanel extends React.Component {
             .catch(error => console.log(error))
     } 
 
-    ActiveTable = () => {
-        this.setState({activeBtn: 'active'});
-    };
-
-    ReviewTable = () => {
-        this.setState({activeBtn: 'review'});
-    }; 
-    
-    OverdueTable = () => {
-        this.setState({activeBtn: 'overdue'});
-    };
+    dataView = (e) => {
+        const buttonId = e.target.id
+        this.setState({activeBtn: buttonId})
+    }
 
     SortTable = e => {
         const sortData= {...this.state.sorted};
@@ -149,7 +142,7 @@ class UserPanel extends React.Component {
             return statisticData[el]
         });
 
-        //filtrowanie wyników dla poszcególnych tabeli
+        //filtrowanie wyników dla poszczególnych tabeli
         let data = {...this.state.assessmentsList};
         let list = Object.keys(data).filter( el => {
             if(this.state.activeBtn === 'review') {
@@ -172,18 +165,21 @@ class UserPanel extends React.Component {
                 <Statistic matric={statistic}/>
                 <div className={classes.Navigation}>
                     <Button btnType={this.state.activeBtn === 'active' ? 'ActiveFocus':'Active'}
+                            id= 'active'
                             btnPosition={classes.Active}
-                            clicked={this.ActiveTable}>
+                            clicked={(e) => this.dataView(e)}>
                             Aktywne
                     </Button>
                     <Button btnType={this.state.activeBtn === 'review' ? 'WarningFocus':'Warning'}
+                            id= 'review'
                             btnPosition={classes.Warning}
-                            clicked={this.ReviewTable}>
+                            clicked={(e) => this.dataView(e)}>
                             Do przeglądu
                     </Button>
                     <Button btnType={this.state.activeBtn === 'overdue' ? 'CancelFocus':'Cancel'}
+                            id= 'overdue'
                             btnPosition={classes.Cancel}
-                            clicked={this.OverdueTable}>
+                            clicked={(e) => this.dataView(e)}>>
                             Przeterminowane
                     </Button>
                     <Button btnType="Submit" 
