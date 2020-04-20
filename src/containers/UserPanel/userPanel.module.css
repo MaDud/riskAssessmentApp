@@ -1,15 +1,3 @@
-/* .Navigation {
-    width: 70%;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    grid-template-areas: "f-1 f-2 f-3 space space f-6";
-}
-
-.Submit {
-    grid-area: f-6;
-} */
-
 .Table {
     width: 70%;
     border: solid #77838f 1px;

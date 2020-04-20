@@ -1,6 +1,8 @@
 import React from 'react';
-import Button from '../UI/Button/Button';
 import classes from './userNav.module.css';
+
+import Button from '../UI/Button/Button';
+import Input from '../UI/Input/Input';
 
 const userNav = (props) => {
 
@@ -27,8 +29,14 @@ const userNav = (props) => {
             <Button btnType="Submit" 
                     btnPosition={classes.Submit}
                     clicked= {props.submit}>
-                    Dodaj nową ocenę
+                    <i className="fas fa-folder-plus"></i>
             </Button>
+            <div className={classes.Search}>
+                <Input elementType= 'input'
+                        type='text'
+                        placeholder='Szukaj...'
+                        changed={props.changed} />    
+            </div>
         </div>
     )
 };

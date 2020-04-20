@@ -1,11 +1,9 @@
 import React from 'react';
 
 import instance from '../../instance';
-
-import Auxiliary from '../../hoc/Auxiliary';
-
 import classes from "./userPanel.module.css";
 
+import Auxiliary from '../../hoc/Auxiliary';
 import Table from '../../components/UI/Table/Table';
 import Statistic from '../../components/UI/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
@@ -25,6 +23,7 @@ class UserPanel extends React.Component {
         sorted: {id: 'number',
                 sortType: 'asc',
                 sort: true},
+        searchValue: null
     };
 
     componentDidMount () {
@@ -128,8 +127,12 @@ class UserPanel extends React.Component {
 
         this.setState({sorted:sortData})      
     }
-        
-
+    
+    SearchData = e => {
+        e.preventDefault();
+        let searchValue = e.target.value.trim().toLowerCase();
+        this.setState({searchValue:searchValue})
+    }
     
     render () {
         
@@ -139,8 +142,20 @@ class UserPanel extends React.Component {
             return statisticData[el]
         });
 
-        //filtrowanie wyników dla poszczególnych tabeli
-        let data = {...this.state.assessmentsList};
+        //wyszukwanie i filtrowanie wyników dla poszczególnych tabeli
+        const assessmentsList = {...this.state.assessmentsList};
+        let data= {};
+        for (let key in assessmentsList) {
+            const searchValue = this.state.searchValue;
+            if (searchValue) {
+                if ((assessmentsList[key].position && assessmentsList[key].position.toLowerCase().indexOf(searchValue)>-1) ||
+                    (assessmentsList[key].no && assessmentsList[key].no.toLowerCase().indexOf(searchValue)>-1) ||
+                    (assessmentsList[key].owner && assessmentsList[key].owner.toLowerCase().indexOf(searchValue)>-1)) {
+                    data[key] = assessmentsList[key]}
+            } else {
+                data = assessmentsList;
+            }
+        }
         let list = Object.keys(data).filter( el => {
             if(this.state.activeBtn === 'review') {
                 return data[el].review } 
@@ -148,7 +163,7 @@ class UserPanel extends React.Component {
                 return data[el].overdue }
             else return el
         });
-        
+
         //wprowadzanie danych do tabel
         let rowData = {}
         for (let el in list) {
@@ -161,6 +176,7 @@ class UserPanel extends React.Component {
             <Auxiliary>
                 <Statistic matric={statistic}/>
                 <UserNav clicked={(e) => this.DataView(e)}
+                         changed={(e) => this.SearchData(e)}
                          activeBtn= {this.state.activeBtn}/>
                 <Table table={classes.Table}
                         columns={this.state.tableHeads}
