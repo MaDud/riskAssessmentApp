@@ -2,6 +2,11 @@ import React from 'react';
 
 import Auxiliary from './hoc/Auxiliary';
 
+//fontawsome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faSort, faSortUp, faSortDown, faFolderPlus } from '@fortawesome/free-solid-svg-icons'
+
 import Layout from './components/Layout/Layout';
 import RiskAssessmentForm from './containers/RiskAssessmentForm/RiskAssessmentForm';
 import UserPanel from './containers/UserPanel/UserPanel';
@@ -10,6 +15,7 @@ import RiskAssessmentOutput from './containers/RiskAssessmentOutput/RiskAssessme
 import {Route ,Switch} from 'react-router-dom';
 
 function App() {
+  library.add(fab, faSort, faSortUp, faSortDown, faFolderPlus)
   return (
     <Auxiliary>
       <Layout>

@@ -2,6 +2,7 @@ import React from 'react';
 
 import Auxiliary from '../../../hoc/Auxiliary';
 import classes from './table.module.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const table = props => {
 
@@ -10,18 +11,17 @@ const table = props => {
         let sortIcon = null;
         if (head.id === props.sortOption.id) {
             if (props.sortOption.sortType === 'asc') {
-                sortIcon = <i className={["fas fa-sort-up", classes.Sorted].join(' ')}></i>;
+                sortIcon = <FontAwesomeIcon icon='sort-up' className={classes.Sorted}/>;
             } else {
-                sortIcon = <i className={["fas fa-sort-down", classes.Sorted].join(' ')}></i>}
+                sortIcon = <FontAwesomeIcon icon='sort-down' className={classes.Sorted}/>}
         } else {
-            sortIcon = sortIcon = <i className="fas fa-sort"></i>
+            sortIcon = sortIcon = <FontAwesomeIcon icon='sort'/>
         }
 
         return <th key={head.id} id={head.id}>
                     <div className={classes.Head}>
                         <span className={classes.Text}>{head.label}</span>
-                        {props.sortable ? <span onClick={props.sort} className={classes.Filtering}>{sortIcon}</span> : null}
-                        {props.searchable ? <span><i className="fas fa-search"></i></span>: null}
+                        {props.sortable ? <div onClick={props.sort} className={classes.Filtering}>{sortIcon}</div> : null}
                     </div>
                </th>}
     );

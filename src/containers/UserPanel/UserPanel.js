@@ -112,7 +112,7 @@ class UserPanel extends React.Component {
 
     SortTable = e => {
         const sortData= {...this.state.sorted};
-        const targetHead = e.target.parentElement.parentElement.parentElement.id;
+        const targetHead = e.target.parentElement.parentElement.id;
 
         if (targetHead === sortData.id) {
             if (sortData.sortType === 'asc') {

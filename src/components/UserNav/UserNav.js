@@ -3,6 +3,7 @@ import classes from './userNav.module.css';
 
 import Button from '../UI/Button/Button';
 import Input from '../UI/Input/Input';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const userNav = (props) => {
 
@@ -29,7 +30,7 @@ const userNav = (props) => {
             <Button btnType="Submit" 
                     btnPosition={classes.Submit}
                     clicked= {props.submit}>
-                    <i className="fas fa-folder-plus"></i>
+                    <FontAwesomeIcon icon='folder-plus'/>
             </Button>
             <div className={classes.Search}>
                 <Input elementType= 'input'

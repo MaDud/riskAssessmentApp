@@ -22,6 +22,11 @@
     width: 20px;
 }
 
+.Filtering svg {
+    pointer-events: none;
+}
+
 .Sorted {
     color: #377DFF;
 }
+
