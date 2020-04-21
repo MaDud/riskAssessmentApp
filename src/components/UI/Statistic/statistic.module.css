@@ -3,7 +3,8 @@
     margin: 40px auto;
     display: flex;
     flex-direction: row;
-    font-family: 'Poppins', sans-serif;   
+    font-family: 'Poppins', sans-serif;  
+    cursor: pointer; 
 }
 
 .StatisticBox h1 {
@@ -23,6 +24,7 @@
     font-size: 1rem;
     text-transform: uppercase;
     text-align: center;
+    pointer-events: none;
 }
 
 @media (max-width:500px) {

@@ -137,10 +137,10 @@ class UserPanel extends React.Component {
     render () {
         
         //wprowadzanie danych z state do statystyk
-        const statisticData = {...this.state.statistic};
-        let statistic = Object.keys(statisticData).map(el => {
-            return statisticData[el]
-        });
+        // const statisticData = {...this.state.statistic};
+        // let statistic = Object.keys(statisticData).map(el => {
+        //     return statisticData[el]
+        // });
 
         //wyszukwanie i filtrowanie wyników dla poszczególnych tabeli
         const assessmentsList = {...this.state.assessmentsList};
@@ -174,7 +174,8 @@ class UserPanel extends React.Component {
 
         return (
             <Auxiliary>
-                <Statistic matric={statistic}/>
+                <Statistic matric={this.state.statistic}
+                            clicked={(e) => this.DataView(e)}/>
                 <UserNav clicked={(e) => this.DataView(e)}
                          changed={(e) => this.SearchData(e)}
                          activeBtn= {this.state.activeBtn}/>
