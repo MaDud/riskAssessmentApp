@@ -112,7 +112,8 @@ class UserPanel extends React.Component {
 
     SortTable = e => {
         const sortData= {...this.state.sorted};
-        const targetHead = e.target.parentElement.parentElement.id;
+        const targetHead = e.target.id;
+        console.log(targetHead)
 
         if (targetHead === sortData.id) {
             if (sortData.sortType === 'asc') {
@@ -136,12 +137,6 @@ class UserPanel extends React.Component {
     
     render () {
         
-        //wprowadzanie danych z state do statystyk
-        // const statisticData = {...this.state.statistic};
-        // let statistic = Object.keys(statisticData).map(el => {
-        //     return statisticData[el]
-        // });
-
         //wyszukwanie i filtrowanie wyników dla poszczególnych tabeli
         const assessmentsList = {...this.state.assessmentsList};
         let data= {};

@@ -18,10 +18,10 @@ const table = props => {
             sortIcon = sortIcon = <FontAwesomeIcon icon='sort'/>
         }
 
-        return <th key={head.id} id={head.id}>
+        return <th key={head.id} id={head.id} onClick={props.sortable ? props.sort : null}>
                     <div className={classes.Head}>
                         <span className={classes.Text}>{head.label}</span>
-                        {props.sortable ? <div onClick={props.sort} className={classes.Filtering}>{sortIcon}</div> : null}
+                        {props.sortable ? <div className={classes.Filtering}>{sortIcon}</div> : null}
                     </div>
                </th>}
     );

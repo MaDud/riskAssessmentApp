@@ -12,6 +12,7 @@
 
 .Head {
     display: flex;
+    pointer-events: none;
 }
 
 .Text {
@@ -20,10 +21,6 @@
 
 .Filtering {
     width: 20px;
-}
-
-.Filtering svg {
-    pointer-events: none;
 }
 
 .Sorted {
