@@ -1,0 +1,38 @@
+.Search {
+    display: flex;
+    border: rgba(55, 125, 255, 0.3) 2px solid;
+    border-radius: 6px;
+}
+
+.Search button {
+    margin: 0;
+}
+
+.Search input {
+    border: none;
+    height: inherit;
+    width: auto;
+}
+
+.SearchClose {
+    width: 30px;
+    text-align: center; 
+    height: inherit;
+    margin: auto 0;
+}
+
+.SearchActive {
+    color: #77838f96;
+    transition: color 0.4s;
+}
+
+.SearchClose svg {
+    pointer-events: none;
+}
+
+.SearchNotActive {
+    color: #fff;
+    transition: color 0.4s;
+}
+
+

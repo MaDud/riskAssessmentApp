@@ -70,8 +70,6 @@ class RiskAssessmentForm extends React.Component {
         }
 
         hazardArray[id] = hazardElement;
-        console.log(hazardArray)
-
         this.setState({hazardList:hazardArray})
     }
 

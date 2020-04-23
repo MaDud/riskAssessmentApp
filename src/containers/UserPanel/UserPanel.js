@@ -7,6 +7,7 @@ import Auxiliary from '../../hoc/Auxiliary';
 import Table from '../../components/UI/Table/Table';
 import Statistic from '../../components/UI/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
+import Search from '../../components/UI/Search/Search';
 
 class UserPanel extends React.Component {
 
@@ -23,7 +24,8 @@ class UserPanel extends React.Component {
         sorted: {id: 'number',
                 sortType: 'asc',
                 sort: true},
-        searchValue: null
+        searchValue: "",
+        searchField: false
     };
 
     componentDidMount () {
@@ -113,7 +115,6 @@ class UserPanel extends React.Component {
     SortTable = e => {
         const sortData= {...this.state.sorted};
         const targetHead = e.target.id;
-        console.log(targetHead)
 
         if (targetHead === sortData.id) {
             if (sortData.sortType === 'asc') {
@@ -133,6 +134,16 @@ class UserPanel extends React.Component {
         e.preventDefault();
         let searchValue = e.target.value.trim().toLowerCase();
         this.setState({searchValue:searchValue})
+    }
+
+    ClearData = e => {
+        e.preventDefault();
+        this.setState({searchValue:""})
+    }
+
+    SearchButton = () => {
+        const search = this.state.searchField;
+        this.setState({searchField:!search})
     }
     
     render () {
@@ -167,13 +178,23 @@ class UserPanel extends React.Component {
                                 owner: data[list[el]].owner}
         }
 
+        console.log(this.state.searchField)
+
         return (
             <Auxiliary>
                 <Statistic matric={this.state.statistic}
                             clicked={(e) => this.DataView(e)}/>
-                <UserNav clicked={(e) => this.DataView(e)}
-                         changed={(e) => this.SearchData(e)}
-                         activeBtn= {this.state.activeBtn}/>
+                <div className={classes.UserNav}>
+                    <UserNav clicked={(e) => this.DataView(e)}
+                                activeBtn= {this.state.activeBtn}/>
+                    <Search btnType= 'Submit'
+                            search={this.state.searchValue}
+                            changed={(e) => this.SearchData(e)}
+                            value={this.state.searchValue}
+                            closeSearch={(e)=>this.ClearData(e)}
+                            changeSearch={this.SearchButton}
+                            active={this.state.searchField} />
+                </div>
                 <Table table={classes.Table}
                         columns={this.state.tableHeads}
                         rows={rowData}

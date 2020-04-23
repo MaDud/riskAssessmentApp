@@ -1,36 +1,23 @@
+.Box {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.Box button {
+    margin-right: 2px;
+}
+
 .Navigation {
-    width: 70%;
-    margin: auto;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-areas: "f-1 f-2 f-3 f-4 f-5 f-6 f-7 f-8 f-9 f-10 f-11 f-12";
+    display: flex;
+    flex-direction: row;
 }
 
-.Active {
-    grid-column: f-1/f-2;
-}
 
-.Warning {
-    grid-column: f-3/f-4;
-}
 
-.Submit {
-    grid-column: 1;
-    grid-area: f-9;
-}
 
-.Search {
-    grid-column: f-10/f-12;
-    height: 100%;
-    width: 100%;
-    margin: 2px 0;
-}
 
-.Search input {
-    font-weight: bold;
-    font-size: 0.9rem;
-    box-sizing: border-box;
-    height: 90%;
-    width: 100%;
-    margin-bottom: 2px;
-}
+
+
+

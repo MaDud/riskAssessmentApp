@@ -9,4 +9,9 @@
     border: solid #77838f 1px;
 }
 
+.UserNav {
+    width: 70%;
+    display: flex;
+    margin: 0 auto;
+}
 
