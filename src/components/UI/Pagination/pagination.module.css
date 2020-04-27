@@ -1,0 +1,28 @@
+.Pagination {
+    display:flex;
+    justify-content: center;
+    list-style-type: none;
+    margin: 30px auto;
+    padding: none;
+    color: #77838f;
+}
+
+.Pagination li {
+    display: block;
+    width: 30px;
+    text-align: center;
+    cursor: pointer
+}
+
+.Pagination li:hover, .Active {
+    color: #377dff;
+    font-weight: bold
+}
+
+.Pagination svg {
+    pointer-events: none;
+}
+
+.NotActive {
+    color: #77838f;
+}

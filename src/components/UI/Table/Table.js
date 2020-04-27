@@ -3,6 +3,7 @@ import React from 'react';
 import Auxiliary from '../../../hoc/Auxiliary';
 import classes from './table.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Pagination from '../Pagination/Pagination';
 
 const table = props => {
 
@@ -48,12 +49,15 @@ const table = props => {
         }
     }
 
-    const tableList = Object.keys(dataOutput).map( row => {
+    const tableList = Object.keys(dataOutput)
+        .filter( (row,index) => {
+            return index >= (props.page-1)*props.range && index <= props.page*props.range-1})
+        .map( row => {
             return  <tr key={row} id={row}>
                         {Object.keys(props.rows[row]).map( (cell, index) => {
                         return <td key={index} headers={cell}>{props.rows[row][cell]}</td>})}
                     </tr>
-        });    
+    });    
 
     return (
         <Auxiliary>
@@ -67,6 +71,10 @@ const table = props => {
                     {tableList}
                 </tbody>
             </table>
+            <Pagination data={props.rows}
+                        changePage={props.changePage}
+                        page={props.page}
+                        range={props.range}/>
         </Auxiliary>
     )
 };

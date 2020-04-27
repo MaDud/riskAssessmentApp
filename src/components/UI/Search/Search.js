@@ -1,5 +1,4 @@
 import React from 'react';
-import Auxiliary from '../../../hoc/Auxiliary';
 import classes from './search.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '../Button/Button';
@@ -12,7 +11,7 @@ const search = (props) => {
                     btnType={props.btnType}>
                 <FontAwesomeIcon icon='search'/> 
             </Button>  
-            {props.active? (<Auxiliary>
+            {props.active? (<div className={classes.SearchBox}>
                                 <Input elementType= 'input'
                                     type='text'
                                     placeholder='Szukaj...'
@@ -21,7 +20,7 @@ const search = (props) => {
                                 <div className={classes.SearchClose} onClick={props.closeSearch}>
                                     <FontAwesomeIcon icon='times' className={props.search ? classes.SearchActive : classes.SearchNotActive}/>  
                                 </div>
-                            </Auxiliary>) 
+                            </div>) 
                             :null}  
         </div>
     )

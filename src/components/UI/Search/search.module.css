@@ -1,17 +1,19 @@
 .Search {
     display: flex;
-    border: rgba(55, 125, 255, 0.3) 2px solid;
-    border-radius: 6px;
 }
 
 .Search button {
     margin: 0;
+    outline: none;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
 }
 
-.Search input {
+.SearchBox input {
     border: none;
     height: inherit;
     width: auto;
+    outline: none;
 }
 
 .SearchClose {
@@ -33,6 +35,14 @@
 .SearchNotActive {
     color: #fff;
     transition: color 0.4s;
+}
+
+.SearchBox {
+    display: flex;
+    flex-direction: row;
+    border: rgba(55, 125, 255, 0.3) 2px solid;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
 }
 
 

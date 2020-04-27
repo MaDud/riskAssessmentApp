@@ -25,7 +25,9 @@ class UserPanel extends React.Component {
                 sortType: 'asc',
                 sort: true},
         searchValue: "",
-        searchField: false
+        searchField: false,
+        pagination: {page: 1,
+                    range: 3}
     };
 
     componentDidMount () {
@@ -115,6 +117,8 @@ class UserPanel extends React.Component {
     SortTable = e => {
         const sortData= {...this.state.sorted};
         const targetHead = e.target.id;
+        let pagination = {...this.state.pagination};
+        pagination.page = 1;
 
         if (targetHead === sortData.id) {
             if (sortData.sortType === 'asc') {
@@ -127,12 +131,13 @@ class UserPanel extends React.Component {
             sortData.sortType = 'asc';
         }
 
-        this.setState({sorted:sortData})      
+        this.setState({sorted:sortData, pagination:pagination})      
     }
     
     SearchData = e => {
         e.preventDefault();
         let searchValue = e.target.value.trim().toLowerCase();
+
         this.setState({searchValue:searchValue})
     }
 
@@ -144,6 +149,12 @@ class UserPanel extends React.Component {
     SearchButton = () => {
         const search = this.state.searchField;
         this.setState({searchField:!search})
+    }
+
+    ChangePage = e => {
+        const pagination = {...this.state.pagination};
+        pagination.page = Number(e.target.id)
+        this.setState({pagination:pagination})    
     }
     
     render () {
@@ -178,8 +189,6 @@ class UserPanel extends React.Component {
                                 owner: data[list[el]].owner}
         }
 
-        console.log(this.state.searchField)
-
         return (
             <Auxiliary>
                 <Statistic matric={this.state.statistic}
@@ -201,6 +210,9 @@ class UserPanel extends React.Component {
                         sortable= {this.state.sorted.sort}
                         sortOption= {this.state.sorted}
                         sort={e => this.SortTable(e)}
+                        changePage={e => this.ChangePage(e)}
+                        page={this.state.pagination.page}
+                        range={this.state.pagination.range}
                     />
             </Auxiliary>
         )
