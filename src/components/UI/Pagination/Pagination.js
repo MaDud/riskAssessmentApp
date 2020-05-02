@@ -19,15 +19,15 @@ const pagination = props => {
         } else {
             style = classes.NotActive
         }
-        return <li key={index}id={index+1} onClick={props.changePage} className={style}>{el}</li>
+        return <li key={index} id={index+1} onClick={()=>props.changePage(index+1)} className={style}>{el}</li>
     })
 
     return(
         <Auxiliary>
             {amount !== 1 ? (<ul className={classes.Pagination}>
-                                <li onClick={props.changePage} id='1'><FontAwesomeIcon icon='angle-double-left'/></li>
+                                <li onClick={() =>props.changePage(1)} id='1'><FontAwesomeIcon icon='angle-double-left'/></li>
                                 {links}
-                                <li onClick={props.changePage} id={paginationBtn.length}><FontAwesomeIcon icon='angle-double-right'/></li>
+                                <li onClick={() =>props.changePage(paginationBtn.length)} id={paginationBtn.length}><FontAwesomeIcon icon='angle-double-right'/></li>
                             </ul>)
                             :null}
         </Auxiliary>

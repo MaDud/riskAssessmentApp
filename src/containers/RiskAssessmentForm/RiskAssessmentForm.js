@@ -6,22 +6,24 @@ import RiskAssessment from '../../components/RiskAssessment/RiskAssessment';
 import HazardIdentyfication from '../../components/RiskAssessment/HazardIdentyfication/HazardIdentyfication';
 import HazardForm from '../../components/RiskAssessment/HazardIdentyfication/HazardForm/HazardForm';
 import instance from '../../instance';
+import { connect } from 'react-redux';
+import * as action from '../../store/actions/index';
 
 class RiskAssessmentForm extends React.Component {
 
     state = {
-        assesmentData: {
-                        number: null,
-                        version: null,
-                        date: null,
-                        team: null,
-                        position: null,
-                        localization: null,
-                        description: null,
-                        notice: null,
-                        reviewDate: null,
-                        owner: null
-                        },
+        // assesmentData: {
+        //                 number: null,
+        //                 version: null,
+        //                 date: null,
+        //                 team: null,
+        //                 position: null,
+        //                 localization: null,
+        //                 description: null,
+        //                 notice: null,
+        //                 reviewDate: null,
+        //                 owner: null
+        //                 },
         hazardList: null
     };
 
@@ -43,7 +45,6 @@ class RiskAssessmentForm extends React.Component {
                                     save: false,
                                     clean: true};
                 };
-                console.log(hazardState);
                 this.setState({hazardList: hazardState})
             })
             .catch(error => console.log(error))
@@ -86,15 +87,15 @@ class RiskAssessmentForm extends React.Component {
         this.setState({hazardList:hazardArray})
     }
 
-    dataInputHandler = (e) => {
-        const dataArray = {...this.state.assesmentData};
-        const elementId = e.target.id;
-        let dataElement = e.target.value;
+    // dataInputHandler = (e) => {
+    //     const dataArray = {...this.state.assesmentData};
+    //     const elementId = e.target.id;
+    //     let dataElement = e.target.value;
         
-        dataArray[elementId] = dataElement;
+    //     dataArray[elementId] = dataElement;
 
-        this.setState({assesmentData:dataArray})
-    }
+    //     this.setState({assesmentData:dataArray})
+    // }
 
     //czyszczenie zapisanych danych
     cleanChanges = (event, id) => {
@@ -163,7 +164,6 @@ class RiskAssessmentForm extends React.Component {
 
 
     render() {   
-        console.log(this.state)
 
         let hazardArray = [];
         for (let key in this.state.hazardList) {
@@ -190,7 +190,7 @@ class RiskAssessmentForm extends React.Component {
         return (
             <Auxiliary>
                 <RiskAssessment
-                    change={e => this.dataInputHandler(e)}
+                    change={e => this.props.dataInputHandler(e)}
                     add={e => this.addNew(e)}
                     cancel={e => this.discardChanges(e)}>
                     {hazardIdentyfication}
@@ -200,4 +200,18 @@ class RiskAssessmentForm extends React.Component {
     }
 };
 
-export default RiskAssessmentForm;
+const mapStateToProps = state => {
+    return {
+        riskAssessment: state.riskAssessment.assessmentData,
+        hazardList: state.riskAssessment.hazardList
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        dataInputHandler: (e) => dispatch(action.inputHandler(e)),
+        initHazardsList: () => dispatch(action.initHazardsList)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RiskAssessmentForm);

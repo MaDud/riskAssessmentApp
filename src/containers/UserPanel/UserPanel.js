@@ -3,6 +3,9 @@ import React from 'react';
 import instance from '../../instance';
 import classes from "./userPanel.module.css";
 
+import { connect } from 'react-redux';
+import * as action from '../../store/actions/index';
+
 import Auxiliary from '../../hoc/Auxiliary';
 import Table from '../../components/UI/Table/Table';
 import Statistic from '../../components/UI/Statistic/Statistic';
@@ -20,14 +23,6 @@ class UserPanel extends React.Component {
             {active: {value: 0, description: "Aktywnych ocen ryzyka zawodowego"},
             review: {value: 0, description: "Wymagających przeglądu ocen ryzyka zawodowego"},
             overdue: {value: 0, description: "Przeterminowanych ocen ryzyka zawodowego"}},
-        activeBtn: 'active',
-        sorted: {id: 'number',
-                sortType: 'asc',
-                sort: true},
-        searchValue: "",
-        searchField: false,
-        pagination: {page: 1,
-                    range: 3}
     };
 
     componentDidMount () {
@@ -108,54 +103,6 @@ class UserPanel extends React.Component {
             })
             .catch(error => console.log(error))
     } 
-
-    DataView = (e) => {
-        const buttonId = e.target.id
-        this.setState({activeBtn: buttonId})
-    }
-
-    SortTable = e => {
-        const sortData= {...this.state.sorted};
-        const targetHead = e.target.id;
-        let pagination = {...this.state.pagination};
-        pagination.page = 1;
-
-        if (targetHead === sortData.id) {
-            if (sortData.sortType === 'asc') {
-                sortData.sortType = 'desc'
-            } else {
-                sortData.sortType = 'asc'
-            }
-        } else {
-            sortData.id = targetHead;
-            sortData.sortType = 'asc';
-        }
-
-        this.setState({sorted:sortData, pagination:pagination})      
-    }
-    
-    SearchData = e => {
-        e.preventDefault();
-        let searchValue = e.target.value.trim().toLowerCase();
-
-        this.setState({searchValue:searchValue})
-    }
-
-    ClearData = e => {
-        e.preventDefault();
-        this.setState({searchValue:""})
-    }
-
-    SearchButton = () => {
-        const search = this.state.searchField;
-        this.setState({searchField:!search})
-    }
-
-    ChangePage = e => {
-        const pagination = {...this.state.pagination};
-        pagination.page = Number(e.target.id)
-        this.setState({pagination:pagination})    
-    }
     
     render () {
         
@@ -163,20 +110,20 @@ class UserPanel extends React.Component {
         const assessmentsList = {...this.state.assessmentsList};
         let data= {};
         for (let key in assessmentsList) {
-            const searchValue = this.state.searchValue;
+            const searchValue = this.props.search.searchValue;
             if (searchValue) {
-                if ((assessmentsList[key].position && assessmentsList[key].position.toLowerCase().indexOf(searchValue)>-1) ||
-                    (assessmentsList[key].no && assessmentsList[key].no.toLowerCase().indexOf(searchValue)>-1) ||
-                    (assessmentsList[key].owner && assessmentsList[key].owner.toLowerCase().indexOf(searchValue)>-1)) {
+                if ((assessmentsList[key].position && assessmentsList[key].position.toUpperCase().indexOf(searchValue)>-1) ||
+                    (assessmentsList[key].no && assessmentsList[key].no.toUpperCase().indexOf(searchValue)>-1) ||
+                    (assessmentsList[key].owner && assessmentsList[key].owner.toUpperCase().indexOf(searchValue)>-1)) {
                     data[key] = assessmentsList[key]}
             } else {
                 data = assessmentsList;
             }
         }
         let list = Object.keys(data).filter( el => {
-            if(this.state.activeBtn === 'review') {
+            if(this.props.user === 'review') {
                 return data[el].review } 
-            else if (this.state.activeBtn === 'overdue') {
+            else if (this.props.user === 'overdue') {
                 return data[el].overdue }
             else return el
         });
@@ -192,31 +139,53 @@ class UserPanel extends React.Component {
         return (
             <Auxiliary>
                 <Statistic matric={this.state.statistic}
-                            clicked={(e) => this.DataView(e)}/>
+                            clicked={(e) => this.props.changeView(e)}/>
                 <div className={classes.UserNav}>
-                    <UserNav clicked={(e) => this.DataView(e)}
-                                activeBtn= {this.state.activeBtn}/>
+                    <UserNav clicked={(e) => this.props.changeView(e)}
+                                activeBtn= {this.props.user}/>
                     <Search btnType= 'Submit'
-                            search={this.state.searchValue}
-                            changed={(e) => this.SearchData(e)}
-                            value={this.state.searchValue}
-                            closeSearch={(e)=>this.ClearData(e)}
-                            changeSearch={this.SearchButton}
-                            active={this.state.searchField} />
+                            search={this.props.search.searchValue}
+                            changed={(e) => this.props.searchValue(e)}
+                            value={this.props.search.searchValue}
+                            closeSearch={this.props.clearSearch}
+                            changeSearch={this.props.searchBtn}
+                            active={this.props.search.searchField} />
                 </div>
                 <Table table={classes.Table}
                         columns={this.state.tableHeads}
                         rows={rowData}
-                        sortable= {this.state.sorted.sort}
-                        sortOption= {this.state.sorted}
-                        sort={e => this.SortTable(e)}
-                        changePage={e => this.ChangePage(e)}
-                        page={this.state.pagination.page}
-                        range={this.state.pagination.range}
+                        sortable= {this.props.sorted.sort}
+                        sortOption= {this.props.sorted}
+                        sort={e => this.props.sortData(e)}
+                        changePage={this.props.changePage}
+                        page={this.props.pagination.page}
+                        range={this.props.pagination.range}
+                        
                     />
             </Auxiliary>
         )
     }
 };
 
-export default UserPanel;
+
+const mapStateToProps = state => {
+    return {
+        user: state.userPanel.activeBtn,
+        search: state.userPanel.search,
+        pagination: state.userPanel.pagination,
+        sorted: state.userPanel.sorted
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        changeView: (event) => dispatch (action.changeView(event)),
+        searchBtn: () => dispatch(action.search()),
+        clearSearch: () => dispatch({type: 'CLEAR_SEARCH'}),
+        searchValue: (searchValue) => dispatch(action.searchValue(searchValue)),
+        changePage: (page) => dispatch(action.changePage(page)),
+        sortData: (event) => dispatch(action.sortData(event))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPanel);

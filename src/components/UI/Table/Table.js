@@ -53,7 +53,7 @@ const table = props => {
         .filter( (row,index) => {
             return index >= (props.page-1)*props.range && index <= props.page*props.range-1})
         .map( row => {
-            return  <tr key={row} id={row}>
+            return  <tr key={row} id={row} onClick={props.view}>
                         {Object.keys(props.rows[row]).map( (cell, index) => {
                         return <td key={index} headers={cell}>{props.rows[row][cell]}</td>})}
                     </tr>
