@@ -38,6 +38,10 @@
     justify-content: flex-end;
 }
 
+.ButtonBox button {
+    margin-left: 10px;
+}
+
 @media (max-width: 500px) {
 
     .HazardForm {

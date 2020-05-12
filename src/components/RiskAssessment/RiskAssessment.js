@@ -77,7 +77,7 @@ const riskAssessment = props => {
                        label='Data kolejnego przeglądu:'
                        elementType='input'
                        changed={props.change}
-                       id='reviwDate'
+                       id='reviewDate'
                        inputPosition={classes.ReviewDate}
                        type='date'/>
                 <Input for='owner'

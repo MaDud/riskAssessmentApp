@@ -8,7 +8,13 @@ const initialState = {
                 range: 3},
     sorted: {id: 'number',
             sortType: 'asc',
-            sort: true}
+            sort: true},
+    statistic: 
+            {active: {value: 0, description: "Aktywnych ocen ryzyka zawodowego"},
+            review: {value: 0, description: "Wymagających przeglądu ocen ryzyka zawodowego"},
+            overdue: {value: 0, description: "Przeterminowanych ocen ryzyka zawodowego"}},
+    assessmentsList: {},
+    loading: false,
 };
 
 const userPanel = (state = initialState, action) => {
@@ -58,18 +64,56 @@ const userPanel = (state = initialState, action) => {
                 columnId = target;
                 sortDirection = 'asc'
             }
-
             return {
                 ...state,
                 pagination: {...state.pagination,
                             page: 1},
                 sorted: {...state.sorted,
                         id: columnId,
-                        sortType: sortDirection}
+                        sortType: sortDirection}}
+        case actionTypes.ADD_INIT: 
+            return {
+                ...state,
+                loading: true
             }
-
-
-        
+        case actionTypes.FETCH_ADD_SUCCESS:
+            return {
+                ...state,
+                assessmentsList: {...state.assessmentsList,
+                                [action.id]: action.data},
+                statistic: {...state.statistic,
+                            active: {...state.statistic.active,
+                                    value: state.statistic.active.value + 1}},
+                loading: false
+            }
+        case actionTypes.FETCH_ADD_FAIL:
+            return {
+                ...state,
+                loading: false,
+            }
+        case actionTypes.HAZARD_LIST_INIT:
+            return {
+                ...state,
+                loading: true,
+            }
+        case actionTypes.FETCH_HAZARD_LIST_SUCCESS:
+            return {
+                ...state,
+                assessmentsList: {...state.assessmentsList,
+                                ...action.data},
+                statistic: {...state.statistic,
+                            active: {...state.statistic.active,
+                                    value: action.active},
+                            review: {...state.statistic.review,
+                                value: action.review},
+                            overdue: {...state.statistic.overdue,
+                                value: action.overdue}}
+            }
+        case actionTypes.FETCH_HAZARD_LIST_FAIL:
+            return {
+                ...state,
+                loading: false,
+            } 
         default:
             return state
     }

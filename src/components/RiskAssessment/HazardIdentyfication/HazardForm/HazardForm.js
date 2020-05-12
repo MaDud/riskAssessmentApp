@@ -55,7 +55,8 @@ const hazardForm = props => {
                             propability={props.propability}
                             />
                 <div className={classes.ButtonBox}>
-                    <Button clicked={props.clean} disabled={props.disabled} btnType="Submit">WYCZYŚĆ DANE</Button>
+                    <Button clicked={props.save} disabled={props.disabled} btnType="Submit">ZAPISZ</Button>
+                    <Button clicked={props.clean} disabled={props.disabled} btnType="Warning">WYCZYŚĆ DANE</Button>
                 </div>
             </div>
         </div>

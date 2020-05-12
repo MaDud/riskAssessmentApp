@@ -13,14 +13,14 @@ const initialState = {
                     reviewDate: null,
                     owner: null},
     hazardList: null,
-    error: false
+    status: 'draft',
+    error: false,
 };
 
 const riskAssessment = (state=initialState, action) => {
 
     switch (action.type) {
         case actionTypes.INPUT_HANDLER:
-            console.log(state)
             return {
                 ...state,
                 assessmentData: {...state.assessmentData,
@@ -29,6 +29,17 @@ const riskAssessment = (state=initialState, action) => {
         case actionTypes.SET_HAZARDS:
             return {
                 ...state,
+                assessmentData: {
+                    number: null,
+                    version: null,
+                    date: null,
+                    team: null,
+                    position: null,
+                    localization: null,
+                    description: null,
+                    notice: null,
+                    reviewDate: null,
+                    owner: null},
                 hazardList: action.hazardList,
                 error: false
             }
@@ -37,14 +48,50 @@ const riskAssessment = (state=initialState, action) => {
                 ...state,
                 error: true
             }
-        // case actionTypes.HAZARD_SWITCH:
-        //     return {
-        //         ...state,
-        //         hazardList: {...state.hazardList,
-        //                     [action.id]: {...state.hazardList[action.id],
-        //                     checked: !state.hazardList[action.id].checked}
-        //                     }
-        //     }
+        case actionTypes.HAZARD_SWITCH:
+            return {
+                ...state,
+                hazardList: {...state.hazardList,
+                            [action.id]: {...state.hazardList[action.id],
+                                        checked: !state.hazardList[action.id].checked}
+                            }
+            }
+        case actionTypes.CLEAN_DATA:
+            return {
+                ...state,
+                hazardList: {...state.hazardList,
+                            [action.id]: {...state.hazardList[action.id],
+                                source: "",
+                                possibleEffects: "",
+                                protection: "",
+                                effect: "",
+                                propability: "",
+                                clean: true,
+                                save: false
+                                }}
+            }
+        case actionTypes.SAVE_DATA:
+            return {
+                ...state,
+                hazardList: {...state.hazardList,
+                            [action.id]: {...state.hazardList[action.id],
+                                        clean: false,
+                                        save: true}}
+            }
+        case actionTypes.HAZARD_INPUT_HANDLER:
+            return {
+                ...state,
+                hazardList: {...state.hazardList,
+                            [action.id]: {...state.hazardList[action.id],
+                                        [action.name]: action.value,
+                                        clean: false
+                                        }}
+            }
+        case actionTypes.SAVE_RISK_ASSESSMENT:
+            return {
+                ...state,
+                status: 'active'
+            }
         default:
             return state
     }

@@ -1,8 +1,6 @@
 import React from 'react';
 
-import instance from '../../instance';
 import classes from "./userPanel.module.css";
-
 import { connect } from 'react-redux';
 import * as action from '../../store/actions/index';
 
@@ -18,96 +16,67 @@ class UserPanel extends React.Component {
         tableHeads: [{label:'Numer', id:'number'},
                     {label: 'Nazwa stanowiska', id: 'position'}, 
                     {label: 'Właściciel', id:'owner'}],
-        assessmentsList: null,
-        statistic: 
-            {active: {value: 0, description: "Aktywnych ocen ryzyka zawodowego"},
-            review: {value: 0, description: "Wymagających przeglądu ocen ryzyka zawodowego"},
-            overdue: {value: 0, description: "Przeterminowanych ocen ryzyka zawodowego"}},
     };
 
     componentDidMount () {
-        instance.get('/riskAssessment.json')
-            .then(response => {
-                const data = response.data;
-                const date = new Date();
-                let values = {};
-                let active = 0;
-                let review = 0;
-                let overdue = 0;
-                const statistics = {...this.state.statistic};
-                const activeStatistic = {...this.state.statistic.active};
-                const reviewStatistic = {...this.state.statistic.review};
-                const overdueStatistic = {...this.state.statistic.overdue};
-                
-                for (let id in data) {
+        this.props.initHazardList()
 
-                    const target = data[id].assesmentData;
-                    const reviewDate = new Date(target.reviwDate);
-                    const timeDiffrence= reviewDate-date;
-                    const days= Math.floor(timeDiffrence/(1000 * 60 * 60 * 24));
+        //timer dla statystyk
+        const active = this.props.statistic.active.value;
+        const review = this.props.statistic.review.value;
+        const overdue = this.props.statistic.overdue.value;
+        let activeCount = 0;
+        let reviewCount = 0;
+        let overdueCount = 0;
+        this.timer = setInterval( () => {
+            if (activeCount < active) {
+                activeCount += 1;
+            }
+            if (reviewCount < review) {
+                reviewCount += 1;
+            }
+            if (overdueCount < overdue) {
+                overdueCount += 1
+            } 
 
-                    
-                    if (data[id].status === 'active') {
-                        values[id] = {no: target.number + ' v.' + target.version,
-                                position: target.position,
-                                owner: target.owner,
-                                nextReview: reviewDate,
-                                status: data[id].status,
-                                review: days <= 30 ? true:false,
-                                overdue: days < 0 ? true:false};
-                       
-                        active += 1;
-
-                        if (values[id].review) {
-                            review += 1
-                        } 
-                        if (values[id].overdue) {
-                            overdue += 1
-                        }
-                }};
-
-                this.setState({assessmentsList: values}) 
-
-                //timer dla statystyk
-                let activeCount = 0;
-                let reviewCount = 0;
-                let overdueCount = 0;
-                this.timer = setInterval( () => {
-                    if (activeCount < active) {
-                        activeCount += 1;
-                    }
-                    if (reviewCount < review) {
-                        reviewCount += 1;
-                    }
-                    if (overdueCount < overdue) {
-                        overdueCount += 1
-                    }
-
-                    activeStatistic.value = activeCount;
-                    reviewStatistic.value = reviewCount;
-                    overdueStatistic.value = overdueCount;
+            if (active === activeCount && review === reviewCount && overdue === overdueCount) {
+                clearInterval(this.timer)
+            }
+        }, 400)}
     
-                    statistics.active = activeStatistic;
-                    statistics.review = reviewStatistic;
-                    statistics.overdue = overdueStatistic;
-    
-                    this.setState({
-                        statistic: statistics
-                    })  
+    addNew = () => {
+        this.props.history.push('/')
+    }
 
-                    if (active === activeCount && review === reviewCount && overdue === overdueCount) {
-                        clearInterval(this.timer)
-                    }
-                }, 400)
-  
-            })
-            .catch(error => console.log(error))
-    } 
+    Timer = () => {
+        //timer dla statystyk
+        const active = this.props.statistic.active.value;
+        const review = this.props.statistic.review.value;
+        const overdue = this.props.statistic.overdue.value;
+        let activeCount = 0;
+        let reviewCount = 0;
+        let overdueCount = 0;
+        this.timer = setInterval( () => {
+            if (activeCount < active) {
+                activeCount += 1;
+            }
+            if (reviewCount < review) {
+                reviewCount += 1;
+            }
+            if (overdueCount < overdue) {
+                overdueCount += 1
+            }
+
+            if (active === activeCount && review === reviewCount && overdue === overdueCount) {
+                clearInterval(this.timer)
+            }
+        }, 400)
+    }
     
     render () {
         
         //wyszukwanie i filtrowanie wyników dla poszczególnych tabeli
-        const assessmentsList = {...this.state.assessmentsList};
+        const assessmentsList = this.props.assessmentsList;
         let data= {};
         for (let key in assessmentsList) {
             const searchValue = this.props.search.searchValue;
@@ -136,13 +105,16 @@ class UserPanel extends React.Component {
                                 owner: data[list[el]].owner}
         }
 
+        //animowanie statystyk
+
         return (
             <Auxiliary>
-                <Statistic matric={this.state.statistic}
+                <Statistic matric={this.props.statistic}
                             clicked={(e) => this.props.changeView(e)}/>
                 <div className={classes.UserNav}>
                     <UserNav clicked={(e) => this.props.changeView(e)}
-                                activeBtn= {this.props.user}/>
+                                activeBtn= {this.props.user}
+                                submit={this.addNew}/>
                     <Search btnType= 'Submit'
                             search={this.props.search.searchValue}
                             changed={(e) => this.props.searchValue(e)}
@@ -173,7 +145,9 @@ const mapStateToProps = state => {
         user: state.userPanel.activeBtn,
         search: state.userPanel.search,
         pagination: state.userPanel.pagination,
-        sorted: state.userPanel.sorted
+        sorted: state.userPanel.sorted,
+        assessmentsList: state.userPanel.assessmentsList,
+        statistic: state.userPanel.statistic
     }
 };
 
@@ -184,7 +158,8 @@ const mapDispatchToProps = dispatch => {
         clearSearch: () => dispatch({type: 'CLEAR_SEARCH'}),
         searchValue: (searchValue) => dispatch(action.searchValue(searchValue)),
         changePage: (page) => dispatch(action.changePage(page)),
-        sortData: (event) => dispatch(action.sortData(event))
+        sortData: (event) => dispatch(action.sortData(event)),
+        initHazardList: () => dispatch(action.initHazardList())
     }
 }
 

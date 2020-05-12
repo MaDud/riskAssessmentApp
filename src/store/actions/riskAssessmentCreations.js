@@ -36,7 +36,7 @@ export const initHazardsList = () => {
                     protection: "",
                     effect: "",
                     propability: "",
-                    save: false,
+                    // save: false,
                     clean: true};
             };
             dispatch(setHazards(hazards))})
@@ -48,5 +48,34 @@ export const hazardSwitch = (id) => {
     return {
         type: actionTypes.HAZARD_SWITCH,
         id: id
+    }
+}
+
+export const cleanData = (id) => {
+    return {
+        type: actionTypes.CLEAN_DATA,
+        id: id
+    }
+}
+
+export const saveData = (id) => {
+    return {
+        type: actionTypes.SAVE_DATA,
+        id: id
+    }
+}
+
+export const hazardInputHandler = (event,id) => {
+    return {
+        type: actionTypes.HAZARD_INPUT_HANDLER,
+        id: id,
+        name: event.target.name,
+        value: event.target.value.trim()
+    }
+}
+
+export const saveRiskAssessment = () => {
+    return {
+        type: actionTypes.SAVE_RISK_ASSESSMENT
     }
 }

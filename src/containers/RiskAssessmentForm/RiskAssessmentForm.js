@@ -5,132 +5,46 @@ import Auxiliary from '../../hoc/Auxiliary';
 import RiskAssessment from '../../components/RiskAssessment/RiskAssessment';
 import HazardIdentyfication from '../../components/RiskAssessment/HazardIdentyfication/HazardIdentyfication';
 import HazardForm from '../../components/RiskAssessment/HazardIdentyfication/HazardForm/HazardForm';
-import instance from '../../instance';
 import { connect } from 'react-redux';
 import * as action from '../../store/actions/index';
 
 class RiskAssessmentForm extends React.Component {
 
-    state = {
-        // assesmentData: {
-        //                 number: null,
-        //                 version: null,
-        //                 date: null,
-        //                 team: null,
-        //                 position: null,
-        //                 localization: null,
-        //                 description: null,
-        //                 notice: null,
-        //                 reviewDate: null,
-        //                 owner: null
-        //                 },
-        hazardList: null
-    };
-
     //pobieranie zagrożeń z bazy danych i dodawanie ich do state
     componentDidMount () {
-        instance.get('/hazardList.json')
-            .then(response => {
-                const data = response.data;
-                let hazardState= {...this.state.hazardList};
-                for (let el in data) {
-                    let id = 'hazard'+el;
-                    hazardState[id] = {value:data[el], 
-                                    checked:false,
-                                    source: "",
-                                    possibleEffects: "",
-                                    protection: "",
-                                    effect: "",
-                                    propability: "",
-                                    save: false,
-                                    clean: true};
-                };
-                this.setState({hazardList: hazardState})
-            })
-            .catch(error => console.log(error))
+            this.props.initHazardsList()
     }
-
-    // funkcja pokazująca formularz identyfikacji zagrożeń w zależności od przycisku typu switch
-    hazardUpdate = (id) => {
-        const hazardArray = {...this.state.hazardList};
-        let hazardElement = {...hazardArray[id]};
-        
-        hazardElement.checked = !this.state.hazardList[id].checked;
-
-        if (!hazardElement.checked && !hazardElement.save) {
-            hazardElement = {value: this.state.hazardList[id].value,
-                            checked: hazardElement.checked,
-                            source: "",
-                            possibleEffects: "",
-                            protection: "",
-                            effect: "",
-                            propability: "",
-                            save: false,
-                            clean: false,
-                            };
-        }
-
-        hazardArray[id] = hazardElement;
-        this.setState({hazardList:hazardArray})
-    }
-
-    //aktualizacja stanu na podstawie wartości inputu
-    inputHandler = (event, id) => {
-        const hazardArray = {...this.state.hazardList};
-        const hazardElement = {...hazardArray[id]};
-        const elementName = event.target.name;
-
-        hazardElement[elementName] = event.target.value;
-        hazardElement.save = true;
-        hazardArray[id] = hazardElement;
-        
-        this.setState({hazardList:hazardArray})
-    }
-
-    // dataInputHandler = (e) => {
-    //     const dataArray = {...this.state.assesmentData};
-    //     const elementId = e.target.id;
-    //     let dataElement = e.target.value;
-        
-    //     dataArray[elementId] = dataElement;
-
-    //     this.setState({assesmentData:dataArray})
-    // }
 
     //czyszczenie zapisanych danych
     cleanChanges = (event, id) => {
         event.preventDefault();
+        this.props.cleanData(id);
+        this.props.hazardSwitch(id)
+    }
 
-        const hazardArray = {...this.state.hazardList};
-        let hazardElement = {...hazardArray[id]};
-
-        hazardElement = {value: this.state.hazardList[id].value,
-                        checked: false,
-                        source: "",
-                        possibleEffects: "",
-                        protection: "",
-                        effect: "",
-                        propability: "",
-                        save: false,
-                        clean: true,
-                        };
-        hazardArray[id] = hazardElement;
-
-        this.setState({hazardList:hazardArray})
+    //zapisywanie zmian
+    saveChanges= (event, id) => {
+        event.preventDefault();
+        this.props.saveData(id);
+        this.props.hazardSwitch(id)
     }
 
     //dodawanie nowej oceny ryzyka do bazy
     addNew = e => {
         e.preventDefault();
 
-        const data = {
-            ...this.state,
-            status: "active"
+        this.props.saveRiskAssessment();
+
+        let hazards = Object.keys(this.props.hazardList).filter(el => {
+            return this.props.hazardList[el].save
+        })
+        let newHazardList = {}
+        for (let el in hazards) {
+            newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
         }
 
-        instance.post('/riskAssessment.json', data)
-            .then(response => console.log(response))
-            .catch(error => console.log(error));
+        const data = {assessmentData : this.props.riskAssessment, hazardList: newHazardList, status: 'active'}
+        this.props.addNew(data)
 
         this.props.history.push('/userPanel')
     }
@@ -145,43 +59,44 @@ class RiskAssessmentForm extends React.Component {
 
         let hazardForm = null;
 
-        if (this.state.hazardList[id].checked) {
+        if (this.props.hazardList[id].checked) {
             hazardForm = <HazardForm 
-                            change={(e)=> this.inputHandler(e, id)}
-                            source={this.state.hazardList[id].source}
-                            possibleEffects={this.state.hazardList[id].possibleEffects}
-                            protection={this.state.hazardList[id].protection}
-                            effectOption={this.state.hazardList[id].effect}
-                            propabilityOption={this.state.hazardList[id].propability}
-                            effect={this.state.hazardList[id].effect}
-                            propability={this.state.hazardList[id].propability}
-                            disabled={!this.state.hazardList[id].save}
+                            change={(e)=> this.props.hazardInputHandler(e, id)}
+                            source={this.props.hazardList[id].source}
+                            possibleEffects={this.props.hazardList[id].possibleEffects}
+                            protection={this.props.hazardList[id].protection}
+                            effectOption={this.props.hazardList[id].effect}
+                            propabilityOption={this.props.hazardList[id].propability}
+                            effect={this.props.hazardList[id].effect}
+                            propability={this.props.hazardList[id].propability}
+                            disabled={this.props.hazardList[id].clean}
                             clean={(e) => this.cleanChanges(e, id)}
+                            save={(e) => this.saveChanges(e, id)}
                         />
         }
         return hazardForm
     }
 
 
-    render() {   
+    render() {          
 
         let hazardArray = [];
-        for (let key in this.state.hazardList) {
+        for (let key in this.props.hazardList) {
             hazardArray.push({
                 id: key,
-                value: this.state.hazardList[key].value,
+                value: this.props.hazardList[key].value,
             })
         }
 
         let hazardIdentyfication = "Spinner in future";
-        if (this.state.hazardList !== null) {
+        if (this.props.hazardList !== null) {
             hazardIdentyfication = hazardArray.map( el => {
                 return <HazardIdentyfication
                         key={el.id}
                         hazard={el.value}
-                        click={()=>this.hazardUpdate(el.id)}
-                        checked={this.state.hazardList[el.id].checked}
-                        save={this.state.hazardList[el.id].save}>
+                        click={()=>this.props.hazardSwitch(el.id)}
+                        checked={this.props.hazardList[el.id].checked}
+                        save={this.props.hazardList[el.id].save}>
                             {this.hazardForm(el.id)}
                         </HazardIdentyfication>
                          })
@@ -203,14 +118,21 @@ class RiskAssessmentForm extends React.Component {
 const mapStateToProps = state => {
     return {
         riskAssessment: state.riskAssessment.assessmentData,
-        hazardList: state.riskAssessment.hazardList
+        hazardList: state.riskAssessment.hazardList,
+        status: state.riskAssessment.status
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         dataInputHandler: (e) => dispatch(action.inputHandler(e)),
-        initHazardsList: () => dispatch(action.initHazardsList)
+        initHazardsList: () => dispatch(action.initHazardsList()),
+        hazardSwitch: (id) => dispatch(action.hazardSwitch(id)),
+        cleanData: (id) => dispatch(action.cleanData(id)),
+        saveData: (e,id) => dispatch(action.saveData(e,id)),
+        hazardInputHandler: (e,id) => dispatch(action.hazardInputHandler(e,id)),
+        addNew: data => dispatch(action.addNew(data)),
+        saveRiskAssessment: () => dispatch(action.saveRiskAssessment())
     }
 }
 

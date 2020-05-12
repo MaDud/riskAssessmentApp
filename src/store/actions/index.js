@@ -2,7 +2,14 @@ export {changeView,
         searchValue,
         search,
         changePage,
-        sortData} from './userPanelCreations';
+        sortData,
+        addNew,
+        initHazardList} from './userPanelCreations';
 
 export {inputHandler,
-        initHazardsList} from './riskAssessmentCreations'
+        initHazardsList,
+        hazardSwitch,
+        hazardInputHandler,
+        cleanData,
+        saveData,
+        saveRiskAssessment} from './riskAssessmentCreations'
