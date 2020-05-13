@@ -22,6 +22,11 @@
     export const FETCH_HAZARD_LIST_SUCCESS = 'FETCH_HAZARD_LIST_SUCCESS';
     export const FETCH_HAZARD_LIST_FAIL = 'FETCH_HAZARD_LIST_FAIL';
 
+    //liczniki danych
+    export const COUNT_UP_ACTIVE = 'COUNT_UP_ACTIVE';
+    export const COUNT_UP_REVIEW = 'COUNT_UP_REVIEW';
+    export const COUNT_UP_OVERDUE = 'COUNT_UP_OVERDUE';
+
 //RiskAssessment
 export const INPUT_HANDLER = 'INPUT_HANDLER';
 

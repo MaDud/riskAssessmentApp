@@ -10,9 +10,9 @@ const initialState = {
             sortType: 'asc',
             sort: true},
     statistic: 
-            {active: {value: 0, description: "Aktywnych ocen ryzyka zawodowego"},
-            review: {value: 0, description: "Wymagających przeglądu ocen ryzyka zawodowego"},
-            overdue: {value: 0, description: "Przeterminowanych ocen ryzyka zawodowego"}},
+            {active: 0, 
+            review: 0, 
+            overdue: 0},
     assessmentsList: {},
     loading: false,
 };
@@ -23,7 +23,9 @@ const userPanel = (state = initialState, action) => {
         case actionTypes.CHANGE_PAGE_VIEW:
             return {
                 ...state,
-                activeBtn: action.event
+                activeBtn: action.event,
+                pagination: {...state.pagination,
+                            page: 1}
             }
         case actionTypes.SEARCH:
             return {
@@ -74,7 +76,10 @@ const userPanel = (state = initialState, action) => {
         case actionTypes.ADD_INIT: 
             return {
                 ...state,
-                loading: true
+                loading: true,
+                statistic: {active: 0,
+                            review: 0,
+                            overdue: 0}
             }
         case actionTypes.FETCH_ADD_SUCCESS:
             return {
@@ -82,8 +87,7 @@ const userPanel = (state = initialState, action) => {
                 assessmentsList: {...state.assessmentsList,
                                 [action.id]: action.data},
                 statistic: {...state.statistic,
-                            active: {...state.statistic.active,
-                                    value: state.statistic.active.value + 1}},
+                            active: state.statistic.active + 1},
                 loading: false
             }
         case actionTypes.FETCH_ADD_FAIL:
@@ -101,14 +105,28 @@ const userPanel = (state = initialState, action) => {
                 ...state,
                 assessmentsList: {...state.assessmentsList,
                                 ...action.data},
-                statistic: {...state.statistic,
-                            active: {...state.statistic.active,
-                                    value: action.active},
-                            review: {...state.statistic.review,
-                                value: action.review},
-                            overdue: {...state.statistic.overdue,
-                                value: action.overdue}}
             }
+        case actionTypes.COUNT_UP_ACTIVE: {
+            return {
+                ...state,
+                statistic: {...state.statistic,
+                            active: state.statistic.active + 1}
+            }
+        }
+        case actionTypes.COUNT_UP_REVIEW: {
+            return {
+                ...state,
+                statistic: {...state.statistic,
+                            review: state.statistic.review + 1}
+            }
+        }
+        case actionTypes.COUNT_UP_OVERDUE: {
+            return {
+                ...state,
+                statistic: {...state.statistic,
+                            overdue: state.statistic.overdue + 1}
+            }
+        }
         case actionTypes.FETCH_HAZARD_LIST_FAIL:
             return {
                 ...state,

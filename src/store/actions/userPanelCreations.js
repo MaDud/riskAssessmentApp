@@ -67,7 +67,7 @@ export const addNew = data => {
         .then(response => {
             const id = response.data.name;
             const assessmentData = data.assessmentData
-            const userPanel = {no: assessmentData.number + 'v' + assessmentData.version,
+            const userPanel = {no: assessmentData.number,
                                 position: assessmentData.position,
                                 owner: assessmentData.owner,
                                 status: data.status,
@@ -87,13 +87,10 @@ export const hazardListInit = () => {
     }
 }
 
-export const fetchHazardListSuccess = (data, active, review, overdue) => {
+export const fetchHazardListSuccess = (data) => {
     return {
         type: actionTypes.FETCH_HAZARD_LIST_SUCCESS,
-        data: data,
-        active: active,
-        review: review,
-        overdue: overdue
+        data: data
     }
 }
 
@@ -101,6 +98,25 @@ export const fetchHazardListFail = () => {
     return {
         type: actionTypes.FETCH_HAZARD_LIST_FAIL,
         error: true
+    }
+}
+
+//licznik
+export const countUpActive = () => {
+    return {
+        type: actionTypes.COUNT_UP_ACTIVE,
+    }
+}
+
+export const countUpReview = () => {
+    return {
+        type: actionTypes.COUNT_UP_REVIEW,
+    }
+}
+
+export const countUpOverdue = () => {
+    return {
+        type: actionTypes.COUNT_UP_OVERDUE,
     }
 }
 
@@ -124,7 +140,7 @@ export const initHazardList = () => {
                 const days= Math.floor(timeDiffrence/(1000 * 60 * 60 * 24));
                 
                 if (data[id].status === 'active') {
-                    values[id] = {no: target.number + ' v.' + target.version,
+                    values[id] = {no: target.number,
                             position: target.position,
                             owner: target.owner,
                             nextReview: reviewDate,
@@ -141,9 +157,30 @@ export const initHazardList = () => {
                         overdue += 1
                     }
             }}
-            console.log('values',values);
-            console.log('active', active)
-            dispatch(fetchHazardListSuccess(values, active, review, overdue))
+            dispatch(fetchHazardListSuccess(values))
+            let activeCount = 0;
+            let reviewCount = 0;
+            let overdueCount = 0;
+            let timer = 3000/Math.max(active, review, overdue);
+            console.log(timer)
+            const interval = dispatch(setInterval( () => {
+                if (activeCount < active) {
+                    activeCount += 1;
+                    dispatch(countUpActive())
+                }
+                if (reviewCount < review) {
+                    reviewCount += 1;
+                    dispatch(countUpReview())
+                }
+                if (overdueCount < overdue) {
+                    overdueCount += 1;
+                    dispatch(countUpOverdue())
+                }
+            }, timer));
+            interval()
+            if(activeCount === active && reviewCount === review && overdueCount === overdue) {
+                dispatch(clearInterval(interval))
+            }
         }).catch(error => dispatch(fetchHazardListFail()))
     }
 }

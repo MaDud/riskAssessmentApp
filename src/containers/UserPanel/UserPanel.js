@@ -6,71 +6,21 @@ import * as action from '../../store/actions/index';
 
 import Auxiliary from '../../hoc/Auxiliary';
 import Table from '../../components/UI/Table/Table';
-import Statistic from '../../components/UI/Statistic/Statistic';
+import Statistic from '../../components/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
 import Search from '../../components/UI/Search/Search';
 
+const tableHeads = [{label:'Numer', id:'number'},
+                    {label: 'Nazwa stanowiska', id: 'position'}, 
+                    {label: 'Właściciel', id:'owner'}]
+
 class UserPanel extends React.Component {
 
-    state = {
-        tableHeads: [{label:'Numer', id:'number'},
-                    {label: 'Nazwa stanowiska', id: 'position'}, 
-                    {label: 'Właściciel', id:'owner'}],
-    };
-
     componentDidMount () {
-        this.props.initHazardList()
-
-        //timer dla statystyk
-        const active = this.props.statistic.active.value;
-        const review = this.props.statistic.review.value;
-        const overdue = this.props.statistic.overdue.value;
-        let activeCount = 0;
-        let reviewCount = 0;
-        let overdueCount = 0;
-        this.timer = setInterval( () => {
-            if (activeCount < active) {
-                activeCount += 1;
-            }
-            if (reviewCount < review) {
-                reviewCount += 1;
-            }
-            if (overdueCount < overdue) {
-                overdueCount += 1
-            } 
-
-            if (active === activeCount && review === reviewCount && overdue === overdueCount) {
-                clearInterval(this.timer)
-            }
-        }, 400)}
+        this.props.initHazardList()}
     
     addNew = () => {
         this.props.history.push('/')
-    }
-
-    Timer = () => {
-        //timer dla statystyk
-        const active = this.props.statistic.active.value;
-        const review = this.props.statistic.review.value;
-        const overdue = this.props.statistic.overdue.value;
-        let activeCount = 0;
-        let reviewCount = 0;
-        let overdueCount = 0;
-        this.timer = setInterval( () => {
-            if (activeCount < active) {
-                activeCount += 1;
-            }
-            if (reviewCount < review) {
-                reviewCount += 1;
-            }
-            if (overdueCount < overdue) {
-                overdueCount += 1
-            }
-
-            if (active === activeCount && review === reviewCount && overdue === overdueCount) {
-                clearInterval(this.timer)
-            }
-        }, 400)
     }
     
     render () {
@@ -105,12 +55,13 @@ class UserPanel extends React.Component {
                                 owner: data[list[el]].owner}
         }
 
-        //animowanie statystyk
-
         return (
             <Auxiliary>
                 <Statistic matric={this.props.statistic}
-                            clicked={(e) => this.props.changeView(e)}/>
+                            clicked={(e) => this.props.changeView(e)}
+                            active = {this.props.statistic.active}
+                            review = {this.props.statistic.review}
+                            overdue ={this.props.statistic.overdue}/>
                 <div className={classes.UserNav}>
                     <UserNav clicked={(e) => this.props.changeView(e)}
                                 activeBtn= {this.props.user}
@@ -124,7 +75,7 @@ class UserPanel extends React.Component {
                             active={this.props.search.searchField} />
                 </div>
                 <Table table={classes.Table}
-                        columns={this.state.tableHeads}
+                        columns={tableHeads}
                         rows={rowData}
                         sortable= {this.props.sorted.sort}
                         sortOption= {this.props.sorted}
