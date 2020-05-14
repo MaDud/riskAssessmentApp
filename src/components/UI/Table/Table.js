@@ -31,6 +31,9 @@ const table = props => {
     let dataToSort = Object.values(data);
 
     let sortedData = dataToSort.sort((a,b) => {
+        if ( typeof(a[props.sortOption.id]) === 'number') {
+            return a[props.sortOption.id] - b[props.sortOption.id]
+        }
         if (a[props.sortOption.id] === undefined || b[props.sortOption.id] === undefined) {
             return 1
         } else {

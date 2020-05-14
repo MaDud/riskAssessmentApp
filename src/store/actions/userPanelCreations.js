@@ -67,7 +67,7 @@ export const addNew = data => {
         .then(response => {
             const id = response.data.name;
             const assessmentData = data.assessmentData
-            const userPanel = {no: assessmentData.number,
+            const userPanel = {no: Number(assessmentData.number),
                                 position: assessmentData.position,
                                 owner: assessmentData.owner,
                                 status: data.status,
@@ -140,7 +140,7 @@ export const initHazardList = () => {
                 const days= Math.floor(timeDiffrence/(1000 * 60 * 60 * 24));
                 
                 if (data[id].status === 'active') {
-                    values[id] = {no: target.number,
+                    values[id] = {no: Number(target.number),
                             position: target.position,
                             owner: target.owner,
                             nextReview: reviewDate,
