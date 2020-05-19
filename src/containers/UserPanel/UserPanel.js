@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as action from '../../store/actions/index';
 
 import Auxiliary from '../../hoc/Auxiliary';
+import ErrorBoundaries from '../../hoc/ErrorBoundaries/ErrorBoundaries';
 import Table from '../../components/UI/Table/Table';
 import Statistic from '../../components/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
@@ -57,11 +58,13 @@ class UserPanel extends React.Component {
 
         return (
             <Auxiliary>
-                <Statistic matric={this.props.statistic}
+                <ErrorBoundaries>
+                    <Statistic matric={this.props.statistic}
                             clicked={(e) => this.props.changeView(e)}
                             active = {this.props.statistic.active}
                             review = {this.props.statistic.review}
                             overdue ={this.props.statistic.overdue}/>
+                </ErrorBoundaries>
                 <div className={classes.UserNav}>
                     <UserNav clicked={(e) => this.props.changeView(e)}
                                 activeBtn= {this.props.user}
@@ -74,7 +77,8 @@ class UserPanel extends React.Component {
                             changeSearch={this.props.searchBtn}
                             active={this.props.search.searchField} />
                 </div>
-                <Table table={classes.Table}
+                <ErrorBoundaries>
+                    <Table table={classes.Table}
                         columns={tableHeads}
                         rows={rowData}
                         sortable= {this.props.sorted.sort}
@@ -85,6 +89,7 @@ class UserPanel extends React.Component {
                         range={this.props.pagination.range}
                         
                     />
+                </ErrorBoundaries>
             </Auxiliary>
         )
     }

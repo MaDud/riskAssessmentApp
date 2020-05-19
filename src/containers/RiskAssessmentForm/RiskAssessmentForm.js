@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Auxiliary from '../../hoc/Auxiliary';
-
+import ErrorBoundaries from '../../hoc/ErrorBoundaries/ErrorBoundaries';
 import RiskAssessment from '../../components/RiskAssessment/RiskAssessment';
 import HazardIdentyfication from '../../components/RiskAssessment/HazardIdentyfication/HazardIdentyfication';
 import HazardForm from '../../components/RiskAssessment/HazardIdentyfication/HazardForm/HazardForm';
@@ -91,15 +91,16 @@ class RiskAssessmentForm extends React.Component {
         let hazardIdentyfication = "Spinner in future";
         if (this.props.hazardList !== null) {
             hazardIdentyfication = hazardArray.map( el => {
-                return <HazardIdentyfication
-                        key={el.id}
-                        hazard={el.value}
-                        click={()=>this.props.hazardSwitch(el.id)}
-                        checked={this.props.hazardList[el.id].checked}
-                        save={this.props.hazardList[el.id].save}>
-                            {this.hazardForm(el.id)}
-                        </HazardIdentyfication>
-                         })
+                return <ErrorBoundaries>
+                            <HazardIdentyfication
+                                key={el.id}
+                                hazard={el.value}
+                                click={()=>this.props.hazardSwitch(el.id)}
+                                checked={this.props.hazardList[el.id].checked}
+                                save={this.props.hazardList[el.id].save}>
+                                    {this.hazardForm(el.id)}
+                            </HazardIdentyfication>
+                        </ErrorBoundaries>})
         }  
 
         return (
