@@ -67,16 +67,27 @@ const riskAssessment = (state=initialState, action) => {
                                 effect: "",
                                 propability: "",
                                 clean: true,
-                                save: false
+                                save: false,
+                                valid: false
                                 }}
             }
         case actionTypes.SAVE_DATA:
+            let valid = false;
+            const path = state.hazardList[action.id];
+            if (path.source !== '' &&
+                path.possibleEffects !== '' &&
+                path.protection !== '' &&
+                path.effect !== '' &&
+                path.propability !== '') {
+                    valid = true
+            }
             return {
                 ...state,
                 hazardList: {...state.hazardList,
                             [action.id]: {...state.hazardList[action.id],
                                         clean: false,
-                                        save: true}}
+                                        save: true,
+                                        valid: valid}}
             }
         case actionTypes.HAZARD_INPUT_HANDLER:
             return {

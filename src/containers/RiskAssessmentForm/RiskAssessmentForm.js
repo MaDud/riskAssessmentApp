@@ -91,13 +91,14 @@ class RiskAssessmentForm extends React.Component {
         let hazardIdentyfication = "Spinner in future";
         if (this.props.hazardList !== null) {
             hazardIdentyfication = hazardArray.map( el => {
-                return <ErrorBoundaries>
+                return <ErrorBoundaries key={el.id}>
                             <HazardIdentyfication
                                 key={el.id}
                                 hazard={el.value}
                                 click={()=>this.props.hazardSwitch(el.id)}
                                 checked={this.props.hazardList[el.id].checked}
-                                save={this.props.hazardList[el.id].save}>
+                                save={this.props.hazardList[el.id].save}
+                                valid={this.props.hazardList[el.id].valid}>
                                     {this.hazardForm(el.id)}
                             </HazardIdentyfication>
                         </ErrorBoundaries>})

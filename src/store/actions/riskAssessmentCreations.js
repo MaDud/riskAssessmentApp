@@ -36,8 +36,9 @@ export const initHazardsList = () => {
                     protection: "",
                     effect: "",
                     propability: "",
-                    // save: false,
-                    clean: true};
+                    save: false,
+                    clean: true,
+                    valid: false};
             };
             dispatch(setHazards(hazards))})
         .catch(error => dispatch(fetchHazardsError()))

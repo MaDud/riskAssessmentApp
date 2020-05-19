@@ -51,6 +51,11 @@
     color: #00c9A7;
 }
 
+.Warning {
+    background-color: rgba(255, 193,7 , 0.2);
+    color: #ffc107;
+}
+
 .Slider:before {
     position: absolute;
     content: "";

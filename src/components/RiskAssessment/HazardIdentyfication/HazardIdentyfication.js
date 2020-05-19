@@ -7,8 +7,10 @@ import Auxiliary from '../../../hoc/Auxiliary';
 const hazardIdentyfication = props => {
 
     let styleClasses = [classes.Slider];
-    if (props.save) {
+    if (props.save && props.valid) {
         styleClasses.push(classes.Yes);
+    } else if (props.save) {
+        styleClasses.push(classes.Warning)
     } else {
         styleClasses.push(classes.Not);
     }
@@ -19,7 +21,7 @@ const hazardIdentyfication = props => {
                 <h2>{props.hazard}</h2>
                 <label className={classes.Switch}>
                     <input type="checkbox" onChange={props.click} checked={props.checked} />
-                    <span className={styleClasses.join(' ')}>{props.save? 'TAK' : 'NIE'}</span> 
+                    <span className={styleClasses.join(' ')}>{props.save ? 'TAK' : 'NIE'}</span> 
                 </label>
             </div>
             {props.children}
