@@ -96,8 +96,7 @@ export const fetchHazardListSuccess = (data) => {
 
 export const fetchHazardListFail = () => {
     return {
-        type: actionTypes.FETCH_HAZARD_LIST_FAIL,
-        error: true
+        type: actionTypes.FETCH_HAZARD_LIST_FAIL
     }
 }
 
