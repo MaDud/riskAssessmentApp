@@ -49,6 +49,11 @@ class RiskAssessmentForm extends React.Component {
         this.props.history.push('/userPanel')
     }
 
+    dataHandler = (e) => {
+        this.props.dataInputHandler(e);
+        this.props.checkData()
+    }
+
     //anulowanie dodawania do bazy
     discardChanges = e => {
         e.preventDefault();
@@ -107,8 +112,8 @@ class RiskAssessmentForm extends React.Component {
         return (
             <Auxiliary>
                 <RiskAssessment
-                    change={e => this.props.dataInputHandler(e)}
-                    disabled={!this.props.valid}
+                    change={e => this.dataHandler(e)}
+                    disabled={!(this.props.valid.hazardsValidity && this.props.valid.dataValidity)}
                     add={e => this.addNew(e)}
                     cancel={e => this.discardChanges(e)}>
                     {hazardIdentyfication}
@@ -123,7 +128,7 @@ const mapStateToProps = state => {
         riskAssessment: state.riskAssessment.assessmentData,
         hazardList: state.riskAssessment.hazardList,
         status: state.riskAssessment.status,
-        valid: state.riskAssessment.isValid
+        valid: state.riskAssessment.validity
     }
 };
 
@@ -137,7 +142,8 @@ const mapDispatchToProps = dispatch => {
         hazardInputHandler: (e,id) => dispatch(action.hazardInputHandler(e,id)),
         addNew: data => dispatch(action.addNew(data)),
         saveRiskAssessment: () => dispatch(action.saveRiskAssessment()),
-        check: () => dispatch(action.check())
+        check: () => dispatch(action.check()),
+        checkData: () => dispatch(action.checkData())
     }
 }
 

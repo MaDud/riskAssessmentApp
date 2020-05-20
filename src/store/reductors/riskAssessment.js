@@ -5,13 +5,13 @@ const initialState = {
                     number: null,
                     version: null,
                     date: null,
-                    team: null,
-                    position: null,
-                    localization: null,
-                    description: null,
-                    notice: null,
+                    team: '',
+                    position: '',
+                    localization: '',
+                    description: '',
+                    notice: '',
                     reviewDate: null,
-                    owner: null},
+                    owner: ''},
     hazardList: null,
     validity: {
             requiredHazards: 2,
@@ -30,6 +30,24 @@ const riskAssessment = (state=initialState, action) => {
                 assessmentData: {...state.assessmentData,
                                 [action.data]: action.value},
             }
+        case actionTypes.CHECK_DATA:
+            let isValid;
+            const dataPath = state.assessmentData;
+            if (dataPath.team !== '' &&
+                dataPath.position !== '' &&
+                dataPath.localization !== '' &&
+                dataPath.description !== '' &&
+                dataPath.owner !== '') {
+                    isValid = true
+            } else {
+                isValid = false
+            } 
+            return {
+                ...state,
+                validity: {...state.validity,
+                           dataValidity: isValid
+                }
+            }
         case actionTypes.SET_HAZARDS:
             return {
                 ...state,
@@ -37,13 +55,13 @@ const riskAssessment = (state=initialState, action) => {
                     number: null,
                     version: null,
                     date: null,
-                    team: null,
-                    position: null,
-                    localization: null,
-                    description: null,
+                    team: '',
+                    position: '',
+                    localization: '',
+                    description: '',
                     notice: null,
                     reviewDate: null,
-                    owner: null},
+                    owner: ''},
                 hazardList: action.hazardList,
                 error: false
             }

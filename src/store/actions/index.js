@@ -4,7 +4,8 @@ export {changeView,
         changePage,
         sortData,
         addNew,
-        initHazardList} from './userPanelCreations';
+        initHazardList
+} from './userPanelCreations';
 
 export {inputHandler,
         initHazardsList,
@@ -13,4 +14,6 @@ export {inputHandler,
         cleanData,
         saveData,
         saveRiskAssessment,
-        check} from './riskAssessmentCreations'
+        check,
+        checkData
+} from './riskAssessmentCreations'

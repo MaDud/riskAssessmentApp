@@ -5,7 +5,13 @@ export const inputHandler = (e) => {
     return {
         type: actionTypes.INPUT_HANDLER,
         data: e.target.id,
-        value: e.target.value,
+        value: e.target.value.trim(),
+    }
+}
+
+export const checkData = () => {
+    return {
+        type: actionTypes.CHECK_DATA
     }
 }
 
