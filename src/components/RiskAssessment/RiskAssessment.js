@@ -89,8 +89,14 @@ const riskAssessment = props => {
                        inputPosition={classes.Owner}/>
                 <Button clicked={props.add} 
                         btnType="Submit" 
-                        btnPosition={classes.SubmitPosition}>
+                        btnPosition={classes.SubmitPosition}
+                        disabled={props.disabled}>
                         Dodaj ocenę
+                </Button>
+                <Button clicked={props.save}
+                        btnType="Submit"
+                        btnPosition={classes.SavePosition}>
+                        Zapisz kopię roboczą    
                 </Button>
                 <Button clicked={props.cancel} 
                         btnType="Cancel" 

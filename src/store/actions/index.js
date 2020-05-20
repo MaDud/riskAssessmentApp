@@ -12,4 +12,5 @@ export {inputHandler,
         hazardInputHandler,
         cleanData,
         saveData,
-        saveRiskAssessment} from './riskAssessmentCreations'
+        saveRiskAssessment,
+        check} from './riskAssessmentCreations'

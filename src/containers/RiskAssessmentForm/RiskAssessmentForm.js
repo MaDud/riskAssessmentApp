@@ -19,14 +19,14 @@ class RiskAssessmentForm extends React.Component {
     cleanChanges = (event, id) => {
         event.preventDefault();
         this.props.cleanData(id);
-        this.props.hazardSwitch(id)
+        this.props.check()
     }
 
     //zapisywanie zmian
     saveChanges= (event, id) => {
         event.preventDefault();
         this.props.saveData(id);
-        this.props.hazardSwitch(id)
+        this.props.check()
     }
 
     //dodawanie nowej oceny ryzyka do bazy
@@ -108,6 +108,7 @@ class RiskAssessmentForm extends React.Component {
             <Auxiliary>
                 <RiskAssessment
                     change={e => this.props.dataInputHandler(e)}
+                    disabled={!this.props.valid}
                     add={e => this.addNew(e)}
                     cancel={e => this.discardChanges(e)}>
                     {hazardIdentyfication}
@@ -121,7 +122,8 @@ const mapStateToProps = state => {
     return {
         riskAssessment: state.riskAssessment.assessmentData,
         hazardList: state.riskAssessment.hazardList,
-        status: state.riskAssessment.status
+        status: state.riskAssessment.status,
+        valid: state.riskAssessment.isValid
     }
 };
 
@@ -134,7 +136,8 @@ const mapDispatchToProps = dispatch => {
         saveData: (e,id) => dispatch(action.saveData(e,id)),
         hazardInputHandler: (e,id) => dispatch(action.hazardInputHandler(e,id)),
         addNew: data => dispatch(action.addNew(data)),
-        saveRiskAssessment: () => dispatch(action.saveRiskAssessment())
+        saveRiskAssessment: () => dispatch(action.saveRiskAssessment()),
+        check: () => dispatch(action.check())
     }
 }
 

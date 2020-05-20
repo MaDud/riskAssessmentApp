@@ -13,6 +13,10 @@ const initialState = {
                     reviewDate: null,
                     owner: null},
     hazardList: null,
+    validity: {
+            requiredHazards: 2,
+            hazardsValidity: false,
+            dataValidity: false},
     status: 'draft',
     error: false,
 };
@@ -24,7 +28,7 @@ const riskAssessment = (state=initialState, action) => {
             return {
                 ...state,
                 assessmentData: {...state.assessmentData,
-                                [action.data]: action.value}
+                                [action.data]: action.value},
             }
         case actionTypes.SET_HAZARDS:
             return {
@@ -68,8 +72,10 @@ const riskAssessment = (state=initialState, action) => {
                                 propability: "",
                                 clean: true,
                                 save: false,
-                                valid: false
-                                }}
+                                valid: false,
+                                checked: !state.hazardList[action.id].checked
+                                },
+                            }
             }
         case actionTypes.SAVE_DATA:
             let valid = false;
@@ -87,7 +93,22 @@ const riskAssessment = (state=initialState, action) => {
                             [action.id]: {...state.hazardList[action.id],
                                         clean: false,
                                         save: true,
-                                        valid: valid}}
+                                        valid: valid,
+                                        checked: !state.hazardList[action.id].checked}}
+            }
+        case actionTypes.CHECK:
+            let count = 0;
+            for (let el in state.hazardList) {
+                if (state.hazardList[el].save && state.hazardList[el].valid) {
+                    count += 1
+                }
+            }
+            return {
+                ...state,
+                validity: {
+                        ...state.validity,
+                        hazardsValidity: count >= state.validity.requiredHazards
+                }
             }
         case actionTypes.HAZARD_INPUT_HANDLER:
             return {

@@ -66,6 +66,12 @@ export const saveData = (id) => {
     }
 }
 
+export const check = () => {
+    return {
+        type: actionTypes.CHECK
+    }
+}
+
 export const hazardInputHandler = (event,id) => {
     return {
         type: actionTypes.HAZARD_INPUT_HANDLER,
@@ -80,3 +86,4 @@ export const saveRiskAssessment = () => {
         type: actionTypes.SAVE_RISK_ASSESSMENT
     }
 }
+

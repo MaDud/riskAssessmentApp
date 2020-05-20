@@ -21,26 +21,8 @@
                          "label-6       label-6     label-6     label-6     label-6     label-6"
                          "textarea-6    textarea-6  textarea-6  textarea-6  textarea-6  textarea-6"
                          "label-71      input-71    space2      space2      label-72    input-72"
-                         "btn           btn         btn         add         add         cancel"                          
+                         "btn           btn         btn         add         save        cancel"                          
 }
-
-/* .RiskAssessmen .Label {
-    text-transform: uppercase;
-} */
-
-/* .RiskAssessment input, textarea {
-    border: solid 1px #77838f;
-    border-radius: 4px;
-    opacity: 0.6;
-}
-
-.RiskAssessment input {
-    height: 2rem;
-}
-
-.RiskAssessment textarea {
-    height: 5rem;
-} */
 
 .RiskAssessment h1 {
     display: block;
@@ -151,6 +133,10 @@
     grid-area: cancel;
 }
 
+.SavePosition {
+    grid-area: save
+}
+
 @media (max-width: 500px) {
     .RiskAssessment {
         width: 80%;
@@ -174,6 +160,7 @@
                              "label-71   input-71"       
                              "label-72   input-72"
                              "add        add"
+                             "save       save"
                              "cancel     cancel";
     }
 }

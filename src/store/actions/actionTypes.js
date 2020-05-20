@@ -32,10 +32,10 @@ export const INPUT_HANDLER = 'INPUT_HANDLER';
 
 export const SET_HAZARDS = 'SET_HAZARDS';
 export const FETCH_HAZARDS_ERROR = 'FETCH_HAZARDS_ERROR';
-
 export const HAZARD_SWITCH = 'HAZARD_SWITCH';
 export const CLEAN_DATA = 'CLEAN_DATA';
 export const SAVE_DATA = 'SAVE_DATA';
+export const CHECK = 'CHECK';
 export const HAZARD_INPUT_HANDLER = 'HAZARD_INPUT_HANDLER';
 export const SAVE_RISK_ASSESSMENT = 'SAVE_RISK_ASSESSMENT';
 
