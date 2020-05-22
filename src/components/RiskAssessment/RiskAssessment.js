@@ -26,7 +26,8 @@ const riskAssessment = props => {
                        changed={props.change}
                        id='version'
                        inputPosition={classes.Version}
-                       value={props.version}/>
+                       value={props.version}
+                       disabled/>
                 <Input for='date'
                        labelPosition={classes.LabelDate}
                        label='Data sporządzenia:'
@@ -35,7 +36,8 @@ const riskAssessment = props => {
                        id='date'
                        inputPosition={classes.Date}
                        type='date'
-                       value={props.date}/>
+                       value={props.date}
+                       disabled/>
                 <Input for='team'
                        labelPosition={classes.LabelTeam}
                        label='Zespół sprządzający:'
