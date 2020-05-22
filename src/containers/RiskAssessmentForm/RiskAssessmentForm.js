@@ -115,8 +115,18 @@ class RiskAssessmentForm extends React.Component {
                     change={e => this.dataHandler(e)}
                     disabled={!(this.props.valid.hazardsValidity && this.props.valid.dataValidity)}
                     add={e => this.addNew(e)}
-                    cancel={e => this.discardChanges(e)}>
-                    {hazardIdentyfication}
+                    cancel={e => this.discardChanges(e)}
+                    number={this.props.riskAssessment.number}
+                    version={this.props.riskAssessment.version}
+                    date={this.props.riskAssessment.date}
+                    team={this.props.riskAssessment.team}
+                    position={this.props.riskAssessment.position}
+                    localization={this.props.riskAssessment.localization}
+                    description={this.props.riskAssessment.description}
+                    notice={this.props.riskAssessment.notice}
+                    reviewDate={this.props.riskAssessment.reviewDate}
+                    owner={this.props.riskAssessment.owner}>
+                        {hazardIdentyfication}
                 </RiskAssessment>
             </Auxiliary>
         )
