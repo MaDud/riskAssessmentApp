@@ -43,7 +43,8 @@ class RiskAssessmentForm extends React.Component {
             newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
         }
 
-        const data = {assessmentData : this.props.riskAssessment, hazardList: newHazardList, status: 'active'}
+        const data = {};
+        data[this.props.riskAssessment.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList, status: 'active'}
         this.props.addNew(data)
 
         this.props.history.push('/userPanel')
