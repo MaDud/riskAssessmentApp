@@ -12,7 +12,7 @@ class RiskAssessmentForm extends React.Component {
 
     //pobieranie zagrożeń z bazy danych i dodawanie ich do state
     componentDidMount () {
-            this.props.initHazardsList()
+        this.props.initHazardsList()
     }
 
     //czyszczenie zapisanych danych
@@ -41,9 +41,10 @@ class RiskAssessmentForm extends React.Component {
             newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
         }
 
-        const data = {status: 'active', number: this.props.assessmentData.number};
-        data[this.props.riskAssessment.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList}
-        this.props.addNew(data)
+        const data = {status: 'active', number: this.props.mainData.number};
+        data[this.props.mainData.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList}
+        this.props.addNew(data);
+        this.props.cleanState();
 
         this.props.history.push('/userPanel')
     }
@@ -115,8 +116,8 @@ class RiskAssessmentForm extends React.Component {
                     disabled={!(this.props.valid.hazardsValidity && this.props.valid.dataValidity)}
                     add={e => this.addNew(e)}
                     cancel={e => this.discardChanges(e)}
-                    number={this.props.riskAssessment.number}
-                    version={this.props.riskAssessment.version}
+                    number={this.props.mainData.number}
+                    version={this.props.mainData.version}
                     date={this.props.riskAssessment.date}
                     team={this.props.riskAssessment.team}
                     position={this.props.riskAssessment.position}
@@ -134,9 +135,9 @@ class RiskAssessmentForm extends React.Component {
 
 const mapStateToProps = state => {
     return {
+        mainData: state.riskAssessment,
         riskAssessment: state.riskAssessment.assessmentData,
         hazardList: state.riskAssessment.hazardList,
-        status: state.riskAssessment.status,
         valid: state.riskAssessment.validity
     }
 };
@@ -151,7 +152,8 @@ const mapDispatchToProps = dispatch => {
         hazardInputHandler: (e,id) => dispatch(action.hazardInputHandler(e,id)),
         addNew: data => dispatch(action.addNew(data)),
         check: () => dispatch(action.check()),
-        checkData: () => dispatch(action.checkData())
+        checkData: () => dispatch(action.checkData()),
+        cleanState: () => dispatch(action.cleanState())
     }
 }
 

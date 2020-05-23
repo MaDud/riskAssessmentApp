@@ -87,5 +87,9 @@ export const hazardInputHandler = (event,id) => {
     }
 }
 
-
+export const cleanState = () => {
+    return {
+        type: actionTypes.CLEAN_STATE
+    }
+}
 

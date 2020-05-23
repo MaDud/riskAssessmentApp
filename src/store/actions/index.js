@@ -14,5 +14,6 @@ export {inputHandler,
         cleanData,
         saveData,
         check,
-        checkData
+        checkData,
+        cleanState
 } from './riskAssessmentCreations'

@@ -40,5 +40,6 @@
     //sprawdzanie i zapisywanie danych
     export const CHECK = 'CHECK';
     export const CHECK_DATA = 'CHECK_DATA';
-    
+    //czyszczenie stanu
+    export const CLEAN_STATE = 'CLEAN_STATE';
 
