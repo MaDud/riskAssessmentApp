@@ -160,8 +160,10 @@ export const initHazardList = () => {
             let activeCount = 0;
             let reviewCount = 0;
             let overdueCount = 0;
-            let timer = 3000/Math.max(active, review, overdue);
-            console.log(timer)
+            let timer = 0;
+            if (active !== 0) {
+                timer = 3000/Math.max(active, review, overdue)
+            };
             const interval = dispatch(setInterval( () => {
                 if (activeCount < active) {
                     activeCount += 1;
