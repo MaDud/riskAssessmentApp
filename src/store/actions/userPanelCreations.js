@@ -66,7 +66,8 @@ export const addNew = data => {
         instance.post('/riskAssessment.json',data)
         .then(response => {
             const id = response.data.name;
-            const assessmentData = data.assessmentData
+            const key = Object.keys(data);
+            const assessmentData = data[key].assessmentData;
             const userPanel = {no: Number(assessmentData.number),
                                 position: assessmentData.position,
                                 owner: assessmentData.owner,
