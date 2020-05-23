@@ -57,6 +57,8 @@ class RiskAssessmentForm extends React.Component {
     //anulowanie dodawania do bazy
     discardChanges = e => {
         e.preventDefault();
+        this.props.cleanState();
+        this.props.history.push('/userPanel')
     }
 
     //generowanie formularza po kliknięciu przycisku
