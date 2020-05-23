@@ -17,7 +17,6 @@ const initialState = {
             requiredHazards: 2,
             hazardsValidity: false,
             dataValidity: false},
-    status: 'draft',
     error: false,
 };
 
@@ -54,7 +53,6 @@ const riskAssessment = (state=initialState, action) => {
             const month = date.getMonth();
             const day = date.getDate();
             const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
-            console.log(reviewDate)
             return {
                 ...state,
                 assessmentData: {
@@ -142,11 +140,6 @@ const riskAssessment = (state=initialState, action) => {
                                         [action.name]: action.value,
                                         clean: false
                                         }}
-            }
-        case actionTypes.SAVE_RISK_ASSESSMENT:
-            return {
-                ...state,
-                status: 'active'
             }
         default:
             return state

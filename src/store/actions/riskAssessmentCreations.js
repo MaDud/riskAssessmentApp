@@ -87,9 +87,5 @@ export const hazardInputHandler = (event,id) => {
     }
 }
 
-export const saveRiskAssessment = () => {
-    return {
-        type: actionTypes.SAVE_RISK_ASSESSMENT
-    }
-}
+
 

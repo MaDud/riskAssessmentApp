@@ -33,17 +33,15 @@ class RiskAssessmentForm extends React.Component {
     addNew = e => {
         e.preventDefault();
 
-        this.props.saveRiskAssessment();
-
         let hazards = Object.keys(this.props.hazardList).filter(el => {
-            return this.props.hazardList[el].save
+            return this.props.hazardList[el].save && this.props.hazardList[el].valid
         })
         let newHazardList = {}
         for (let el in hazards) {
             newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
         }
 
-        const data = {};
+        const data = {status: 'active'};
         data[this.props.riskAssessment.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList, status: 'active'}
         this.props.addNew(data)
 

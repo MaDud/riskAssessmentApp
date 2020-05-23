@@ -27,9 +27,12 @@
     //wprowadzanie danych
     export const INPUT_HANDLER = 'INPUT_HANDLER';
     export const HAZARD_INPUT_HANDLER = 'HAZARD_INPUT_HANDLER';
-    //pobieranie danych z bazy
+    //pobieranie danych z bazy - lista zagrożeń
     export const SET_HAZARDS = 'SET_HAZARDS';
     export const FETCH_HAZARDS_ERROR = 'FETCH_HAZARDS_ERROR';
+    //pobieranie danych z bazy - numer oceny ryzyka
+    export const SET_NUMBER = 'SET_NUMBER';
+    export const FECTH_NUMBER_ERROR = 'FETCH_NUMBER_ERROR';
     //sterowanie zagrożeniami
     export const HAZARD_SWITCH = 'HAZARD_SWITCH';
     export const CLEAN_DATA = 'CLEAN_DATA';
@@ -37,5 +40,5 @@
     //sprawdzanie i zapisywanie danych
     export const CHECK = 'CHECK';
     export const CHECK_DATA = 'CHECK_DATA';
-    export const SAVE_RISK_ASSESSMENT = 'SAVE_RISK_ASSESSMENT';
+    
 
