@@ -41,8 +41,8 @@ class RiskAssessmentForm extends React.Component {
             newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
         }
 
-        const data = {status: 'active'};
-        data[this.props.riskAssessment.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList, status: 'active'}
+        const data = {status: 'active', number: this.props.assessmentData.number};
+        data[this.props.riskAssessment.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList}
         this.props.addNew(data)
 
         this.props.history.push('/userPanel')
@@ -150,7 +150,6 @@ const mapDispatchToProps = dispatch => {
         saveData: (e,id) => dispatch(action.saveData(e,id)),
         hazardInputHandler: (e,id) => dispatch(action.hazardInputHandler(e,id)),
         addNew: data => dispatch(action.addNew(data)),
-        saveRiskAssessment: () => dispatch(action.saveRiskAssessment()),
         check: () => dispatch(action.check()),
         checkData: () => dispatch(action.checkData())
     }

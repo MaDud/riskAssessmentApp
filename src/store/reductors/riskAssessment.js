@@ -1,16 +1,22 @@
 import * as actionTypes from '../actions/actionTypes';
 
+const date = new Date();
+const year = date.getFullYear() + 1;
+const month = date.getMonth();
+const day = date.getDate();
+const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
+
 const initialState = {
+    number: '',
+    version: '',
     assessmentData: {
-                    number:'',
-                    version: '',
-                    date:'',
+                    date: new Date().toISOString().substring(0,10),
                     team: '',
                     position: '',
                     localization: '',
                     description: '',
                     notice: '',
-                    reviewDate: '',
+                    reviewDate: reviewDate,
                     owner: ''},
     hazardList: null,
     validity: {
@@ -48,24 +54,8 @@ const riskAssessment = (state=initialState, action) => {
                 }
             }
         case actionTypes.SET_HAZARDS:
-            const date = new Date();
-            const year = date.getFullYear() + 1;
-            const month = date.getMonth();
-            const day = date.getDate();
-            const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
             return {
                 ...state,
-                assessmentData: {
-                    number: '',
-                    version: 0,
-                    date: date.toISOString().substring(0, 10),
-                    team: '',
-                    position: '',
-                    localization: '',
-                    description: '',
-                    notice: '',
-                    reviewDate: reviewDate,
-                    owner: ''},
                 hazardList: action.hazardList,
                 error: false
             }

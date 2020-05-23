@@ -13,7 +13,6 @@ export {inputHandler,
         hazardInputHandler,
         cleanData,
         saveData,
-        saveRiskAssessment,
         check,
         checkData
 } from './riskAssessmentCreations'
