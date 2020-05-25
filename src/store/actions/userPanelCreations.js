@@ -66,15 +66,13 @@ export const addNew = data => {
         instance.post('/riskAssessment.json',data)
         .then(response => {
             const id = response.data.name;
-            const key = Object.keys(data);
-            const assessmentData = data[key].assessmentData;
-            const userPanel = {no: Number(assessmentData.number),
+            const assessmentData = data[0].assessmentData;
+            const userPanel = {no: Number(data.number),
                                 position: assessmentData.position,
                                 owner: assessmentData.owner,
                                 status: data.status,
                                 review: false,
                                 overdue: false}
-            
             dispatch(fetchAddSuccess(id,userPanel))
         })
         .catch(error => dispatch(fetchAddFail()))
