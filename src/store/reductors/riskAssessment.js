@@ -64,6 +64,17 @@ const riskAssessment = (state=initialState, action) => {
                 ...state,
                 error: true
             }
+        case actionTypes.SET_NUMBER:
+            return {
+                ...state,
+                number: action.number,
+                error: false
+            }
+        case actionTypes.FETCH_NUMBER_ERROR:
+            return {
+                ...state,
+                error: true
+            }
         case actionTypes.HAZARD_SWITCH:
             return {
                 ...state,

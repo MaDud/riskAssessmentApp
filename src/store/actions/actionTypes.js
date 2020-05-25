@@ -32,7 +32,7 @@
     export const FETCH_HAZARDS_ERROR = 'FETCH_HAZARDS_ERROR';
     //pobieranie danych z bazy - numer oceny ryzyka
     export const SET_NUMBER = 'SET_NUMBER';
-    export const FECTH_NUMBER_ERROR = 'FETCH_NUMBER_ERROR';
+    export const FETCH_NUMBER_ERROR = 'FETCH_NUMBER_ERROR';
     //sterowanie zagrożeniami
     export const HAZARD_SWITCH = 'HAZARD_SWITCH';
     export const CLEAN_DATA = 'CLEAN_DATA';

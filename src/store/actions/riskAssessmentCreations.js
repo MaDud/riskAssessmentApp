@@ -51,6 +51,30 @@ export const initHazardsList = () => {
     }
 }
 
+export const setNumber = (number) => {
+    return {
+        type: actionTypes.SET_NUMBER,
+        number: number
+    }
+}
+
+export const fetchNumberError = () => {
+    return {
+        type: actionTypes.FETCH_NUMBER_ERROR
+    }
+}
+
+export const initNumber = () => {
+    return dispatch => {
+        instance.get('/prevNumber.json')
+        .then(response => {
+            dispatch(setNumber(response.data + 1))
+        })
+        .catch(error => {
+            dispatch(fetchNumberError())
+        })
+}}
+
 export const hazardSwitch = (id) => {
     return {
         type: actionTypes.HAZARD_SWITCH,

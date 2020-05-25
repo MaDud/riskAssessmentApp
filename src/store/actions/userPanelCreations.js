@@ -67,6 +67,7 @@ export const addNew = data => {
         .then(response => {
             const id = response.data.name;
             const assessmentData = data[0].assessmentData;
+            console.log(assessmentData)
             const userPanel = {no: Number(data.number),
                                 position: assessmentData.position,
                                 owner: assessmentData.owner,

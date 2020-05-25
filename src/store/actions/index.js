@@ -9,6 +9,7 @@ export {changeView,
 
 export {inputHandler,
         initHazardsList,
+        initNumber,
         hazardSwitch,
         hazardInputHandler,
         cleanData,
