@@ -1,6 +1,12 @@
 import * as actionTypes from './actionTypes';
 import instance from '../../instance';
 
+export const clearUserPanel = () => {
+    return {
+        type: actionTypes.CLEAR_SORT_PANEL
+    }
+}
+
 export const changeView = (e) => {
     e.preventDefault();
     return {

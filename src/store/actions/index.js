@@ -1,4 +1,5 @@
-export {changeView,
+export {clearUserPanel,
+        changeView,
         searchValue,
         search,
         changePage,

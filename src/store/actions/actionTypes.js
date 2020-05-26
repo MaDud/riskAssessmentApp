@@ -1,5 +1,6 @@
 //UserPanel
-
+    //czyszczenie sortowania i typu wyświetlanych danych
+    export const CLEAR_SORT_PANEL = 'CLEAR_SORT_PANEL';
     //zmiana strony
     export const CHANGE_PAGE_VIEW = 'CHANGE_PAGE_VIEW';
     //wyszukiwanie

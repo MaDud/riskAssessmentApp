@@ -21,6 +21,7 @@ class UserPanel extends React.Component {
         this.props.initHazardList()}
     
     addNew = () => {
+        this.props.clearUserPanel();
         this.props.history.push('/')
     }
     
@@ -109,7 +110,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        changeView: (event) => dispatch (action.changeView(event)),
+        clearUserPanel: () => dispatch(action.clearUserPanel()),
+        changeView: (event) => dispatch(action.changeView(event)),
         searchBtn: () => dispatch(action.search()),
         clearSearch: () => dispatch({type: 'CLEAR_SEARCH'}),
         searchValue: (searchValue) => dispatch(action.searchValue(searchValue)),

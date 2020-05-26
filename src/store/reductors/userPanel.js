@@ -9,8 +9,7 @@ const initialState = {
     sorted: {id: 'number',
             sortType: 'asc',
             sort: true},
-    statistic: 
-            {active: 0, 
+    statistic: {active: 0, 
             review: 0, 
             overdue: 0},
     assessmentsList: {},
@@ -20,6 +19,20 @@ const initialState = {
 const userPanel = (state = initialState, action) => {
 
     switch (action.type) {
+        case actionTypes.CLEAR_SORT_PANEL:
+            return {
+                ...state,
+                search: {searchValue: "",
+                        searchField: false},
+                pagination: {...state.pagination,
+                            page: 1,},
+                sorted: {...state.sorted,
+                        id: 'number',
+                        sortType: 'asc'},
+                statistic: {active: 0, 
+                            review: 0, 
+                            overdue: 0},
+            }
         case actionTypes.CHANGE_PAGE_VIEW:
             return {
                 ...state,
