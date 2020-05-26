@@ -12,7 +12,11 @@
     //dodawanie nowej oceny do bazy
     export const ADD_INIT = 'ADD_INIT';
     export const FETCH_ADD_SUCCESS = 'FETCH_ADD_SUCCESS';
-    export const FETCH_ADD_FAIL = 'FETCH_ADD_FAIL'
+    export const FETCH_ADD_FAIL = 'FETCH_ADD_FAIL';
+    //dodawanie nowego numer do bazy
+    export const NUMBER_UPDATE_INIT = 'NUMBER_UPDATE_INIT';
+    export const FETCH_NUMBER_UPDATE_SUCCESS = 'FETCH_NUMBER_UPDATE_SUCCESS';
+    export const FETCH_NUMBER_UPDATE_ERROR = 'FETCH_NUMBER_UPDATE_ERROR';
     //pobieranie danych z bazy
     export const HAZARD_LIST_INIT = 'HAZARD_LIST_INIT';
     export const FETCH_HAZARD_LIST_SUCCESS = 'FETCH_HAZARD_LIST_SUCCESS';

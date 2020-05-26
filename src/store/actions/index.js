@@ -4,6 +4,7 @@ export {changeView,
         changePage,
         sortData,
         addNew,
+        updateNumber,
         initHazardList
 } from './userPanelCreations';
 

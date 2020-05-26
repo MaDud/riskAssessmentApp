@@ -80,6 +80,34 @@ export const addNew = data => {
     }
 }
 
+//zapisywanie nowego numeru w bazie
+export const numberUpdateInit = () => {
+    return {
+        type: actionTypes.NUMBER_UPDATE_INIT,
+    }
+}
+
+export const fetchNumberUpdateSuccess = () => {
+    return {
+        type: actionTypes.FETCH_NUMBER_UPDATE_SUCCESS
+    }
+}
+
+export const fetchNumberUpdateError = () => {
+    return {
+        type: actionTypes.FETCH_NUMBER_UPDATE_ERROR
+    }
+}
+
+export const updateNumber = (number) => {
+    return dispatch => {
+        dispatch(numberUpdateInit());
+        instance.put('/prevNumber.json', number)
+        .then(response => dispatch(fetchNumberUpdateSuccess()))
+        .catch(error => dispatch(fetchNumberUpdateError()))
+    }
+}
+
 //pobieranie danych z bazy
 export const hazardListInit = () => {
     return {
