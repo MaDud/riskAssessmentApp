@@ -66,8 +66,7 @@ export const addNew = data => {
         instance.post('/riskAssessment.json',data)
         .then(response => {
             const id = response.data.name;
-            const assessmentData = data[0].assessmentData;
-            console.log(assessmentData)
+            const assessmentData = data.version[0].assessmentData;
             const userPanel = {no: Number(data.number),
                                 position: assessmentData.position,
                                 owner: assessmentData.owner,
@@ -160,14 +159,14 @@ export const initHazardList = () => {
             let overdue = 0;
                 
             for (let id in data) {
-
-                const target = data[id].assessmentData;
-                const reviewDate = new Date(target.reviewDate);
-                const timeDiffrence= reviewDate-date;
-                const days= Math.floor(timeDiffrence/(1000 * 60 * 60 * 24));
                 
                 if (data[id].status === 'active') {
-                    values[id] = {no: Number(target.number),
+                    const active_version = data[id].version.length -1;
+                    const target = data[id].version[active_version].assessmentData;
+                    const reviewDate = new Date(target.reviewDate);
+                    const timeDiffrence= reviewDate-date;
+                    const days= Math.floor(timeDiffrence/(1000 * 60 * 60 * 24));
+                    values[id] = {no: Number(data[id].number),
                             position: target.position,
                             owner: target.owner,
                             nextReview: reviewDate,

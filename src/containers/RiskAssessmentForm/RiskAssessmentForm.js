@@ -43,8 +43,9 @@ class RiskAssessmentForm extends React.Component {
         for (let el in hazards) {
             newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
         }
-        const data = {status: 'active', number: this.props.mainData.number};
-        data[this.props.mainData.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList}
+        let version_number = {};
+        version_number[this.props.mainData.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList};
+        const data = {status: 'active', number: this.props.mainData.number, version: version_number};
         this.props.addNew(data);
         this.props.cleanState();
 
