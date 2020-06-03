@@ -34,8 +34,6 @@ class RiskAssessmentForm extends React.Component {
     addNew = e => {
         e.preventDefault();
 
-        this.props.updateNumber(this.props.mainData.number);
-
         let hazards = Object.keys(this.props.hazardList).filter(el => {
             return this.props.hazardList[el].save && this.props.hazardList[el].valid
         })
@@ -157,7 +155,6 @@ const mapDispatchToProps = dispatch => {
         saveData: (e,id) => dispatch(action.saveData(e,id)),
         hazardInputHandler: (e,id) => dispatch(action.hazardInputHandler(e,id)),
         addNew: data => dispatch(action.addNew(data)),
-        updateNumber: number => dispatch(action.updateNumber(number)),
         check: () => dispatch(action.check()),
         checkData: () => dispatch(action.checkData()),
         cleanState: () => dispatch(action.cleanState())

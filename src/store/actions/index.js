@@ -5,7 +5,6 @@ export {clearUserPanel,
         changePage,
         sortData,
         addNew,
-        updateNumber,
         initHazardList
 } from './userPanelCreations';
 

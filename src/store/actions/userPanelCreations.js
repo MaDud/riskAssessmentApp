@@ -69,9 +69,11 @@ export const fetchAddFail = () => {
 export const addNew = data => {
     return dispatch => {
         dispatch(addInit());
-        instance.post('/riskAssessment.json',data)
+        Promise.all([instance.post('/riskAssessment.json', data),
+                    instance.put('/prevNumber.json', data.number)])        
         .then(response => {
-            const id = response.data.name;
+            console.log(response);
+            const id = response[0].data.name;
             const assessmentData = data.version[0].assessmentData;
             const userPanel = {no: Number(data.number),
                                 position: assessmentData.position,
@@ -81,35 +83,8 @@ export const addNew = data => {
                                 overdue: false}
             dispatch(fetchAddSuccess(id,userPanel))
         })
-        .catch(error => dispatch(fetchAddFail()))
-    }
-}
-
-//zapisywanie nowego numeru w bazie
-export const numberUpdateInit = () => {
-    return {
-        type: actionTypes.NUMBER_UPDATE_INIT,
-    }
-}
-
-export const fetchNumberUpdateSuccess = () => {
-    return {
-        type: actionTypes.FETCH_NUMBER_UPDATE_SUCCESS
-    }
-}
-
-export const fetchNumberUpdateError = () => {
-    return {
-        type: actionTypes.FETCH_NUMBER_UPDATE_ERROR
-    }
-}
-
-export const updateNumber = (number) => {
-    return dispatch => {
-        dispatch(numberUpdateInit());
-        instance.put('/prevNumber.json', number)
-        .then(response => dispatch(fetchNumberUpdateSuccess()))
-        .catch(error => dispatch(fetchNumberUpdateError()))
+        .catch(error => {
+            dispatch(fetchAddFail())})
     }
 }
 
@@ -188,8 +163,9 @@ export const initHazardList = () => {
                     if (values[id].overdue) {
                         overdue += 1
                     }
-            }}
-            dispatch(fetchHazardListSuccess(values))
+            }};
+            dispatch(fetchHazardListSuccess(values));
+
             let activeCount = 0;
             let reviewCount = 0;
             let overdueCount = 0;
@@ -197,7 +173,7 @@ export const initHazardList = () => {
             if (active !== 0) {
                 timer = 3000/Math.max(active, review, overdue)
             };
-            const interval = dispatch(setInterval( () => {
+            const interval = setInterval( () => {
                 if (activeCount < active) {
                     activeCount += 1;
                     dispatch(countUpActive())
@@ -210,12 +186,14 @@ export const initHazardList = () => {
                     overdueCount += 1;
                     dispatch(countUpOverdue())
                 }
-            }, timer));
-            interval()
+            }, timer);
+
             if(activeCount === active && reviewCount === review && overdueCount === overdue) {
-                dispatch(clearInterval(interval))
+                clearInterval(interval)
             }
-        }).catch(error => dispatch(fetchHazardListFail()))
+        }).catch(error => {
+            console.log(error);
+            dispatch(fetchHazardListFail())})
     }
 }
 

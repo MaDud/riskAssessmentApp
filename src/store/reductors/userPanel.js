@@ -108,21 +108,6 @@ const userPanel = (state = initialState, action) => {
                 ...state,
                 loading: false,
             }
-        case actionTypes.NUMBER_UPDATE_INIT:
-            return {
-                ...state,
-                loading: true
-            }
-        case actionTypes.FETCH_NUMBER_UPDATE_SUCCESS:
-            return {
-                ...state,
-                loading: false
-            }
-        case actionTypes.FETCH_NUMBER_UPDATE_ERROR:
-            return {
-                ...state,
-                loading:false
-            }
         case actionTypes.HAZARD_LIST_INIT:
             return {
                 ...state,
