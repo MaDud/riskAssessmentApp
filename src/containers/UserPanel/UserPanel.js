@@ -7,6 +7,7 @@ import * as action from '../../store/actions/index';
 import Auxiliary from '../../hoc/Auxiliary';
 import ErrorBoundaries from '../../hoc/ErrorBoundaries/ErrorBoundaries';
 import Table from '../../components/UI/Table/Table';
+import Modal from '../../components/UI/Modal/Modal';
 import Statistic from '../../components/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
 import Search from '../../components/UI/Search/Search';
@@ -17,12 +18,25 @@ const tableHeads = [{label:'Numer', id:'number'},
 
 class UserPanel extends React.Component {
 
+    state = {
+        show: false
+    }
+
     componentDidMount () {
         this.props.initHazardList()}
     
     addNew = () => {
         this.props.clearUserPanel();
         this.props.history.push('/')
+    }
+
+    seeRow = e => {
+        console.log(e.target.parentElement.id);
+        this.setState({show:true})
+    }
+
+    closeModal = () => {
+        this.setState({show:false})
     }
     
     render () {
@@ -59,6 +73,8 @@ class UserPanel extends React.Component {
 
         return (
             <Auxiliary>
+                <Modal show={this.state.show}
+                        clicked={this.closeModal}/>
                 <ErrorBoundaries>
                     <Statistic matric={this.props.statistic}
                             clicked={(e) => this.props.changeView(e)}
@@ -76,7 +92,8 @@ class UserPanel extends React.Component {
                             value={this.props.search.searchValue}
                             closeSearch={this.props.clearSearch}
                             changeSearch={this.props.searchBtn}
-                            active={this.props.search.searchField} />
+                            active={this.props.search.searchField}
+                     />
                 </div>
                 <ErrorBoundaries>
                     <Table table={classes.Table}
@@ -88,7 +105,7 @@ class UserPanel extends React.Component {
                         changePage={this.props.changePage}
                         page={this.props.pagination.page}
                         range={this.props.pagination.range}
-                        
+                        view={(e) => this.seeRow(e)}
                     />
                 </ErrorBoundaries>
             </Auxiliary>

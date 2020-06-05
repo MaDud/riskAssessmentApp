@@ -1,21 +1,19 @@
 import React from 'react';
-import classes from './modal.modula.css';
+import classes from './modal.module.css';
 import Auxiliary from '../../../hoc/Auxiliary';
 import Backdrop from '../Backdrop/Backdrop';
-import classes from '*.module.css';
 
 class Modal extends React.Component {
 
     shouldComponentUpdate (nextProps, nextState) {
-        console.log('nextProps', nextProps.show);
-        console.log('props', this.props.show)
         return this.props.show !== nextProps.show
     }
     
     render () {
         return (
             <Auxiliary>
-                <Backdrop show={this.props.show}/>
+                <Backdrop show={this.props.show}
+                            clicked={this.props.clicked}/>
                 <div className={classes.Modal}
                     style={{
                         opacity: this.props.show ? '1':'0',
@@ -28,4 +26,4 @@ class Modal extends React.Component {
     }
 }
 
-export default modal;
+export default Modal;

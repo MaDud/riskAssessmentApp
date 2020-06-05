@@ -10,10 +10,6 @@
     font-weight: normal;
 }
 
-.Table td {
-    pointer-events: none;
-}
-
 .Head {
     display: flex;
     pointer-events: none;
