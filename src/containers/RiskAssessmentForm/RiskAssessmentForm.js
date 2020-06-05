@@ -2,7 +2,7 @@ import React from 'react';
 
 import Auxiliary from '../../hoc/Auxiliary';
 import ErrorBoundaries from '../../hoc/ErrorBoundaries/ErrorBoundaries';
-import RiskAssessment from '../../components/RiskAssessment/RiskAssessment';
+import RiskAssessmentGeneralInfo from '../../components/RiskAssessment/RiskAssessmentGeneralInfo/RiskAssessmentGeneralInfo';
 import HazardIdentyfication from '../../components/RiskAssessment/HazardIdentyfication/HazardIdentyfication';
 import HazardForm from '../../components/RiskAssessment/HazardIdentyfication/HazardForm/HazardForm';
 import { connect } from 'react-redux';
@@ -114,7 +114,7 @@ class RiskAssessmentForm extends React.Component {
 
         return (
             <Auxiliary>
-                <RiskAssessment
+                <RiskAssessmentGeneralInfo
                     change={e => this.dataHandler(e)}
                     disabled={!(this.props.valid.hazardsValidity && this.props.valid.dataValidity)}
                     add={e => this.addNew(e)}
@@ -130,7 +130,7 @@ class RiskAssessmentForm extends React.Component {
                     reviewDate={this.props.riskAssessment.reviewDate}
                     owner={this.props.riskAssessment.owner}>
                         {hazardIdentyfication}
-                </RiskAssessment>
+                </RiskAssessmentGeneralInfo>
             </Auxiliary>
         )
     }

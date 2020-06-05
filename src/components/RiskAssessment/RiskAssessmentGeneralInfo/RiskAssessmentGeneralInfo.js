@@ -1,10 +1,10 @@
 import React from 'react';
 
-import classes from './riskAssessment.module.css';
+import classes from './riskAssessmentGeneralInfo.module.css';
 
-import Auxiliary from '../../hoc/Auxiliary';
-import Button from '../UI/Button/Button';
-import Input from '../UI/Input/Input';
+import Auxiliary from '../../../hoc/Auxiliary';
+import Button from '../../UI/Button/Button';
+import Input from '../../UI/Input/Input';
 
 const riskAssessment = props => {
     return(
