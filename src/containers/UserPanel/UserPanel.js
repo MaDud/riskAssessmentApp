@@ -11,6 +11,7 @@ import Modal from '../../components/UI/Modal/Modal';
 import Statistic from '../../components/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
 import Search from '../../components/UI/Search/Search';
+import RiskAssessmentNav from '../../components/RiskAssessmentOutput/RiskAssessmentNav/RiskAssessmentNav';
 
 const tableHeads = [{label:'Numer', id:'number'},
                     {label: 'Nazwa stanowiska', id: 'position'}, 
@@ -74,7 +75,9 @@ class UserPanel extends React.Component {
         return (
             <Auxiliary>
                 <Modal show={this.state.show}
-                        clicked={this.closeModal}/>
+                        clicked={this.closeModal}>
+                        <RiskAssessmentNav/>
+                </Modal>
                 <ErrorBoundaries>
                     <Statistic matric={this.props.statistic}
                             clicked={(e) => this.props.changeView(e)}
