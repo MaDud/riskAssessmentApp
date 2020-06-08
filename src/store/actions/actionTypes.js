@@ -43,4 +43,7 @@
     export const CHECK_DATA = 'CHECK_DATA';
     //czyszczenie stanu
     export const CLEAN_STATE = 'CLEAN_STATE';
-
+    //pobieranie danych dla użytkownika 
+    export const SET_ID = 'SET_ID';
+    export const FETCH_RA_SUCCESS = 'FETCH_RA_SUCCESS';
+    export const FETCH_RA_FAIL= 'FETCH_RA_FAIL'

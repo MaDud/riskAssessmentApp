@@ -12,6 +12,7 @@ import Statistic from '../../components/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
 import Search from '../../components/UI/Search/Search';
 import RiskAssessmentNav from '../../components/RiskAssessmentOutput/RiskAssessmentNav/RiskAssessmentNav';
+import RiskAssessmentOutput from '../RiskAssessmentOutput/RiskAssessmentOutput';
 
 const tableHeads = [{label:'Numer', id:'number'},
                     {label: 'Nazwa stanowiska', id: 'position'}, 
@@ -32,11 +33,13 @@ class UserPanel extends React.Component {
     }
 
     seeRow = e => {
-        console.log(e.target.parentElement.id);
+        let id = e.target.parentElement.id;
+        this.props.initRAOutput(id);
         this.setState({show:true})
     }
 
     closeModal = () => {
+        this.props.cleanState();
         this.setState({show:false})
     }
     
@@ -77,6 +80,7 @@ class UserPanel extends React.Component {
                 <Modal show={this.state.show}
                         clicked={this.closeModal}>
                         <RiskAssessmentNav/>
+                        <RiskAssessmentOutput/>
                 </Modal>
                 <ErrorBoundaries>
                     <Statistic matric={this.props.statistic}
@@ -137,7 +141,10 @@ const mapDispatchToProps = dispatch => {
         searchValue: (searchValue) => dispatch(action.searchValue(searchValue)),
         changePage: (page) => dispatch(action.changePage(page)),
         sortData: (event) => dispatch(action.sortData(event)),
-        initHazardList: () => dispatch(action.initHazardList())
+        initHazardList: () => dispatch(action.initHazardList()),
+        setId: id => dispatch(action.setId(id)),
+        cleanState: () => dispatch(action.cleanState()),
+        initRAOutput: (id) => dispatch(action.initRAOutput(id))
     }
 }
 

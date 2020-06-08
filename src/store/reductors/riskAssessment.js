@@ -7,7 +7,8 @@ const day = date.getDate();
 const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
 
 const initialState = {
-    number: 5,
+    id: null,
+    number: 0,
     version: 0,
     assessmentData: {
                     date: new Date().toISOString().substring(0,10),
@@ -144,6 +145,7 @@ const riskAssessment = (state=initialState, action) => {
             }
         case actionTypes.CLEAN_STATE:
             return {
+                id: null,
                 number: '',
                 version: 0,
                 assessmentData: {
@@ -160,6 +162,31 @@ const riskAssessment = (state=initialState, action) => {
                         hazardsValidity: false,
                         dataValidity: false},
                 error: false,
+            }
+        case actionTypes.SET_ID: {
+            return {
+                ...state,
+                id: action.id
+            }
+        }
+        case actionTypes.FETCH_RA_SUCCESS:
+            return {
+                ...state,
+                id: action.id,
+                number: action.number,
+                version: action.version,
+                assessmentData: action.assessmentData,
+                hazardList: action.hazardList,
+                validity: {
+                    ...state.validity,
+                    hazardsValidity: false,
+                    dataValidity: false},
+                error: false
+            }
+        case actionTypes.FETCH_RA_FAIL:
+            return {
+                ...state,
+                error: true
             }
         default:
             return state

@@ -18,4 +18,8 @@ export {inputHandler,
         check,
         checkData,
         cleanState
-} from './riskAssessmentCreations'
+} from './riskAssessmentCreations';
+
+export {setId,
+        initRAOutput
+} from './riskAssessmentOutputCreations';
