@@ -1,6 +1,7 @@
 import React from 'react';
 
 import classes from './riskMatric.module.css';
+import Auxiliary from '../../../../hoc/Auxiliary';
 
 const riskMatric = props => {
 
@@ -9,32 +10,32 @@ const riskMatric = props => {
 
     switch (value) {
         case ("small|small"):
-            risk = <p className={[classes.Level,classes.ExtraSmall].join(' ')}>Bardzo małe</p>;
+            risk = <div className={[classes.Level,classes.ExtraSmall].join(' ')}>Bardzo małe</div>;
             break;
         case ("small|medium"):
         case ("medium|small"):
-            risk = <p className={[classes.Level,classes.Small].join(' ')}>Małe</p>;
+            risk = <div className={[classes.Level,classes.Small].join(' ')}>Małe</div>;
             break;
         case ("small|big"):
         case ("medium|medium"):
         case ("big|small"):
-            risk = <p className={[classes.Level,classes.Medium].join(' ')}>Średnie</p>;
+            risk = <div className={[classes.Level,classes.Medium].join(' ')}>Średnie</div>;
             break;
         case ("medium|big"):
         case ("big|medium"):
-            risk = <p className={[classes.Level,classes.Big].join(' ')}>Duże</p>;
+            risk = <div className={[classes.Level,classes.Big].join(' ')}>Duże</div>;
             break;
         case ("big|big"):
-            risk = <p className={[classes.Level,classes.ExtraBig].join(' ')}>Bardzo duże</p>;
+            risk = <div className={[classes.Level,classes.ExtraBig].join(' ')}>Bardzo duże</div>;
             break;
         default:
             risk = null;
     };
 
     return risk !== null ? 
-            (<div className={classes.Risk}>
+            (<Auxiliary>
                 {risk}
-            </div>)
+            </Auxiliary>)
             : null;
 
 };
