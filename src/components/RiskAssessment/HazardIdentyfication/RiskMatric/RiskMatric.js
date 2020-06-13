@@ -33,7 +33,6 @@ const riskMatric = props => {
 
     return risk !== null ? 
             (<div className={classes.Risk}>
-                <p>Ryzyko:</p>
                 {risk}
             </div>)
             : null;
