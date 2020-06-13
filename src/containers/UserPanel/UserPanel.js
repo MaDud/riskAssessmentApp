@@ -50,10 +50,11 @@ class UserPanel extends React.Component {
         for (let key in assessmentsList) {
             const searchValue = this.props.search.searchValue;
             if (searchValue) {
-                if ((assessmentsList[key].position && assessmentsList[key].position.toUpperCase().indexOf(searchValue)>-1) ||
-                    (assessmentsList[key].no && assessmentsList[key].no.toUpperCase().indexOf(searchValue)>-1) ||
-                    (assessmentsList[key].owner && assessmentsList[key].owner.toUpperCase().indexOf(searchValue)>-1)) {
-                    data[key] = assessmentsList[key]}
+                if ((assessmentsList[key].position.toUpperCase().indexOf(searchValue)>-1) ||
+                    (assessmentsList[key].no.toString().indexOf(searchValue)>-1) ||
+                    (assessmentsList[key].owner.toUpperCase().indexOf(searchValue)>-1)) {
+                         data[key] = assessmentsList[key]
+                }
             } else {
                 data = assessmentsList;
             }
