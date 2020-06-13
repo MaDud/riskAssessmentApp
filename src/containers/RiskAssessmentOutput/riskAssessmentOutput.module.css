@@ -1,0 +1,28 @@
+.Output {
+    width: 85%;
+    margin: 3% auto;
+}
+
+.Info {
+    padding: 2% 0;
+}
+
+.Info h5 {
+    text-align: right
+}
+
+.Info h2 {
+    text-align: center;
+}
+
+.Table {
+    width: 100%;
+    border: solid #77838f 1px;
+    border-radius: 4px;
+    opacity: 0.9
+}
+
+.Table th, tbody td {
+    border: solid #77838f 1px;
+    padding: 0;
+}
