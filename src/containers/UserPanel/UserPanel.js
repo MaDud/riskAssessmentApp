@@ -11,7 +11,6 @@ import Modal from '../../components/UI/Modal/Modal';
 import Statistic from '../../components/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
 import Search from '../../components/UI/Search/Search';
-import RiskAssessmentNav from '../../components/RiskAssessmentOutput/RiskAssessmentNav/RiskAssessmentNav';
 import RiskAssessmentOutput from '../RiskAssessmentOutput/RiskAssessmentOutput';
 
 const tableHeads = [{label:'Numer', id:'number'},
@@ -79,7 +78,6 @@ class UserPanel extends React.Component {
             <Auxiliary>
                 <Modal show={this.state.show}
                         clicked={this.closeModal}>
-                        <RiskAssessmentNav/>
                         <RiskAssessmentOutput/>
                 </Modal>
                 <ErrorBoundaries>
@@ -107,6 +105,7 @@ class UserPanel extends React.Component {
                         columns={tableHeads}
                         rows={rowData}
                         sortable= {this.props.sorted.sort}
+                        pagination= {true}
                         sortOption= {this.props.sorted}
                         sort={e => this.props.sortData(e)}
                         changePage={this.props.changePage}
