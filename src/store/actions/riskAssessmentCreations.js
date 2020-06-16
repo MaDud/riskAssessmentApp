@@ -5,7 +5,7 @@ export const inputHandler = (e) => {
     return {
         type: actionTypes.INPUT_HANDLER,
         data: e.target.id,
-        value: e.target.value.trim(),
+        value: e.target.value,
     }
 }
 
@@ -107,7 +107,7 @@ export const hazardInputHandler = (event,id) => {
         type: actionTypes.HAZARD_INPUT_HANDLER,
         id: id,
         name: event.target.name,
-        value: event.target.value.trim()
+        value: event.target.value
     }
 }
 
