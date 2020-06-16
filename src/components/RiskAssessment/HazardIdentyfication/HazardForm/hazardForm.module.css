@@ -19,18 +19,26 @@
     height: 4rem;
 }
 
-.HazardBox label {
-    margin: 5px 0;
+.RiskForm {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
 }
 
-.HazardBox select {
-    width: 6rem;
+.RiskForm div select {
+    width: 8rem;
+    margin-left: 20px;
+    padding: 5px 2px;
 }
 
 .RiskBox {
     display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
+    margin-bottom: 20px;
+}
+
+.RiskBox p {
+    margin: 0;
+    padding-right: 10px;
 }
 
 .ButtonBox {
@@ -48,13 +56,30 @@
         font-size: 0.8rem;
     }
 
-    .RiskBox {
+    .RiskForm {
         flex-direction: column;
-        align-items: center;
     }
 
-    .RiskBox select {
-        width: 100%;
+    .RiskForm div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .RiskForm div select {
+        width: 4rem;
+        margin-left: 0;
+        font-size: 0.6rem;
+    }
+
+    .ButtonBox {
+        flex-direction: column;
+    }
+
+    .ButtonBox button {
+        margin: 2px 0;
+        font-size: 0.8rem;
+        padding: 5px 5px;
+
     }
 }
 

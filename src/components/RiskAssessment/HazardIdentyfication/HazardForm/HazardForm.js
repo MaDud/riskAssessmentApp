@@ -29,31 +29,38 @@ const hazardForm = props => {
                     name='protection'
                     changed={props.change}
                     value={props.protection}/>
-                <div className={classes.RiskBox}>
-                    <Input
-                        label='Skutek'
-                        elementType='select'
-                        name='effect'
-                        changed={props.change}
-                        value={props.effectOption}
-                        options={[{value:'', displayValue:''},
-                                {value:'small', displayValue:'Mały'},
-                                {value:'medium', displayValue:'Średni'},
-                                {value:'big', displayValue:'Duży'}]}/>
-                    <Input
-                        label='Prawdopodobieństwo'
-                        elementType='select'
-                        name='propability'
-                        changed={props.change}
-                        value={props.propabilityOption}
-                        options={[{value:'', displayValue:''},
-                                {value:'small', displayValue:'Małe'},
-                                {value:'medium', displayValue:'Średnie'},
-                                {value:'big', displayValue:'Duże'}]}/>
+                <div className={classes.RiskForm}>
+                    <div>
+                        <Input
+                            label='Skutek'
+                            elementType='select'
+                            name='effect'
+                            changed={props.change}
+                            value={props.effectOption}
+                            options={[{value:'', displayValue:''},
+                                    {value:'small', displayValue:'Mały'},
+                                    {value:'medium', displayValue:'Średni'},
+                                    {value:'big', displayValue:'Duży'}]}/>
+                    </div>
+                    <div>
+                        <Input
+                            label='Prawdopodobieństwo'
+                            elementType='select'
+                            name='propability'
+                            changed={props.change}
+                            value={props.propabilityOption}
+                            options={[{value:'', displayValue:''},
+                                    {value:'small', displayValue:'Małe'},
+                                    {value:'medium', displayValue:'Średnie'},
+                                    {value:'big', displayValue:'Duże'}]}/>
+                    </div>
                 </div>
-                <RiskMatric effect={props.effect} 
+                <div className={classes.RiskBox}>
+                    <p>Ryzyko:</p> 
+                    <RiskMatric effect={props.effect} 
                             propability={props.propability}
-                            />
+                    />
+                </div>
                 <div className={classes.ButtonBox}>
                     <Button clicked={props.save} disabled={props.disabled} btnType="Submit">ZAPISZ</Button>
                     <Button clicked={props.clean} disabled={props.disabled} btnType="Warning">WYCZYŚĆ DANE</Button>

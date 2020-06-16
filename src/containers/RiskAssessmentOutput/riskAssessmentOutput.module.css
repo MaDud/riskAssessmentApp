@@ -16,13 +16,15 @@
 }
 
 .Table {
-    width: 100%;
-    border: solid #77838f 1px;
-    border-radius: 4px;
-    opacity: 0.9
+    margin: auto;
+    text-align: center;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
-.Table th, tbody td {
+.Table th {
+    text-transform: uppercase;
+    font-weight: normal;
     border: solid #77838f 1px;
-    padding: 0;
 }
+

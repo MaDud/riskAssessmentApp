@@ -3,32 +3,34 @@ import React from 'react';
 import {connect} from 'react-redux';
 import RiskAssessmentNav from '../../components/RiskAssessmentOutput/RiskAssessmentNav/RiskAssessmentNav';
 import RiskMatric from '../../components/RiskAssessment/HazardIdentyfication/RiskMatric/RiskMatric';
-import Table from '../../components/UI/Table/Table';
 import classes from './riskAssessmentOutput.module.css';
 
-const tableHeads = [{label: 'Zagrożenie', id: 'hazard'},
-                    {label:'Źródło zagrożenia', id:'source'},
-                    {label: 'Możliwe skutki zagrożenia', id: 'possibleEffects'}, 
-                    {label: 'Środki ochrony przed zagrożeniem', id:'protection'},
-                    {label: 'Ryzyko', id: 'risk'}]
+const TABLE_HEADS = ['Zagrożenie','Źródło zagrożenia', 'Możliwe skutki zagrożenia', 'Środki ochrony przed zagrożeniem', 'Ryzyko']
 
 
 class RiskAssessmentOutput extends React.Component {
 
     render() {
 
-        const rows = {};
+        const tableHeads = TABLE_HEADS.map( (head, index) => {return <th key={index}>{head}</th>})
+ 
+        const rows = [];
         for (let hazard in this.props.hazardList) {
-            rows[this.props.hazardList[hazard]] = {
-                            hazard: this.props.hazardList[hazard].value,
-                            source: this.props.hazardList[hazard].source,
-                            possibleEffect: this.props.hazardList[hazard].possibleEffect,
-                            protection: this.props.hazardList[hazard].protection,
-                            risk: <RiskMatric effect = {this.props.hazardList[hazard].effect} propability = {this.props.hazardList[hazard].propability} />
+            rows.push([ this.props.hazardList[hazard].value,
+                        this.props.hazardList[hazard].source,
+                        this.props.hazardList[hazard].possibleEffects,
+                        this.props.hazardList[hazard].protection,
+                        <RiskMatric effect = {this.props.hazardList[hazard].effect} propability = {this.props.hazardList[hazard].propability}/>])
             }
-        }
 
-        console.log(rows)
+            console.log(rows)
+        
+        const tableRows = rows.map( (row, index) => {
+            return <tr key={index}>
+                {row.map( (item, index) => {return <td key={index}>{item}</td>})}
+            </tr>
+        })
+    
         return (
             <div className={classes.Output}>
                 <RiskAssessmentNav />
@@ -40,10 +42,16 @@ class RiskAssessmentOutput extends React.Component {
                     <h4>Charakterystyka pracy</h4>
                     <p>{this.props.data.description}</p>   
                 </div> 
-                <Table table={classes.Table}
-                        columns= {tableHeads}
-                        rows= {rows}
-                         />         
+                <table className={classes.Table}>
+                    <thead>
+                        <tr>
+                            {tableHeads}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tableRows}
+                    </tbody>
+                </table>     
             </div>
         )
     }
