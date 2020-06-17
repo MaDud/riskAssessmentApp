@@ -40,7 +40,8 @@ class RiskAssessmentOutput extends React.Component {
     
         return (
             <div className={classes.Output}>
-                <RiskAssessmentNav />
+                <RiskAssessmentNav 
+                    close={this.props.close}/>
                 <div className={classes.Info}>
                     <h5>{'Numer: ' + this.props.number + ' wersja: ' + this.props.version} </h5>
                     <h2>{this.props.data.position}</h2>

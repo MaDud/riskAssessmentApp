@@ -79,7 +79,8 @@ class UserPanel extends React.Component {
             <Auxiliary>
                 <Modal show={this.state.show}
                         clicked={this.closeModal}>
-                        <RiskAssessmentOutput/>
+                        <RiskAssessmentOutput
+                            close={this.closeModal}/>
                 </Modal>
                 <ErrorBoundaries>
                     <Statistic matric={this.props.statistic}
