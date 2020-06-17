@@ -6,11 +6,15 @@ import Auxiliary from '../../../../hoc/Auxiliary';
 const riskMatric = props => {
 
     let value = props.effect+'|'+props.propability;
+    let type = props.type;
     let risk;    
 
     switch (value) {
         case ("small|small"):
-            risk = <div className={[classes.Level,classes.ExtraSmall].join(' ')}>Bardzo małe</div>;
+            if (type === 'td') {
+                risk = <td className={[classes.Level,classes.ExtraSmall].join(' ')}>Bardzo małe</td>
+            } else {
+                risk = <div className={[classes.Level,classes.ExtraSmall].join(' ')}>Bardzo małe</div>};
             break;
         case ("small|medium"):
         case ("medium|small"):
@@ -19,25 +23,29 @@ const riskMatric = props => {
         case ("small|big"):
         case ("medium|medium"):
         case ("big|small"):
-            risk = <div className={[classes.Level,classes.Medium].join(' ')}>Średnie</div>;
+            if (type === 'td') {
+                risk = <td className={[classes.Level,classes.Medium].join(' ')}>Średnie</td>
+            } else {
+                risk = <div className={[classes.Level,classes.Medium].join(' ')}>Średnie</div>};
             break;
         case ("medium|big"):
         case ("big|medium"):
-            risk = <div className={[classes.Level,classes.Big].join(' ')}>Duże</div>;
+            if (type === 'td') {
+                risk = <td className={[classes.Level,classes.Big].join(' ')}>Duże</td>
+            } else {
+                risk = <div className={[classes.Level,classes.Big].join(' ')}>Duże</div>};
             break;
         case ("big|big"):
-            risk = <div className={[classes.Level,classes.ExtraBig].join(' ')}>Bardzo duże</div>;
+            if (type === 'td') {
+                risk = <td className={[classes.Level,classes.ExtraBig].join(' ')}>Bardzo duże</td>
+            } else {
+                risk = <div className={[classes.Level,classes.ExtraBig].join(' ')}>Bardzo duże</div>};
             break;
         default:
             risk = null;
     };
 
-    return risk !== null ? 
-            (<Auxiliary>
-                {risk}
-            </Auxiliary>)
-            : null;
-
+    return risk !== null ? risk : null;
 };
 
 export default riskMatric;
