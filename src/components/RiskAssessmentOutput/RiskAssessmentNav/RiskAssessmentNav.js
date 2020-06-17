@@ -6,10 +6,10 @@ const riskAssessmentNav = props => {
     return (
         <Auxiliary>
             <ul className={classes.RANav}>
-                <li>Historia zmian</li>
-                <li>Edytuj</li>
-                <li>Archiwizuj</li>
-                <li>Zamknij</li>
+                <li onClick={props.histiry}>Historia zmian</li>
+                <li onClick={props.edit}>Edytuj</li>
+                <li onClick={props.archive}>Archiwizuj</li>
+                <li onClick={props.close}>Zamknij</li>
             </ul>
         </Auxiliary>
     )
