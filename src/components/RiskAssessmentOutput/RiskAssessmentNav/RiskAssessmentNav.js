@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './RiskAssessmentNav.module.css';
+import classes from './riskAssessmentNav.module.css';
 import Auxiliary from '../../../hoc/Auxiliary';
 
 const riskAssessmentNav = props => {
