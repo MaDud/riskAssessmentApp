@@ -20,14 +20,21 @@ class RiskAssessmentOutput extends React.Component {
                         this.props.hazardList[hazard].source,
                         this.props.hazardList[hazard].possibleEffects,
                         this.props.hazardList[hazard].protection,
-                        <RiskMatric effect = {this.props.hazardList[hazard].effect} propability = {this.props.hazardList[hazard].propability}/>])
+                        <RiskMatric effect = {this.props.hazardList[hazard].effect} propability = {this.props.hazardList[hazard].propability} type='td' key={4}/>])
             }
 
             console.log(rows)
         
         const tableRows = rows.map( (row, index) => {
             return <tr key={index}>
-                {row.map( (item, index) => {return <td key={index}>{item}</td>})}
+                {row.map( (item, index) => {
+                    let cell;;
+                    if (index === 4) {
+                        cell = item
+                    } else {
+                        cell = <td key={index}>{item}</td>
+                    }
+                    return cell})}
             </tr>
         })
     
