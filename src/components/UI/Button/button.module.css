@@ -12,6 +12,10 @@
     color: #77838f
 }
 
+.Button:focus {
+    outline: none
+}
+
 .Submit {
     background-color: rgba(55, 125, 255, 0.3);
     color: #377dff;
