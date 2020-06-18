@@ -12,6 +12,7 @@ import Statistic from '../../components/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
 import Search from '../../components/UI/Search/Search';
 import RiskAssessmentOutput from '../RiskAssessmentOutput/RiskAssessmentOutput';
+import InfoBox from '../../components/UI/InfoBox/InfoBox';
 
 const tableHeads = [{label:'Numer', id:'number'},
                     {label: 'Nazwa stanowiska', id: 'position'}, 
@@ -20,7 +21,8 @@ const tableHeads = [{label:'Numer', id:'number'},
 class UserPanel extends React.Component {
 
     state = {
-        show: false
+        show: false,
+        archiveInfo: false
     }
 
     componentDidMount () {
@@ -40,6 +42,11 @@ class UserPanel extends React.Component {
     closeModal = () => {
         this.props.cleanState();
         this.setState({show:false})
+    }
+
+    archiveToggle = () => {
+        const archiveInfo = !this.state.archiveInfo;
+        this.setState({archiveInfo: archiveInfo})
     }
     
     render () {
@@ -80,8 +87,16 @@ class UserPanel extends React.Component {
                 <Modal show={this.state.show}
                         clicked={this.closeModal}>
                         <RiskAssessmentOutput
-                            close={this.closeModal}/>
+                            close={this.closeModal}
+                            archive={this.archiveToggle}/>
                 </Modal>
+                <InfoBox
+                    archiveInfo={this.state.archiveInfo}
+                    text = 'Czy na pewno chcesz przenieść tą ocenę do archiwum?'
+                    continueText = 'Przenieś do archiwum'
+                    cancelText = 'Anuluj'
+                    cancel = {this.archiveToggle}
+                />
                 <ErrorBoundaries>
                     <Statistic matric={this.props.statistic}
                             clicked={(e) => this.props.changeView(e)}
