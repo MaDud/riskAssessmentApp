@@ -36,8 +36,6 @@ class RiskAssessmentOutput extends React.Component {
                         this.props.hazardList[hazard].protection,
                         <RiskMatric effect = {this.props.hazardList[hazard].effect} propability = {this.props.hazardList[hazard].propability} type='td' key={4}/>])
             }
-
-            console.log(rows)
         
         const tableRows = rows.map( (row, index) => {
             return <tr key={index}>
@@ -92,6 +90,7 @@ const mapStateToProps = state => {
 
 const mapPropsToDispatch = dispatch => {
     return {
+        cleanState: () => dispatch(action.cleanState()),
         initRAOutput: id => dispatch(action.initRAOutput(id))
     }
 }
