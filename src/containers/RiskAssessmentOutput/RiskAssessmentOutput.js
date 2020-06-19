@@ -4,11 +4,26 @@ import {connect} from 'react-redux';
 import RiskAssessmentNav from '../../components/RiskAssessmentOutput/RiskAssessmentNav/RiskAssessmentNav';
 import RiskMatric from '../../components/RiskAssessment/HazardIdentyfication/RiskMatric/RiskMatric';
 import classes from './riskAssessmentOutput.module.css';
+import * as action from '../../store/actions/index';
 
 const TABLE_HEADS = ['Zagrożenie','Źródło zagrożenia', 'Możliwe skutki zagrożenia', 'Środki ochrony przed zagrożeniem', 'Ryzyko']
 
 
 class RiskAssessmentOutput extends React.Component {
+
+    state = {
+        archiveInfo: false
+    }
+
+    componentDidMount () {
+        const query = this.props.match.params.id;
+        this.props.initRAOutput(query)
+    }
+
+    archiveToggle = () => {
+        const archiveInfo = !this.state.archiveInfo;
+        this.setState({archiveInfo: archiveInfo})
+    }
 
     render() {
 
@@ -75,4 +90,10 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps)(RiskAssessmentOutput);
+const mapPropsToDispatch = dispatch => {
+    return {
+        initRAOutput: id => dispatch(action.initRAOutput(id))
+    }
+}
+
+export default connect(mapStateToProps, mapPropsToDispatch)(RiskAssessmentOutput);

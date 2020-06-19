@@ -7,12 +7,10 @@ import * as action from '../../store/actions/index';
 import Auxiliary from '../../hoc/Auxiliary';
 import ErrorBoundaries from '../../hoc/ErrorBoundaries/ErrorBoundaries';
 import Table from '../../components/UI/Table/Table';
-import Modal from '../../components/UI/Modal/Modal';
 import Statistic from '../../components/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
 import Search from '../../components/UI/Search/Search';
-import RiskAssessmentOutput from '../RiskAssessmentOutput/RiskAssessmentOutput';
-import InfoBox from '../../components/UI/InfoBox/InfoBox';
+
 
 const tableHeads = [{label:'Numer', id:'number'},
                     {label: 'Nazwa stanowiska', id: 'position'}, 
@@ -20,13 +18,9 @@ const tableHeads = [{label:'Numer', id:'number'},
 
 class UserPanel extends React.Component {
 
-    state = {
-        show: false,
-        archiveInfo: false
-    }
-
     componentDidMount () {
-        this.props.initHazardList()}
+        this.props.initHazardList();
+        this.props.cleanState()}
     
     addNew = () => {
         this.props.clearUserPanel();
@@ -35,18 +29,8 @@ class UserPanel extends React.Component {
 
     seeRow = e => {
         let id = e.target.parentElement.id;
-        this.props.initRAOutput(id);
-        this.setState({show:true})
-    }
-
-    closeModal = () => {
-        this.props.cleanState();
-        this.setState({show:false})
-    }
-
-    archiveToggle = () => {
-        const archiveInfo = !this.state.archiveInfo;
-        this.setState({archiveInfo: archiveInfo})
+        this.props.clearUserPanel();
+        this.props.history.push('/riskAssessment/' + id)   
     }
     
     render () {
@@ -84,19 +68,6 @@ class UserPanel extends React.Component {
 
         return (
             <Auxiliary>
-                <Modal show={this.state.show}
-                        clicked={this.closeModal}>
-                        <RiskAssessmentOutput
-                            close={this.closeModal}
-                            archive={this.archiveToggle}/>
-                </Modal>
-                <InfoBox
-                    archiveInfo={this.state.archiveInfo}
-                    text = 'Czy na pewno chcesz przenieść tą ocenę do archiwum?'
-                    continueText = 'Przenieś do archiwum'
-                    cancelText = 'Anuluj'
-                    cancel = {this.archiveToggle}
-                />
                 <ErrorBoundaries>
                     <Statistic matric={this.props.statistic}
                             clicked={(e) => this.props.changeView(e)}
@@ -158,9 +129,7 @@ const mapDispatchToProps = dispatch => {
         changePage: (page) => dispatch(action.changePage(page)),
         sortData: (event) => dispatch(action.sortData(event)),
         initHazardList: () => dispatch(action.initHazardList()),
-        setId: id => dispatch(action.setId(id)),
         cleanState: () => dispatch(action.cleanState()),
-        initRAOutput: (id) => dispatch(action.initRAOutput(id))
     }
 }
 

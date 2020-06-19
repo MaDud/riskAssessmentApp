@@ -36,6 +36,7 @@ export const fetchRAFail = () => {
 }
 
 export const initRAOutput = (id) => {
+    console.log(id)
     return dispatch => {
         instance.get('/riskAssessment/' + id + '.json')
         .then(response => dispatch(fetchRASuccess(id, response.data)))
