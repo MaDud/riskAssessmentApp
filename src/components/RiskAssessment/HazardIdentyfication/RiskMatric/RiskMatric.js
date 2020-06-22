@@ -1,7 +1,6 @@
 import React from 'react';
 
 import classes from './riskMatric.module.css';
-import Auxiliary from '../../../../hoc/Auxiliary';
 
 const riskMatric = props => {
 
@@ -18,7 +17,10 @@ const riskMatric = props => {
             break;
         case ("small|medium"):
         case ("medium|small"):
-            risk = <div className={[classes.Level,classes.Small].join(' ')}>Małe</div>;
+            if (type === 'td') {
+                risk = <td className={[classes.Level,classes.ExtraSmall].join(' ')}>Małe</td>
+            } else {
+                risk = <div className={[classes.Level,classes.Small].join(' ')}>Małe</div>;}
             break;
         case ("small|big"):
         case ("medium|medium"):
