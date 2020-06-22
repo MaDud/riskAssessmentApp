@@ -44,6 +44,12 @@
     //czyszczenie stanu
     export const CLEAN_STATE = 'CLEAN_STATE';
     //pobieranie danych dla użytkownika 
-    export const SET_ID = 'SET_ID';
     export const FETCH_RA_SUCCESS = 'FETCH_RA_SUCCESS';
-    export const FETCH_RA_FAIL= 'FETCH_RA_FAIL'
+    export const FETCH_RA_FAIL= 'FETCH_RA_FAIL';
+
+//RiskAssessmentOutput
+    //archiwizowanie oceny ryzyka
+    export const ARCHIVE_INIT = 'ARCHIVE_INIT';
+    export const ARCHIVE_SUCCESS = 'ARCHIVE_SUCCESS';
+    export const ARCHIVE_FAIL = 'ARCHIVE_FAIL';
+    export const RA_OUTPUT_CLEAN = 'RA_OUTPUT_CLEAN';

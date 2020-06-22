@@ -163,12 +163,6 @@ const riskAssessment = (state=initialState, action) => {
                         dataValidity: false},
                 error: false,
             }
-        case actionTypes.SET_ID: {
-            return {
-                ...state,
-                id: action.id
-            }
-        }
         case actionTypes.FETCH_RA_SUCCESS:
             return {
                 ...state,

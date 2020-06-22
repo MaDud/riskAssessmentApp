@@ -20,6 +20,7 @@ export {inputHandler,
         cleanState
 } from './riskAssessmentCreations';
 
-export {setId,
-        initRAOutput
+export {initRAOutput,
+        archiveRA,
+        raOutputClean
 } from './riskAssessmentOutputCreations';

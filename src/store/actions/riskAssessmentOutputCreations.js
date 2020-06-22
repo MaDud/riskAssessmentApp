@@ -1,13 +1,6 @@
 import * as actionTypes from './actionTypes';
 import instance from '../../instance';
 
-export const setId = (id) => {
-    return {
-        type: actionTypes.SET_ID,
-        id: id
-    }
-}
-
 export const fetchRASuccess = (id, data) => {
     const path = data.version[data.version.length - 1]
     console.log(path)
@@ -41,5 +34,38 @@ export const initRAOutput = (id) => {
         instance.get('/riskAssessment/' + id + '.json')
         .then(response => dispatch(fetchRASuccess(id, response.data)))
         .catch(error => dispatch(fetchRAFail()))
+    }
+}
+
+export const archiveInit = () => {
+    return {
+        type: actionTypes.ARCHIVE_INIT
+    }
+}
+
+export const archiveSuccess = () => {
+    return {
+        type: actionTypes.ARCHIVE_SUCCESS
+    }
+}
+
+export const archiveFail = () => {
+    return {
+        type: actionTypes.ARCHIVE_FAIL
+    }
+}
+
+export const archiveRA = (id) => {
+    return dispatch => {
+        dispatch(archiveInit());
+        instance.put('/riskAssessment/'+ id + '/status.json', new String('archive'))
+        .then(response => dispatch(archiveSuccess()))
+        .catch(error => dispatch(archiveFail()))
+    }
+}
+
+export const raOutputClean = () => {
+    return {
+        type: actionTypes.RA_OUTPUT_CLEAN
     }
 }
