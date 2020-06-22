@@ -29,3 +29,8 @@
     border: solid #77838f 1px;
 }
 
+
+.ButtonBox {
+    display: flex;
+    justify-content: space-between;
+}

@@ -3,6 +3,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import RiskAssessmentNav from '../../components/RiskAssessmentOutput/RiskAssessmentNav/RiskAssessmentNav';
 import RiskMatric from '../../components/RiskAssessment/HazardIdentyfication/RiskMatric/RiskMatric';
+import InfoBox from '../../components/UI/InfoBox/InfoBox';
+import Button from '../../components/UI/Button/Button';
 import classes from './riskAssessmentOutput.module.css';
 import * as action from '../../store/actions/index';
 
@@ -49,12 +51,19 @@ class RiskAssessmentOutput extends React.Component {
                     return cell})}
             </tr>
         })
-    
+        console.log(this.state.archiveInfo)
         return (
             <div className={classes.Output}>
                 <RiskAssessmentNav 
                     close={this.props.close}
-                    archive={this.props.archive}/>
+                    archive={this.archiveToggle}/>
+                <InfoBox archiveInfo = {this.state.archiveInfo}>
+                    <p>Czy na pewno chcesz przenieśc tą ocenę ryzyka do archiwum?</p>
+                    <div className={classes.ButtonBox}>
+                        <Button btnType= 'Active'>Przenieś do archiwum</Button>
+                        <Button btnType= 'Warning' clicked = {this.archiveToggle}>Anuluj</Button>
+                    </div>
+                </InfoBox>
                 <div className={classes.Info}>
                     <h5>{'Numer: ' + this.props.number + ' wersja: ' + this.props.version} </h5>
                     <h2>{this.props.data.position}</h2>

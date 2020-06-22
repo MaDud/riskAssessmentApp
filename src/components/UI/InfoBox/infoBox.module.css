@@ -12,16 +12,6 @@
     padding: 3%
 }
 
-.Box div {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 30px
-}
-
-.Box p {
-    text-align: center;
-}
-
 .InfoBox {
     width: 100%;
     height: 100%;

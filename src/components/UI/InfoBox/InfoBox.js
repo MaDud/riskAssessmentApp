@@ -1,7 +1,6 @@
 import React from 'react';
 import classes from './infoBox.module.css';
 import Auxiliary from '../../../hoc/Auxiliary';
-import Button from '../Button/Button';
 
 class InfoBox extends React.Component {
     
@@ -20,12 +19,7 @@ class InfoBox extends React.Component {
                     opacity: this.props.archiveInfo ? '1':'0',
                     transform: this.props.archiveInfo ? 'translateY(0)': 'translateY(-100vh)'
             }}>
-                <p>{this.props.text}</p>
-                <p>{this.props.text1}</p>
-                <div>
-                    <Button btnType='Active' clicked={this.props.continue}>{this.props.continueText}</Button>
-                    <Button btnType='Warning' clicked={this.props.cancel}>{this.props.cancelText}</Button>
-                </div>
+                {this.props.children}
             </div>
         </Auxiliary>
     )}
