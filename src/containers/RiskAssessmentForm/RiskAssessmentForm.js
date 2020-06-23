@@ -12,8 +12,12 @@ class RiskAssessmentForm extends React.Component {
 
     //pobieranie zagrożeń z bazy danych i dodawanie ich do state
     componentDidMount () {
-        this.props.initNumber();
-        this.props.initHazardsList()
+        if (this.props.mainData.id) {
+            console.log('hej')
+        } else {
+            this.props.initNumber();
+            this.props.initHazardsList()
+        }
     }
 
     //czyszczenie zapisanych danych

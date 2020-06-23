@@ -88,6 +88,7 @@ class RiskAssessmentOutput extends React.Component {
             <div className={classes.Output}>
                 <RiskAssessmentNav 
                     close={this.props.close}
+                    edit={() => this.props.history.push('/')}
                     archive={this.archiveToggle}/>
                 <InfoBox archiveInfo={this.state.archiveInfo}>
                     {infoBox}

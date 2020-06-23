@@ -1,6 +1,5 @@
 import * as actionTypes from './actionTypes';
 import instance from '../../instance';
-import { version } from 'react';
 
 export const fetchRASuccess = (id, data) => {
     return {
