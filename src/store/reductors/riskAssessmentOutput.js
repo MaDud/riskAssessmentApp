@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
     loading: false,
-    message: null
+    message: null,
+    error: true
 }
 
 const riskAssessmentOutput = (state = initialState, action) => {
@@ -17,18 +18,21 @@ const riskAssessmentOutput = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                error: false,
                 message: 'Ocena ryzyka została przeniesiona do archiwum'
             }
         case actionTypes.ARCHIVE_FAIL:
             return {
                 ...state,
                 loading: false,
-                message: 'Wystąpił błąd, spróbuj ponownie'
+                message: 'Wystąpił błąd, spróbuj ponownie',
+                error: true
             }
         case actionTypes.RA_OUTPUT_CLEAN:
             return {
                 ...state,
-                message: null
+                message: null,
+                error: false
             }
         default:
             return state
