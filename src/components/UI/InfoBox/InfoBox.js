@@ -5,9 +5,7 @@ import Auxiliary from '../../../hoc/Auxiliary';
 class InfoBox extends React.Component {
     
     shouldComponentUpdate (nextProps, nextState) {
-        console.log('prevProps', this.props.archiveInfo);
-        console.log('nextProps', nextProps.archiveInfo)
-        return this.props.archiveInfo !== nextProps.archiveInfo
+        return this.props.archiveInfo !== nextProps.archiveInfo || this.props.children !== nextProps.children
     }
     render() {
     return (
