@@ -1,24 +1,15 @@
 import * as actionTypes from './actionTypes';
 import instance from '../../instance';
+import { version } from 'react';
 
 export const fetchRASuccess = (id, data) => {
-    const path = data.version[data.version.length - 1]
-    console.log(path)
     return {
         type: actionTypes.FETCH_RA_SUCCESS,
         id: id,
         number: data.number,
-        version: data.version.length - 1,
-        assessmentData: {
-                        date: path.assessmentData.date,
-                        team: path.assessmentData.team,
-                        position: path.assessmentData.position,
-                        localization: path.assessmentData.localization,
-                        description: path.assessmentData.description,
-                        notice: path.assessmentData.notice,
-                        reviewDate: path.assessmentData.reviewDate,
-                        owner: path.assessmentData.owner},
-        hazardList: path.hazardList
+        version: data.version,
+        assessmentData: data.assessmentData,
+        hazardList: data.hazardList
     }
 }
 
@@ -29,10 +20,38 @@ export const fetchRAFail = () => {
 }
 
 export const initRAOutput = (id) => {
-    console.log(id)
     return dispatch => {
-        instance.get('/riskAssessment/' + id + '.json')
-        .then(response => dispatch(fetchRASuccess(id, response.data)))
+        Promise.all([instance.get('/hazardList.json'),
+        instance.get('/riskAssessment/' + id + '.json')])
+        .then(response => { 
+            let data0 = response[0].data;
+            let data1 = response[1].data;
+            let hazards = {};
+            for (let el in data0) {
+                hazards['hazard'+el] = {value:data0[el], 
+                    checked:false,
+                    source: "",
+                    possibleEffects: "",
+                    protection: "",
+                    effect: "",
+                    propability: "",
+                    save: false,
+                    clean: true,
+                    valid: false};
+            };
+            let lastSavedVersion = data1.version[data1.version.length - 1];
+            for (let el in lastSavedVersion.hazardList) {
+                hazards[el] = lastSavedVersion.hazardList[el]
+            }
+            
+            let data = {number: data1.number,
+                        version: data1.version.length - 1,
+                        status: data1.status,
+                        assessmentData: data1.version[data1.version.length - 1].assessmentData,
+                        hazardList: hazards}
+            
+            dispatch(fetchRASuccess(id,data))
+        })
         .catch(error => dispatch(fetchRAFail()))
     }
 }

@@ -43,12 +43,14 @@ class RiskAssessmentOutput extends React.Component {
         const tableHeads = TABLE_HEADS.map( (head, index) => {return <th key={index}>{head}</th>})
         const rows = [];
         for (let hazard in this.props.hazardList) {
+            if (this.props.hazardList[hazard].save) {
             rows.push([ this.props.hazardList[hazard].value,
                         this.props.hazardList[hazard].source,
                         this.props.hazardList[hazard].possibleEffects,
                         this.props.hazardList[hazard].protection,
                         <RiskMatric effect = {this.props.hazardList[hazard].effect} propability = {this.props.hazardList[hazard].propability} type='td' key={4}/>])
             }
+        }
         
         const tableRows = rows.map( (row, index) => {
             return <tr key={index} type = 'td'>
@@ -81,8 +83,6 @@ class RiskAssessmentOutput extends React.Component {
                         </Auxiliary>
                         );
         }
-
-        console.log(this.props.raOutput)
         
         return (
             <div className={classes.Output}>
