@@ -1,9 +1,11 @@
 import React from 'react';
 
 import {connect} from 'react-redux';
+import Auxiliary from '../../hoc/Auxiliary';
 import RiskAssessmentNav from '../../components/RiskAssessmentOutput/RiskAssessmentNav/RiskAssessmentNav';
 import RiskMatric from '../../components/RiskAssessment/HazardIdentyfication/RiskMatric/RiskMatric';
 import InfoBox from '../../components/UI/InfoBox/InfoBox';
+import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button/Button';
 import classes from './riskAssessmentOutput.module.css';
 import * as action from '../../store/actions/index';
@@ -27,6 +29,15 @@ class RiskAssessmentOutput extends React.Component {
         this.setState({archiveInfo: archiveInfo})
     }
 
+    btnOK = () => {
+        if (this.props.raOutput.error) {
+            this.archiveToggle()
+        } else {
+            this.props.history.push('/userPanel')
+        }
+        this.props.raOutputClean();
+    }
+
     render() {
 
         const tableHeads = TABLE_HEADS.map( (head, index) => {return <th key={index}>{head}</th>})
@@ -40,7 +51,7 @@ class RiskAssessmentOutput extends React.Component {
             }
         
         const tableRows = rows.map( (row, index) => {
-            return <tr key={index}>
+            return <tr key={index} type = 'td'>
                 {row.map( (item, index) => {
                     let cell;;
                     if (index === 4) {
@@ -51,37 +62,57 @@ class RiskAssessmentOutput extends React.Component {
                     return cell})}
             </tr>
         })
-        console.log(this.state.archiveInfo)
+
+        let infoBox = null;
+        if (this.props.raOutput.loading) {
+            infoBox =<Spinner />           
+        } else if (this.props.raOutput.message) {
+            infoBox =   <div className={classes.MssgBox}>
+                            <p>{this.props.raOutput.message}</p>
+                            <Button btnType='Submit' clicked={this.btnOK}>OK</Button>
+                        </div>
+        } else {
+            infoBox = ( <Auxiliary>
+                            <p>Czy na pewno chcesz przenieść tą ocenę ryzyka do archiwum?</p>
+                            <div className={classes.ButtonBox}>
+                                <Button btnType= 'Active' clicked={() => this.props.archiveRA(this.props.id)}>Przenieś do archiwum</Button>
+                                <Button btnType= 'Warning' clicked = {this.archiveToggle}>Anuluj</Button>
+                            </div>
+                        </Auxiliary>
+                        );
+        }
+
+        console.log(this.props.raOutput)
+        
         return (
             <div className={classes.Output}>
                 <RiskAssessmentNav 
                     close={this.props.close}
                     archive={this.archiveToggle}/>
-                <InfoBox archiveInfo = {this.state.archiveInfo}>
-                    <p>Czy na pewno chcesz przenieśc tą ocenę ryzyka do archiwum?</p>
-                    <div className={classes.ButtonBox}>
-                        <Button btnType= 'Active'>Przenieś do archiwum</Button>
-                        <Button btnType= 'Warning' clicked = {this.archiveToggle}>Anuluj</Button>
-                    </div>
+                <InfoBox archiveInfo={this.state.archiveInfo}>
+                    {infoBox}
                 </InfoBox>
-                <div className={classes.Info}>
-                    <h5>{'Numer: ' + this.props.number + ' wersja: ' + this.props.version} </h5>
-                    <h2>{this.props.data.position}</h2>
-                    <h4>Obszar pracy</h4>
-                    <p>{this.props.data.localization}</p>
-                    <h4>Charakterystyka pracy</h4>
-                    <p>{this.props.data.description}</p>   
-                </div> 
-                <table className={classes.Table}>
-                    <thead>
-                        <tr>
-                            {tableHeads}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tableRows}
-                    </tbody>
-                </table>     
+                {this.props.hazardList ? (  <Auxiliary>
+                                                <div className={classes.Info}>
+                                                    <h5>{'Numer: ' + this.props.number + ' wersja: ' + this.props.version} </h5>
+                                                    <h2>{this.props.data.position}</h2>
+                                                    <h4>Obszar pracy</h4>
+                                                    <p>{this.props.data.localization}</p>
+                                                    <h4>Charakterystyka pracy</h4>
+                                                    <p>{this.props.data.description}</p>   
+                                                </div> 
+                                                <table className={classes.Table}>
+                                                    <thead>
+                                                        <tr>
+                                                            {tableHeads}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {tableRows}
+                                                    </tbody>
+                                                </table>
+                                            </Auxiliary> )
+                                            : <Spinner />}    
             </div>
         )
     }
@@ -93,14 +124,17 @@ const mapStateToProps = state => {
         version: state.riskAssessment.version,
         id: state.riskAssessment.id,
         data: state.riskAssessment.assessmentData,
-        hazardList: state.riskAssessment.hazardList
+        hazardList: state.riskAssessment.hazardList,
+        raOutput: state.riskAssessmentOutput
     }
 };
 
 const mapPropsToDispatch = dispatch => {
     return {
         cleanState: () => dispatch(action.cleanState()),
-        initRAOutput: id => dispatch(action.initRAOutput(id))
+        initRAOutput: id => dispatch(action.initRAOutput(id)),
+        archiveRA: id => dispatch(action.archiveRA(id)),
+        raOutputClean: () => dispatch(action.raOutputClean())
     }
 }
 
