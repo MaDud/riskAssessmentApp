@@ -15,6 +15,13 @@ export const checkData = () => {
     }
 }
 
+export const RAtype = (type) => {
+    return {
+        type: actionTypes.RA_TYPE,
+        RAtype: type
+    }
+}
+
 export const setHazards = (hazards) => {
     return {
         type: actionTypes.SET_HAZARDS,
@@ -46,7 +53,8 @@ export const initHazardsList = () => {
                     clean: true,
                     valid: false};
             };
-            dispatch(setHazards(hazards))})
+            dispatch(setHazards(hazards));
+            dispatch(RAtype('new'))})
         .catch(error => dispatch(fetchHazardsError()))
     }
 }

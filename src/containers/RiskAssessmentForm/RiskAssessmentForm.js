@@ -12,9 +12,9 @@ class RiskAssessmentForm extends React.Component {
 
     //pobieranie zagrożeń z bazy danych i dodawanie ich do state
     componentDidMount () {
-        if (this.props.mainData.id) {
+        if (this.props.RAtype === 'new_version') {
             console.log('hej')
-        } else {
+        } else if (this.props.RAtype === 'new') {
             this.props.initNumber();
             this.props.initHazardsList()
         }
@@ -145,7 +145,8 @@ const mapStateToProps = state => {
         mainData: state.riskAssessment,
         riskAssessment: state.riskAssessment.assessmentData,
         hazardList: state.riskAssessment.hazardList,
-        valid: state.riskAssessment.validity
+        valid: state.riskAssessment.validity,
+        RAtype: state.riskAssessment.RAtype
     }
 };
 

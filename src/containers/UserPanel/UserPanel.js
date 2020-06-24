@@ -24,12 +24,14 @@ class UserPanel extends React.Component {
     
     addNew = () => {
         this.props.clearUserPanel();
+        this.props.RAtype('new');
         this.props.history.push('/')
     }
 
     seeRow = e => {
         let id = e.target.parentElement.id;
         this.props.clearUserPanel();
+        this.props.RAtype('new_version')
         this.props.history.push('/riskAssessment/' + id)   
     }
     
@@ -130,6 +132,7 @@ const mapDispatchToProps = dispatch => {
         sortData: (event) => dispatch(action.sortData(event)),
         initHazardList: () => dispatch(action.initHazardList()),
         cleanState: () => dispatch(action.cleanState()),
+        RAtype: type => dispatch(action.RAtype(type))
     }
 }
 

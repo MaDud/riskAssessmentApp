@@ -46,6 +46,8 @@
     //pobieranie danych dla użytkownika 
     export const FETCH_RA_SUCCESS = 'FETCH_RA_SUCCESS';
     export const FETCH_RA_FAIL= 'FETCH_RA_FAIL';
+    //ustalanie rodzaju oceny ryzyka
+    export const RA_TYPE = 'RA_TYPE';
 
 //RiskAssessmentOutput
     //archiwizowanie oceny ryzyka

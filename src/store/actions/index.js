@@ -17,7 +17,8 @@ export {inputHandler,
         saveData,
         check,
         checkData,
-        cleanState
+        cleanState,
+        RAtype
 } from './riskAssessmentCreations';
 
 export {initRAOutput,
