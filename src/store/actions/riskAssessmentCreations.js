@@ -53,8 +53,7 @@ export const initHazardsList = () => {
                     clean: true,
                     valid: false};
             };
-            dispatch(setHazards(hazards));
-            dispatch(RAtype('new'))})
+            dispatch(setHazards(hazards))})
         .catch(error => dispatch(fetchHazardsError()))
     }
 }
@@ -82,6 +81,12 @@ export const initNumber = () => {
             dispatch(fetchNumberError())
         })
 }}
+
+export const initVersion = () => {
+    return {
+        type: actionTypes.INIT_VERSION
+    }
+}
 
 export const hazardSwitch = (id) => {
     return {

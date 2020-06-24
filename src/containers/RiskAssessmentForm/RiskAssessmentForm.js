@@ -13,7 +13,7 @@ class RiskAssessmentForm extends React.Component {
     //pobieranie zagrożeń z bazy danych i dodawanie ich do state
     componentDidMount () {
         if (this.props.RAtype === 'new_version') {
-            console.log('hej')
+            this.props.initVersion();
         } else if (this.props.RAtype === 'new') {
             this.props.initNumber();
             this.props.initHazardsList()
@@ -154,6 +154,7 @@ const mapDispatchToProps = dispatch => {
     return {
         dataInputHandler: (e) => dispatch(action.inputHandler(e)),
         initHazardsList: () => dispatch(action.initHazardsList()),
+        initVersion: () => dispatch(action.initVersion()),
         initNumber: () => dispatch(action.initNumber()),
         hazardSwitch: (id) => dispatch(action.hazardSwitch(id)),
         cleanData: (id) => dispatch(action.cleanData(id)),

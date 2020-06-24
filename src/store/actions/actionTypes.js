@@ -30,6 +30,7 @@
     export const HAZARD_INPUT_HANDLER = 'HAZARD_INPUT_HANDLER';
     //pobieranie danych z bazy - lista zagrożeń
     export const SET_HAZARDS = 'SET_HAZARDS';
+    export const INIT_VERSION = 'INIT_VERSION';
     export const FETCH_HAZARDS_ERROR = 'FETCH_HAZARDS_ERROR';
     //pobieranie danych z bazy - numer oceny ryzyka
     export const SET_NUMBER = 'SET_NUMBER';

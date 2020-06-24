@@ -7,7 +7,7 @@ const day = date.getDate();
 const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
 
 const initialState = {
-    RAtype: null,
+    RAtype: 'new',
     id: null,
     number: 0,
     version: 0,
@@ -188,6 +188,12 @@ const riskAssessment = (state=initialState, action) => {
             return {
                 ...state,
                 RAtype: action.RAtype
+            }
+        case actionTypes.INIT_VERSION:
+            const new_version = state.version + 1;
+            return {
+                ...state,
+                version: new_version
             }
         default:
             return state

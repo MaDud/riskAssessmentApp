@@ -40,13 +40,21 @@ export const initRAOutput = (id) => {
             };
             let lastSavedVersion = data1.version[data1.version.length - 1];
             for (let el in lastSavedVersion.hazardList) {
-                hazards[el] = lastSavedVersion.hazardList[el]
+                hazards[el] = {...lastSavedVersion.hazardList[el],
+                            checked: true}
             }
+
+            const date = new Date();
+            const year = date.getFullYear() + 1;
+            const month = date.getMonth();
+            const day = date.getDate();
+            const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
             
-            let data = {number: data1.number,
-                        version: data1.version.length - 1,
-                        status: data1.status,
-                        assessmentData: data1.version[data1.version.length - 1].assessmentData,
+            let data = {...data1,
+                        version: data1.version.length -1,
+                        assessmentData: {...lastSavedVersion.assessmentData,
+                                        date: new Date().toISOString().substring(0,10),
+                                        reviewDate: reviewDate},
                         hazardList: hazards}
             
             dispatch(fetchRASuccess(id,data))
