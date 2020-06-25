@@ -5,18 +5,21 @@ import Auxiliary from '../../hoc/Auxiliary';
 import RiskAssessmentNav from '../../components/RiskAssessmentOutput/RiskAssessmentNav/RiskAssessmentNav';
 import RiskMatric from '../../components/RiskAssessment/HazardIdentyfication/RiskMatric/RiskMatric';
 import InfoBox from '../../components/UI/InfoBox/InfoBox';
+import Modal from '../../components/UI/Modal/Modal';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button/Button';
 import classes from './riskAssessmentOutput.module.css';
 import * as action from '../../store/actions/index';
 
-const TABLE_HEADS = ['Zagrożenie','Źródło zagrożenia', 'Możliwe skutki zagrożenia', 'Środki ochrony przed zagrożeniem', 'Ryzyko']
+const TABLE_HEADS = ['Zagrożenie','Źródło zagrożenia', 'Możliwe skutki zagrożenia', 'Środki ochrony przed zagrożeniem', 'Ryzyko'];
+const ARCHIVE_TABLE_HEADS = ['Wersja', 'Data utworzenia', 'Opis zmian']
 
 
 class RiskAssessmentOutput extends React.Component {
 
     state = {
-        archiveInfo: false
+        archiveInfo: false,
+        archiveHistory: false
     }
 
     componentDidMount () {
@@ -27,6 +30,11 @@ class RiskAssessmentOutput extends React.Component {
     archiveToggle = () => {
         const archiveInfo = !this.state.archiveInfo;
         this.setState({archiveInfo: archiveInfo})
+    }
+
+    archiveHistoryToggle = () => {
+        const archiveHistory = !this.state.archiveHistory;
+        this.setState({archiveHistory: archiveHistory})
     }
 
     btnOK = () => {
@@ -83,16 +91,36 @@ class RiskAssessmentOutput extends React.Component {
                         </Auxiliary>
                         );
         }
+
+        let archiveTableHeads = ARCHIVE_TABLE_HEADS.map( (head,index) => {
+            return <th key={index}>{head}</th>
+        })
         
         return (
             <div className={classes.Output}>
                 <RiskAssessmentNav 
-                    close={this.props.close}
+                    history={this.archiveHistoryToggle}
                     edit={() => this.props.history.push('/riskAssessmentForm/'+this.props.id)}
                     archive={this.archiveToggle}/>
                 <InfoBox archiveInfo={this.state.archiveInfo}>
                     {infoBox}
                 </InfoBox>
+                <Modal show={this.state.archiveHistory}
+                        clicked={this.archiveHistoryToggle}>
+                    <div className={classes.ArchiveHistory}>
+                        <h3>Historia zmian</h3>
+                        <table className={classes.Table}>
+                            <thead>
+                                <tr>
+                                    {archiveTableHeads}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </Modal>
                 {this.props.hazardList ? (  <Auxiliary>
                                                 <div className={classes.Info}>
                                                     <h5>{'Numer: ' + this.props.number + ' wersja: ' + this.props.version} </h5>

@@ -41,3 +41,12 @@
     align-items: center;
     flex-direction: column;
 }
+
+.ArchiveHistory {
+    margin: 10% 10%
+}
+
+.ArchiveHistory h3 {
+    text-transform: capitalize;
+    text-align: center;
+}
