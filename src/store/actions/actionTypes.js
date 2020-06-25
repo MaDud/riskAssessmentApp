@@ -14,6 +14,8 @@
     export const ADD_INIT = 'ADD_INIT';
     export const FETCH_ADD_SUCCESS = 'FETCH_ADD_SUCCESS';
     export const FETCH_ADD_FAIL = 'FETCH_ADD_FAIL';
+    //dodawanie nowej wersji do bazy
+    export const ADD_VERSION_SUCCESS = 'ADD_VERSION_SUCCESS';
     //pobieranie danych z bazy
     export const HAZARD_LIST_INIT = 'HAZARD_LIST_INIT';
     export const FETCH_HAZARD_LIST_SUCCESS = 'FETCH_HAZARD_LIST_SUCCESS';

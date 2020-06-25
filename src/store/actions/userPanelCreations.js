@@ -72,7 +72,6 @@ export const addNew = data => {
         Promise.all([instance.post('/riskAssessment.json', data),
                     instance.put('/prevNumber.json', data.number)])        
         .then(response => {
-            console.log(response);
             const id = response[0].data.name;
             const assessmentData = data.version[0].assessmentData;
             const userPanel = {no: Number(data.number),
@@ -85,6 +84,16 @@ export const addNew = data => {
         })
         .catch(error => {
             dispatch(fetchAddFail())})
+    }
+}
+
+export const addNewVersion = (id, data) => {
+    const version = Object.keys(data);
+    const dataToAdd = data[version]
+    return dispatch => {
+        instance.put('/riskAssessment/' + id + '/version/' + version +'.json', dataToAdd)
+        .then(response => console.log(response))
+        .catch(error => dispatch(fetchAddFail()))
     }
 }
 

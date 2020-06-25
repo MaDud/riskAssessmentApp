@@ -45,12 +45,18 @@ class RiskAssessmentForm extends React.Component {
         for (let el in hazards) {
             newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
         }
-        let version_number = {};
-        version_number[this.props.mainData.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList};
-        const data = {status: 'active', number: this.props.mainData.number, version: version_number};
-        this.props.addNew(data);
+        let versionNumber = {};
+        versionNumber[this.props.mainData.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList};
+        let data = {status: 'active', number: this.props.mainData.number, version: versionNumber}
+        console.log('version', versionNumber)
+        
+        if (this.props.RAtype === 'new') {
+            this.props.addNew(data);
+        } else if (this.props.RAtype === 'new_version') {
+            this.props.addNewVersion(this.props.mainData.id ,versionNumber)
+        }
+        
         this.props.cleanState();
-
         this.props.history.push('/userPanel')
     }
 
@@ -161,6 +167,7 @@ const mapDispatchToProps = dispatch => {
         saveData: (e,id) => dispatch(action.saveData(e,id)),
         hazardInputHandler: (e,id) => dispatch(action.hazardInputHandler(e,id)),
         addNew: data => dispatch(action.addNew(data)),
+        addNewVersion: (id,data) => dispatch(action.addNewVersion(id,data)),
         check: () => dispatch(action.check()),
         checkData: () => dispatch(action.checkData()),
         cleanState: () => dispatch(action.cleanState())
