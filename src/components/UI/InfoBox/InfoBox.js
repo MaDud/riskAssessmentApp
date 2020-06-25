@@ -1,6 +1,7 @@
 import React from 'react';
 import classes from './infoBox.module.css';
 import Auxiliary from '../../../hoc/Auxiliary';
+import Backdrop from '../Backdrop/Backdrop';
 
 class InfoBox extends React.Component {
     
@@ -10,6 +11,7 @@ class InfoBox extends React.Component {
     render() {
     return (
         <Auxiliary>
+            <Backdrop show={this.props.archiveInfo}/>
             {this.props.archiveInfo ? 
                 <div className={classes.InfoBox}></div>:null}
             <div className={classes.Box}
