@@ -11,13 +11,15 @@ import thunk from 'redux-thunk';
 import userPanel from './store/reductors/userPanel';
 import riskAssessment from './store/reductors/riskAssessment';
 import riskAssessmentOutput from './store/reductors/riskAssessmentOutput';
+import archiveHistory from './store/reductors/archiveHistory';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reductors = combineReducers({
     userPanel: userPanel,
     riskAssessment: riskAssessment,
-    riskAssessmentOutput: riskAssessmentOutput
+    riskAssessmentOutput: riskAssessmentOutput,
+    archiveHistory: archiveHistory
 })
 
 const store = createStore(reductors, composeEnhancers(applyMiddleware(thunk)));

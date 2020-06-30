@@ -27,3 +27,5 @@ export {initRAOutput,
         archiveRA,
         raOutputClean
 } from './riskAssessmentOutputCreations';
+
+export {archive} from './archiveHistory'

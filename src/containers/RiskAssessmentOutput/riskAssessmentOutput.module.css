@@ -43,10 +43,19 @@
 }
 
 .ArchiveHistory {
-    margin: 10% 10%
+    margin: 5% 10%
+}
+
+.ArchiveHistory p {
+    display: block;
+    padding: 5px 5px;
+    color: #77838f;
+    text-align: right;
+    cursor: pointer
 }
 
 .ArchiveHistory h3 {
     text-transform: capitalize;
     text-align: center;
+    padding: 10px 0;
 }

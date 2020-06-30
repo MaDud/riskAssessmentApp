@@ -24,7 +24,8 @@ class RiskAssessmentOutput extends React.Component {
 
     componentDidMount () {
         const query = this.props.match.params.id;
-        this.props.initRAOutput(query)
+        this.props.initRAOutput(query);
+        this.props.archiveOutput(query)
     }
 
     archiveToggle = () => {
@@ -95,6 +96,14 @@ class RiskAssessmentOutput extends React.Component {
         let archiveTableHeads = ARCHIVE_TABLE_HEADS.map( (head,index) => {
             return <th key={index}>{head}</th>
         })
+
+        const archiveTableData = Object.keys(this.props.archiveHistory.versionsList).map(version => {
+            return  <tr key={version}>
+                        <td>{version}</td>
+                        <td>{this.props.archiveHistory.versionsList[version].date}</td>
+                        <td>{this.props.archiveHistory.versionsList[version].notice}</td>
+                    </tr>
+        })
         
         return (
             <div className={classes.Output}>
@@ -108,6 +117,7 @@ class RiskAssessmentOutput extends React.Component {
                 <Modal show={this.state.archiveHistory}
                         clicked={this.archiveHistoryToggle}>
                     <div className={classes.ArchiveHistory}>
+                        <p onClick={this.archiveHistoryToggle}>Zamknij</p>
                         <h3>Historia zmian</h3>
                         <table className={classes.Table}>
                             <thead>
@@ -116,7 +126,7 @@ class RiskAssessmentOutput extends React.Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                {archiveTableData}
                             </tbody>
                         </table>
                     </div>
@@ -154,7 +164,8 @@ const mapStateToProps = state => {
         id: state.riskAssessment.id,
         data: state.riskAssessment.assessmentData,
         hazardList: state.riskAssessment.hazardList,
-        raOutput: state.riskAssessmentOutput
+        raOutput: state.riskAssessmentOutput,
+        archiveHistory: state.archiveHistory
     }
 };
 
@@ -163,7 +174,8 @@ const mapPropsToDispatch = dispatch => {
         cleanState: () => dispatch(action.cleanState()),
         initRAOutput: id => dispatch(action.initRAOutput(id)),
         archiveRA: id => dispatch(action.archiveRA(id)),
-        raOutputClean: () => dispatch(action.raOutputClean())
+        raOutputClean: () => dispatch(action.raOutputClean()),
+        archiveOutput: id => dispatch(action.archive(id))
     }
 }
 
