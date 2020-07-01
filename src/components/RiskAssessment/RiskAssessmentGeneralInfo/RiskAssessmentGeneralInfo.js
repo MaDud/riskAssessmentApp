@@ -103,9 +103,9 @@ const riskAssessment = props => {
                         btnType="Submit" 
                         btnPosition={classes.SubmitPosition}
                         disabled={props.disabled}>
-                        Dodaj ocenę
+                        {props.type === 'new' ? 'Dodaj nową ocenę' : 'Dodaj nową wersję'}
                 </Button>
-                <Button clicked={props.save}
+                <Button clicked={props.saveCopy}
                         btnType="Submit"
                         btnPosition={classes.SavePosition}>
                         Zapisz kopię roboczą    

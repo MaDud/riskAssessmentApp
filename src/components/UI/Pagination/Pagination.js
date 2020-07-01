@@ -24,7 +24,7 @@ const pagination = props => {
 
     return(
         <Auxiliary>
-            {amount < 1 ? null:
+            {amount <= 1 ? null:
                         (<ul className={classes.Pagination}>
                             <li onClick={() =>props.changePage(1)} id='1'><FontAwesomeIcon icon='angle-double-left'/></li>
                             {links}

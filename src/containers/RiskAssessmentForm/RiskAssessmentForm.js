@@ -138,7 +138,8 @@ class RiskAssessmentForm extends React.Component {
                     description={this.props.riskAssessment.description}
                     notice={this.props.riskAssessment.notice}
                     reviewDate={this.props.riskAssessment.reviewDate}
-                    owner={this.props.riskAssessment.owner}>
+                    owner={this.props.riskAssessment.owner}
+                    type={this.props.RAtype}>
                         {hazardIdentyfication}
                 </RiskAssessmentGeneralInfo>
             </Auxiliary>
