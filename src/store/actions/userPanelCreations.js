@@ -43,7 +43,7 @@ export const sortData = (e) => {
     }
 }
 
-//dodawanie nowej oceny ryzyka do bazy
+//dodawanie nowej oceny ryzykado bazy
 
 export const addInit = () => {
     return {
@@ -87,6 +87,7 @@ export const addNew = data => {
     }
 }
 
+//dodawanie nowej wersji do bazy
 export const addNewVersion = (id, data) => {
     const version = Object.keys(data);
     const dataToAdd = data[version]
@@ -94,6 +95,15 @@ export const addNewVersion = (id, data) => {
         instance.put('/riskAssessment/' + id + '/version/' + version +'.json', dataToAdd)
         .then(response => console.log(response))
         .catch(error => dispatch(fetchAddFail()))
+    }
+}
+
+//dodawanie nowej kopii roboczej do bazy
+export const addNewWorkCopy = (data) => {
+    return dispatch => {
+        instance.post('/riskAssessment.json', data)
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
     }
 }
 

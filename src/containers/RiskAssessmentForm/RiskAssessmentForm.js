@@ -48,7 +48,6 @@ class RiskAssessmentForm extends React.Component {
         let versionNumber = {};
         versionNumber[this.props.mainData.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList};
         let data = {status: 'active', number: this.props.mainData.number, version: versionNumber}
-        console.log('version', versionNumber)
         
         if (this.props.RAtype === 'new') {
             this.props.addNew(data);
@@ -58,6 +57,25 @@ class RiskAssessmentForm extends React.Component {
         
         this.props.cleanState();
         this.props.history.push('/userPanel')
+    }
+
+    addWorkCopy = e => {
+        e.preventDefault();
+
+        let hazards = Object.keys(this.props.hazardList).filter(el => {
+            return this.props.hazardList[el].save
+        });
+        let newHazardList = {}
+        for (let el in hazards) {
+            newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
+        }
+        let draftNumber = {0: {assessmentData : this.props.riskAssessment, hazardList: newHazardList}};;
+        let data = {status: 'draft', draft: draftNumber}
+            
+        this.props.addNewWorkCopy(data)
+
+
+        console.log('hej')
     }
 
     dataHandler = (e) => {
@@ -128,6 +146,7 @@ class RiskAssessmentForm extends React.Component {
                     change={e => this.dataHandler(e)}
                     disabled={!(this.props.valid.hazardsValidity && this.props.valid.dataValidity)}
                     add={e => this.addNew(e)}
+                    saveCopy= {e => this.addWorkCopy(e)}
                     cancel={e => this.discardChanges(e)}
                     number={this.props.mainData.number}
                     version={this.props.mainData.version}
@@ -169,6 +188,7 @@ const mapDispatchToProps = dispatch => {
         hazardInputHandler: (e,id) => dispatch(action.hazardInputHandler(e,id)),
         addNew: data => dispatch(action.addNew(data)),
         addNewVersion: (id,data) => dispatch(action.addNewVersion(id,data)),
+        addNewWorkCopy: data => dispatch(action.addNewWorkCopy(data)),
         check: () => dispatch(action.check()),
         checkData: () => dispatch(action.checkData()),
         cleanState: () => dispatch(action.cleanState())
