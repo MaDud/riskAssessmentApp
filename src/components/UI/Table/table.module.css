@@ -10,6 +10,10 @@
     font-weight: normal;
 }
 
+.Table tbody tr {
+    cursor: pointer;
+}
+
 .Head {
     display: flex;
     pointer-events: none;
