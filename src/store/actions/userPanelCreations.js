@@ -103,7 +103,18 @@ export const addNewWorkCopy = (data) => {
     return dispatch => {
         instance.post('/riskAssessment.json', data)
         .then(response => console.log(response))
-        .catch(error => console.log(error))
+        .catch(error => dispatch(fetchAddFail()))
+    }
+}
+
+//dodawanie nowej wersji roboczej do bazy
+export const addNewVersionWorkCopy = (id, data) => {
+    const version = Object.keys(data);
+    const dataToAdd = data[version]
+    return dispatch => {
+        instance.put('/riskAssessment/' + id + '/draft/' + version +'.json', dataToAdd)
+        .then(response => console.log(response))
+        .catch(error => dispatch(fetchAddFail()))
     }
 }
 

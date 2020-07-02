@@ -39,12 +39,12 @@ class RiskAssessmentForm extends React.Component {
         e.preventDefault();
 
         let hazards = Object.keys(this.props.hazardList).filter(el => {
-            return this.props.hazardList[el].save && this.props.hazardList[el].valid
-        })
-        let newHazardList = {}
+            return this.props.hazardList[el].save && this.props.hazardList[el].valid});
+
+        let newHazardList = {};
         for (let el in hazards) {
-            newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
-        }
+            newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]};
+            
         let versionNumber = {};
         versionNumber[this.props.mainData.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList};
         let data = {status: 'active', number: this.props.mainData.number, version: versionNumber}
@@ -69,10 +69,18 @@ class RiskAssessmentForm extends React.Component {
         for (let el in hazards) {
             newHazardList[hazards[el]]= this.props.hazardList[hazards[el]]
         }
-        let draftNumber = {0: {assessmentData : this.props.riskAssessment, hazardList: newHazardList}};;
-        let data = {status: 'draft', draft: draftNumber}
-            
-        this.props.addNewWorkCopy(data)
+        let draftNumber = {};
+        draftNumber[this.props.mainData.version] = {assessmentData : this.props.riskAssessment, hazardList: newHazardList};
+        let data = {status: 'draft', number: this.props.mainData.number, draft: draftNumber}
+
+        if (this.props.RAtype === 'new') {
+            this.props.addNewWorkCopy(data)
+        } else if (this.props.RAtype === 'new_version') {
+            this.props.addNewVersionWorkCopy(this.props.mainData.id, draftNumber)
+        }
+
+        this.props.cleanState();
+        this.props.history.push('/userPanel')
 
 
         console.log('hej')
@@ -189,6 +197,7 @@ const mapDispatchToProps = dispatch => {
         addNew: data => dispatch(action.addNew(data)),
         addNewVersion: (id,data) => dispatch(action.addNewVersion(id,data)),
         addNewWorkCopy: data => dispatch(action.addNewWorkCopy(data)),
+        addNewVersionWorkCopy: (id, data) => dispatch(action.addNewVersionWorkCopy(id, data)),
         check: () => dispatch(action.check()),
         checkData: () => dispatch(action.checkData()),
         cleanState: () => dispatch(action.cleanState())
