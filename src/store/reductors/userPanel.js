@@ -13,7 +13,10 @@ const initialState = {
             review: 0, 
             overdue: 0},
     assessmentsList: {},
+    draftsList: {},
     loading: false,
+    error: false,
+    message: ''
 };
 
 const userPanel = (state = initialState, action) => {
@@ -117,7 +120,9 @@ const userPanel = (state = initialState, action) => {
             return {
                 ...state,
                 assessmentsList: {...state.assessmentsList,
-                                ...action.data},
+                                ...action.RAdata},
+                draftsList: {...state.draftsList,
+                            ...action.draftsData}
             }
         case actionTypes.COUNT_UP_ACTIVE: {
             return {

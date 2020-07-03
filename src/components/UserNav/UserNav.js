@@ -26,7 +26,7 @@ const userNav = (props) => {
                 </Button>
                 <Button btnType={'Submit'}
                         id = 'drafts'
-                        clicked={props.seeDrafts}>
+                        clicked={props.clicked}>
                         Kopie robocze
                 </Button>
             </div>

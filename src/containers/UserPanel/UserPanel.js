@@ -60,12 +60,15 @@ class UserPanel extends React.Component {
             else return el
         });
 
-        //wprowadzanie danych do tabel
+        //wprowadzanie danych do tabeli 
         let rowData = {}
+        if (this.props.user !== 'drafts') {
         for (let el in list) {
             rowData[list[el]] = {number: data[list[el]].no,
                                 position: data[list[el]].position,
                                 owner: data[list[el]].owner}
+        }} else {
+            rowData = this.props.draftsList
         }
 
         return (
@@ -117,7 +120,8 @@ const mapStateToProps = state => {
         pagination: state.userPanel.pagination,
         sorted: state.userPanel.sorted,
         assessmentsList: state.userPanel.assessmentsList,
-        statistic: state.userPanel.statistic
+        statistic: state.userPanel.statistic,
+        draftsList: state.userPanel.draftsList
     }
 };
 

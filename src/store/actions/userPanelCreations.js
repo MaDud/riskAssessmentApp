@@ -125,10 +125,11 @@ export const hazardListInit = () => {
     }
 }
 
-export const fetchHazardListSuccess = (data) => {
+export const fetchHazardListSuccess = (RAdata, draftsData) => {
     return {
         type: actionTypes.FETCH_HAZARD_LIST_SUCCESS,
-        data: data
+        RAdata: RAdata,
+        draftsData: draftsData
     }
 }
 
@@ -164,7 +165,8 @@ export const initHazardList = () => {
         .then(response => {
             const data = response.data;
             const date = new Date();
-            let values = {};
+            let RAlist = {};
+            let draftsList = {};
             let active = 0;
             let review = 0;
             let overdue = 0;
@@ -177,7 +179,7 @@ export const initHazardList = () => {
                     const reviewDate = new Date(target.reviewDate);
                     const timeDiffrence= reviewDate-date;
                     const days= Math.floor(timeDiffrence/(1000 * 60 * 60 * 24));
-                    values[id] = {no: Number(data[id].number),
+                    RAlist[id] = {no: Number(data[id].number),
                             position: target.position,
                             owner: target.owner,
                             nextReview: reviewDate,
@@ -187,21 +189,40 @@ export const initHazardList = () => {
                     
                     active += 1;
 
-                    if (values[id].review) {
+                    if (RAlist[id].review) {
                         review += 1
                     } 
-                    if (values[id].overdue) {
+                    if (RAlist[id].overdue) {
                         overdue += 1
                     }
-            }};
-            dispatch(fetchHazardListSuccess(values));
+                    
+                    if (data[id].status === 'active' && data[id].draft) {
+                        for (let draft in data[id].draft) {
+                            if (data[id].draft[draft] !== null) {
+                            draftsList[id] = {no: data[id].number + ' #' + draft,
+                                              position: data[id].draft[draft].assessmentData.position,
+                                              owner: data[id].draft[draft].assessmentData.owner}
+                                console.log(data[id].draft[draft])
+    
+                            }
+                        }
+                    }
+                } else if (data[id].status === 'draft') {
+                    for (let draft in data[id].draft) {
+                        draftsList[id] = {no: '#' + data[id].number + ' #' + draft,
+                                            position: data[id].draft[draft].assessmentData.position,
+                                            owner: data[id].draft[draft].assessmentData.owner}
+                    }
+                }
+            };
+            dispatch(fetchHazardListSuccess(RAlist, draftsList));
 
             let activeCount = 0;
             let reviewCount = 0;
             let overdueCount = 0;
             let timer = 0;
             if (active !== 0) {
-                timer = 3000/Math.max(active, review, overdue)
+                timer = 2500/Math.max(active, review, overdue)
             };
             const interval = setInterval( () => {
                 if (activeCount < active) {
