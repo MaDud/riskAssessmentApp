@@ -199,17 +199,15 @@ export const initHazardList = () => {
                     if (data[id].status === 'active' && data[id].draft) {
                         for (let draft in data[id].draft) {
                             if (data[id].draft[draft] !== null) {
-                            draftsList[id] = {no: data[id].number + ' #' + draft,
+                            draftsList[id] = {no: '#' + data[id].number + ' wersja ' + draft,
                                               position: data[id].draft[draft].assessmentData.position,
-                                              owner: data[id].draft[draft].assessmentData.owner}
-                                console.log(data[id].draft[draft])
-    
+                                              owner: data[id].draft[draft].assessmentData.owner}    
                             }
                         }
                     }
                 } else if (data[id].status === 'draft') {
                     for (let draft in data[id].draft) {
-                        draftsList[id] = {no: '#' + data[id].number + ' #' + draft,
+                        draftsList[id] = {no: '#' + data[id].number + ' wersja ' + draft,
                                             position: data[id].draft[draft].assessmentData.position,
                                             owner: data[id].draft[draft].assessmentData.owner}
                     }

@@ -22,42 +22,6 @@ export const RAtype = (type) => {
     }
 }
 
-export const setHazards = (hazards) => {
-    return {
-        type: actionTypes.SET_HAZARDS,
-        hazardList: hazards
-    }
-}
-
-export const fetchHazardsError = () => {
-    return {
-        type: actionTypes.FETCH_HAZARDS_ERROR
-    }
-}
-
-export const initHazardsList = () => {
-    return dispatch => {
-        instance.get('/hazardList.json')
-        .then(response => {
-            const data = response.data;
-            let hazards = {};
-            for (let el in data) {
-                hazards['hazard'+el] = {value:data[el], 
-                    checked:false,
-                    source: "",
-                    possibleEffects: "",
-                    protection: "",
-                    effect: "",
-                    propability: "",
-                    save: false,
-                    clean: true,
-                    valid: false};
-            };
-            dispatch(setHazards(hazards))})
-        .catch(error => dispatch(fetchHazardsError()))
-    }
-}
-
 export const setNumber = (number) => {
     return {
         type: actionTypes.SET_NUMBER,
@@ -65,28 +29,116 @@ export const setNumber = (number) => {
     }
 }
 
-export const fetchNumberError = () => {
+export const setHazards = (hazards) => {
     return {
-        type: actionTypes.FETCH_NUMBER_ERROR
+        type: actionTypes.SET_HAZARDS,
+        hazardList: hazards
     }
 }
 
-export const initNumber = () => {
+export const RApreview = (id, data) => {
+    return {
+        type: actionTypes.RA_PREVIEW,
+        id: id,
+        number: data.number,
+        version: data.version,
+        assessmentData: data.assessmentData,
+        hazardList: data.hazardList
+    }
+}
+
+export const initRAForm = (type, id, version) => {
     return dispatch => {
-        instance.get('/prevNumber.json')
-        .then(response => {
-            dispatch(setNumber(response.data + 1))
-        })
-        .catch(error => {
-            dispatch(fetchNumberError())
-        })
-}}
+        let hazardsData, RAdata; 
+        let hazardsList = {};
+        if (type === 'new') {
+            Promise.all([instance.get('/hazardList.json'),
+                        instance.get('/prevNumber.json')])
+            .then(response => {
+                hazardsData = response[0].data;
+                for (let el in hazardsData) {
+                    hazardsList['hazard'+el] = {value: hazardsData[el], 
+                        checked:false,
+                        source: "",
+                        possibleEffects: "",
+                        protection: "",
+                        effect: "",
+                        propability: "",
+                        save: false,
+                        clean: true,
+                        valid: false};
+                };
+                dispatch(setHazards(hazardsList));
+                dispatch(setNumber(response[1].data + 1)) 
+            })
+            .catch(error => console.log(error))        
+        }
+        else if (type === 'preview') {
+            instance.get('/riskAssessment/' + id + '.json')
+            .then(response => { 
+                RAdata = response.data;
+                let lastSavedVersion = RAdata.version[RAdata.version.length - 1];
 
-export const initVersion = () => {
-    return {
-        type: actionTypes.INIT_VERSION
+                let data = {...RAdata,
+                            version: RAdata.version.length -1,
+                            assessmentData: lastSavedVersion.assessmentData,
+                            hazardList: lastSavedVersion.hazardList}
+                
+                dispatch(RApreview(id,data))
+            })
+            .catch(error => console.log(error))   
+        }
+        else if (type === 'new_version' || type === 'draft') {
+            Promise.all([instance.get('/hazardList.json'),
+                        instance.get('/riskAssessment/' + id + '.json')])
+            .then(response => { 
+                const date = new Date();
+                const year = date.getFullYear() + 1;
+                const month = date.getMonth();
+                const day = date.getDate();
+                const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
+                let assessmentData;
+                hazardsData = response[0].data;
+                RAdata = response[1].data;
+                for (let el in hazardsData) {
+                    hazardsList['hazard'+el] = {value:hazardsData[el], 
+                        checked:false,
+                        source: "",
+                        possibleEffects: "",
+                        protection: "",
+                        effect: "",
+                        propability: "",
+                        save: false,
+                        clean: true,
+                        valid: false};
+                };
+                
+                if (type === 'new_version') {
+                    assessmentData = RAdata.version[Number(version) - 1];
+                } else if (type === 'draft') {
+                    assessmentData = RAdata.draft[version]
+                }
+
+                for (let el in assessmentData.hazardList) {
+                    hazardsList[el] = {...assessmentData.hazardList[el],
+                                        checked: true}
+                }
+
+                let data = {...RAdata,
+                            version: version,
+                            assessmentData: {...assessmentData.assessmentData,
+                                            date: new Date().toISOString().substring(0,10),
+                                            reviewDate: reviewDate},
+                            hazardList: hazardsList}
+                
+                dispatch(RApreview(id,data))
+            })
+                .catch(error => console.log(error))
+        }
     }
 }
+
+
 
 export const hazardSwitch = (id) => {
     return {

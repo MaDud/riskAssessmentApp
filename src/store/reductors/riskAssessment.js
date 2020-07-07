@@ -61,21 +61,11 @@ const riskAssessment = (state=initialState, action) => {
                 hazardList: action.hazardList,
                 error: false
             }
-        case actionTypes.FETCH_HAZARDS_ERROR:
-            return {
-                ...state,
-                error: true
-            }
         case actionTypes.SET_NUMBER:
             return {
                 ...state,
                 number: action.number,
                 error: false
-            }
-        case actionTypes.FETCH_NUMBER_ERROR:
-            return {
-                ...state,
-                error: true
             }
         case actionTypes.HAZARD_SWITCH:
             return {
@@ -165,7 +155,7 @@ const riskAssessment = (state=initialState, action) => {
                         dataValidity: false},
                 error: false,
             }
-        case actionTypes.FETCH_RA_SUCCESS:
+        case actionTypes.RA_PREVIEW:
             return {
                 ...state,
                 id: action.id,
@@ -179,21 +169,10 @@ const riskAssessment = (state=initialState, action) => {
                     dataValidity: false},
                 error: false
             }
-        case actionTypes.FETCH_RA_FAIL:
-            return {
-                ...state,
-                error: true
-            }
         case actionTypes.RA_TYPE:
             return {
                 ...state,
                 RAtype: action.RAtype
-            }
-        case actionTypes.INIT_VERSION:
-            const new_version = state.version + 1;
-            return {
-                ...state,
-                version: new_version
             }
         default:
             return state

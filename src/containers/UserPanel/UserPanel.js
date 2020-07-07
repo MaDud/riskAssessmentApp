@@ -31,8 +31,15 @@ class UserPanel extends React.Component {
     seeRow = e => {
         let id = e.target.parentElement.id;
         this.props.clearUserPanel();
-        this.props.RAtype('new_version')
-        this.props.history.push('/riskAssessment/' + id)   
+        if (this.props.user !== 'drafts') {
+            this.props.RAtype('preview')
+            this.props.history.push('/riskAssessment/' + id)   
+        } else {
+            let version = this.props.draftsList[id].no;
+            let num = version.match(/[0-9]{1,}$/);
+            this.props.RAtype('draft')
+            this.props.history.push('/riskAssessmentForm/'+ id +'/' + num)
+        }
     }
     
     render () {

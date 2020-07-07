@@ -25,6 +25,7 @@ const userPanel = (state = initialState, action) => {
         case actionTypes.CLEAR_SORT_PANEL:
             return {
                 ...state,
+                activeBtn: 'active',
                 search: {searchValue: "",
                         searchField: false},
                 pagination: {...state.pagination,

@@ -21,7 +21,7 @@ function App() {
       <Layout>
         <Switch>
           <Route path="/" exact component={RiskAssessmentForm}/>
-          <Route path="/riskAssessmentForm/:id" component={RiskAssessmentForm}/>
+          <Route path="/riskAssessmentForm/:id/:version" component={RiskAssessmentForm}/>
           <Route path="/userPanel" component={UserPanel} />
           <Route path="/riskAssessment/:id" component={RiskAssessmentOutput} />
         </Switch>

@@ -12,9 +12,7 @@ export {clearUserPanel,
 } from './userPanelCreations';
 
 export {inputHandler,
-        initHazardsList,
-        initNumber,
-        initVersion,
+        initRAForm,
         hazardSwitch,
         hazardInputHandler,
         cleanData,
@@ -25,8 +23,7 @@ export {inputHandler,
         RAtype
 } from './riskAssessmentCreations';
 
-export {initRAOutput,
-        archiveRA,
+export {archiveRA,
         raOutputClean
 } from './riskAssessmentOutputCreations';
 

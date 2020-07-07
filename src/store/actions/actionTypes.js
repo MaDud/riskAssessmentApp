@@ -32,11 +32,8 @@
     export const HAZARD_INPUT_HANDLER = 'HAZARD_INPUT_HANDLER';
     //pobieranie danych z bazy - lista zagrożeń
     export const SET_HAZARDS = 'SET_HAZARDS';
-    export const INIT_VERSION = 'INIT_VERSION';
-    export const FETCH_HAZARDS_ERROR = 'FETCH_HAZARDS_ERROR';
     //pobieranie danych z bazy - numer oceny ryzyka
     export const SET_NUMBER = 'SET_NUMBER';
-    export const FETCH_NUMBER_ERROR = 'FETCH_NUMBER_ERROR';
     //sterowanie zagrożeniami
     export const HAZARD_SWITCH = 'HAZARD_SWITCH';
     export const CLEAN_DATA = 'CLEAN_DATA';
@@ -47,7 +44,7 @@
     //czyszczenie stanu
     export const CLEAN_STATE = 'CLEAN_STATE';
     //pobieranie danych dla użytkownika 
-    export const FETCH_RA_SUCCESS = 'FETCH_RA_SUCCESS';
+    export const RA_PREVIEW = 'RA_PREVIEW';
     export const FETCH_RA_FAIL= 'FETCH_RA_FAIL';
     //ustalanie rodzaju oceny ryzyka
     export const RA_TYPE = 'RA_TYPE';

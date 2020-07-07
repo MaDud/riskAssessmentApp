@@ -24,7 +24,7 @@ class RiskAssessmentOutput extends React.Component {
 
     componentDidMount () {
         const query = this.props.match.params.id;
-        this.props.initRAOutput(query);
+        this.props.initRAForm('preview', query);
         this.props.archiveOutput(query)
     }
 
@@ -36,6 +36,11 @@ class RiskAssessmentOutput extends React.Component {
     archiveHistoryToggle = () => {
         const archiveHistory = !this.state.archiveHistory;
         this.setState({archiveHistory: archiveHistory})
+    }
+
+    editBtn = (id) => {
+        this.props.RAtype('new_version');
+        this.props.history.push('/riskAssessmentForm/'+ id + '/' + (this.props.version + 1));
     }
 
     btnOK = () => {
@@ -109,7 +114,7 @@ class RiskAssessmentOutput extends React.Component {
             <div className={classes.Output}>
                 <RiskAssessmentNav 
                     history={this.archiveHistoryToggle}
-                    edit={() => this.props.history.push('/riskAssessmentForm/'+this.props.id)}
+                    edit={() => this.editBtn(this.props.id)}
                     archive={this.archiveToggle}/>
                 <InfoBox archiveInfo={this.state.archiveInfo}>
                     {infoBox}
@@ -172,10 +177,11 @@ const mapStateToProps = state => {
 const mapPropsToDispatch = dispatch => {
     return {
         cleanState: () => dispatch(action.cleanState()),
-        initRAOutput: id => dispatch(action.initRAOutput(id)),
         archiveRA: id => dispatch(action.archiveRA(id)),
         raOutputClean: () => dispatch(action.raOutputClean()),
-        archiveOutput: id => dispatch(action.archive(id))
+        archiveOutput: id => dispatch(action.archive(id)),
+        RAtype: type => dispatch(action.RAtype(type)),
+        initRAForm: (type, id) => dispatch(action.initRAForm(type,id))
     }
 }
 
