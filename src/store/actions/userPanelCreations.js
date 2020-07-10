@@ -51,17 +51,25 @@ export const addInit = () => {
     }
 }
 
-export const fetchAddSuccess = (id, data) => {
+export const addSuccess = (id, data) => {
     return {
-        type: actionTypes.FETCH_ADD_SUCCESS,
+        type: actionTypes.ADD_SUCCESS,
         id: id,
         data: data
     }
 }
 
-export const fetchAddFail = () => {
+export const addWorkCopySuccess = (id, data) => {
     return {
-        type: actionTypes.FETCH_ADD_FAIL,
+        type: actionTypes.ADD_WORK_COPY_SUCCESS,
+        id: id,
+        data: data
+    }
+}
+
+export const addFail = () => {
+    return {
+        type: actionTypes.ADD_FAIL,
         error: true
     }
 }
@@ -80,10 +88,10 @@ export const addNew = data => {
                                 status: data.status,
                                 review: false,
                                 overdue: false}
-            dispatch(fetchAddSuccess(id,userPanel))
+            dispatch(addSuccess(id,userPanel))
         })
         .catch(error => {
-            dispatch(fetchAddFail())})
+            dispatch(addFail())})
     }
 }
 
@@ -94,27 +102,40 @@ export const addNewVersion = (id, data) => {
     return dispatch => {
         instance.put('/riskAssessment/' + id + '/version/' + version +'.json', dataToAdd)
         .then(response => console.log(response))
-        .catch(error => dispatch(fetchAddFail()))
+        .catch(error => dispatch(addFail()))
     }
 }
 
 //dodawanie nowej kopii roboczej do bazy
 export const addNewWorkCopy = (data) => {
+    console.log(data)
     return dispatch => {
         instance.post('/riskAssessment.json', data)
-        .then(response => console.log(response))
-        .catch(error => dispatch(fetchAddFail()))
+        .then(response => {
+            const id = response.data.name;
+            const draftData = {no: '#' + data.number + ' wersja 0',
+                                position: data.draft[0].assessmentData.position,
+                                owner: data.draft[0].assessmentData.owner};
+            dispatch(addWorkCopySuccess(id, draftData))
+        })
+        .catch(error => dispatch(addFail()))
     }
 }
 
 //dodawanie nowej wersji roboczej do bazy
-export const addNewVersionWorkCopy = (id, data) => {
+export const addNewVersionWorkCopy = (id, no, data) => {
     const version = Object.keys(data);
     const dataToAdd = data[version]
     return dispatch => {
         instance.put('/riskAssessment/' + id + '/draft/' + version +'.json', dataToAdd)
-        .then(response => console.log(response))
-        .catch(error => dispatch(fetchAddFail()))
+        .then(response => {
+            console.log(response.data)
+            const draftData = {no: '#' + no + ' wersja ' + version,
+                             postion: dataToAdd.assessmentData.position,
+                             owner: dataToAdd.assessmentData.owner};
+            dispatch(addWorkCopySuccess(id, draftData))
+        })
+        .catch(error => dispatch(addFail()))
     }
 }
 

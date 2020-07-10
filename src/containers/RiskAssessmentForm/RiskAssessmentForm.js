@@ -14,7 +14,6 @@ class RiskAssessmentForm extends React.Component {
     componentDidMount () {
         const id = this.props.match.params.id;
         const version = this.props.match.params.version;
-        console.log(version)
         this.props.initRAForm(this.props.RAtype, id, version)
     }
 
@@ -74,14 +73,11 @@ class RiskAssessmentForm extends React.Component {
         if (this.props.RAtype === 'new') {
             this.props.addNewWorkCopy(data)
         } else if (this.props.RAtype === 'new_version') {
-            this.props.addNewVersionWorkCopy(this.props.mainData.id, draftNumber)
+            this.props.addNewVersionWorkCopy(this.props.mainData.id, this.props.mainData.number, draftNumber)
         }
 
         this.props.cleanState();
         this.props.history.push('/userPanel')
-
-
-        console.log('hej')
     }
 
     dataHandler = (e) => {
@@ -193,7 +189,7 @@ const mapDispatchToProps = dispatch => {
         addNew: data => dispatch(action.addNew(data)),
         addNewVersion: (id,data) => dispatch(action.addNewVersion(id,data)),
         addNewWorkCopy: data => dispatch(action.addNewWorkCopy(data)),
-        addNewVersionWorkCopy: (id, data) => dispatch(action.addNewVersionWorkCopy(id, data)),
+        addNewVersionWorkCopy: (id, no, data) => dispatch(action.addNewVersionWorkCopy(id, no, data)),
         check: () => dispatch(action.check()),
         checkData: () => dispatch(action.checkData()),
         cleanState: () => dispatch(action.cleanState())

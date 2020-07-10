@@ -98,7 +98,7 @@ const userPanel = (state = initialState, action) => {
                             review: 0,
                             overdue: 0}
             }
-        case actionTypes.FETCH_ADD_SUCCESS:
+        case actionTypes.ADD_SUCCESS:
             return {
                 ...state,
                 assessmentsList: {...state.assessmentsList,
@@ -107,10 +107,17 @@ const userPanel = (state = initialState, action) => {
                             active: state.statistic.active + 1},
                 loading: false
             }
-        case actionTypes.FETCH_ADD_FAIL:
+        case actionTypes.ADD_FAIL:
             return {
                 ...state,
                 loading: false,
+            }
+        case actionTypes.ADD_WORK_COPY_SUCCESS: 
+            return {
+                ...state,
+                draftsList: {...state.draftsList,
+                            [action.id]: action.data},
+                loading: false
             }
         case actionTypes.HAZARD_LIST_INIT:
             return {

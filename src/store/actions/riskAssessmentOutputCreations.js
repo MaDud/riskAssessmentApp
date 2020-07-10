@@ -1,68 +1,6 @@
 import * as actionTypes from './actionTypes';
 import instance from '../../instance';
 
-// export const fetchRASuccess = (id, data) => {
-//     return {
-//         type: actionTypes.FETCH_RA_SUCCESS,
-//         id: id,
-//         number: data.number,
-//         version: data.version,
-//         assessmentData: data.assessmentData,
-//         hazardList: data.hazardList
-//     }
-// }
-
-// export const fetchRAFail = () => {
-//     return {
-//         type: actionTypes.FETCH_RA_FAIL
-//     }
-// }
-
-// export const initRAOutput = (id) => {
-//     return dispatch => {
-//         Promise.all([instance.get('/hazardList.json'),
-//         instance.get('/riskAssessment/' + id + '.json')])
-//         .then(response => { 
-//             let data0 = response[0].data;
-//             let data1 = response[1].data;
-//             let hazards = {};
-//             for (let el in data0) {
-//                 hazards['hazard'+el] = {value:data0[el], 
-//                     checked:false,
-//                     source: "",
-//                     possibleEffects: "",
-//                     protection: "",
-//                     effect: "",
-//                     propability: "",
-//                     save: false,
-//                     clean: true,
-//                     valid: false};
-//             };
-//             let lastSavedVersion = data1.version[data1.version.length - 1];
-//             for (let el in lastSavedVersion.hazardList) {
-//                 hazards[el] = {...lastSavedVersion.hazardList[el],
-//                             checked: true}
-//             }
-
-//             const date = new Date();
-//             const year = date.getFullYear() + 1;
-//             const month = date.getMonth();
-//             const day = date.getDate();
-//             const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
-            
-//             let data = {...data1,
-//                         version: data1.version.length -1,
-//                         assessmentData: {...lastSavedVersion.assessmentData,
-//                                         date: new Date().toISOString().substring(0,10),
-//                                         reviewDate: reviewDate},
-//                         hazardList: hazards}
-            
-//             dispatch(fetchRASuccess(id,data))
-//         })
-//         .catch(error => dispatch(fetchRAFail()))
-//     }
-// }
-
 export const archiveInit = () => {
     return {
         type: actionTypes.ARCHIVE_INIT
