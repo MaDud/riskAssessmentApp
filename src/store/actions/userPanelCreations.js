@@ -110,9 +110,10 @@ export const addNewVersion = (id, data) => {
 export const addNewWorkCopy = (data) => {
     console.log(data)
     return dispatch => {
-        instance.post('/riskAssessment.json', data)
+        Promise.all([instance.post('/riskAssessment.json', data),
+                    instance.put('/prevNumber.json', data.number)])
         .then(response => {
-            const id = response.data.name;
+            const id = response[0].data.name;
             const draftData = {no: '#' + data.number + ' wersja 0',
                                 position: data.draft[0].assessmentData.position,
                                 owner: data.draft[0].assessmentData.owner};
