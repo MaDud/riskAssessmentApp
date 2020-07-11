@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import instance from '../../instance';
 
+
 export const clearUserPanel = () => {
     return {
         type: actionTypes.CLEAR_SORT_PANEL
@@ -67,10 +68,34 @@ export const addWorkCopySuccess = (id, data) => {
     }
 }
 
-export const addFail = () => {
+export const messageSwitchFail = (RAtype) => {
+    let message;
+
+    switch (RAtype) {
+        case 'new':
+            message = 'Nie udało się zapisać nowej oceny ryzyka. Spróbuj ponownie';
+            break
+        case 'new_version':
+            message = 'Nie udało się zapisać nowej wersji oceny ryzyka. Spóbuj ponownie';
+            break
+        case 'new_work_copy':
+            message = 'Nie udało się zapisać nowej kopii roboczej.';
+            break
+        case 'new_version_work_copy':
+            message = 'Nie udało się zapisać kopii roboczej nowej wersji oceny ryzyka.';
+            break
+        default:
+            message = null
+    }
+
+    return message
+}
+
+export const addFail = (RAtype) => {
     return {
         type: actionTypes.ADD_FAIL,
-        error: true
+        error: true,
+        message: messageSwitchFail(RAtype)
     }
 }
 
@@ -91,7 +116,7 @@ export const addNew = data => {
             dispatch(addSuccess(id,userPanel))
         })
         .catch(error => {
-            dispatch(addFail())})
+            dispatch(addFail('new'))})
     }
 }
 
@@ -100,9 +125,11 @@ export const addNewVersion = (id, data) => {
     const version = Object.keys(data);
     const dataToAdd = data[version]
     return dispatch => {
+        dispatch(addInit());
         instance.put('/riskAssessment/' + id + '/version/' + version +'.json', dataToAdd)
         .then(response => console.log(response))
-        .catch(error => dispatch(addFail()))
+        .catch(error => {
+            dispatch(addFail('new_version'))})
     }
 }
 
@@ -110,6 +137,7 @@ export const addNewVersion = (id, data) => {
 export const addNewWorkCopy = (data) => {
     console.log(data)
     return dispatch => {
+        dispatch(addInit());
         Promise.all([instance.post('/riskAssessment.json', data),
                     instance.put('/prevNumber.json', data.number)])
         .then(response => {
@@ -119,7 +147,7 @@ export const addNewWorkCopy = (data) => {
                                 owner: data.draft[0].assessmentData.owner};
             dispatch(addWorkCopySuccess(id, draftData))
         })
-        .catch(error => dispatch(addFail()))
+        .catch(error => dispatch(addFail('new_work_copy')))
     }
 }
 
@@ -128,6 +156,7 @@ export const addNewVersionWorkCopy = (id, no, data) => {
     const version = Object.keys(data);
     const dataToAdd = data[version]
     return dispatch => {
+        dispatch(addInit());
         instance.put('/riskAssessment/' + id + '/draft/' + version +'.json', dataToAdd)
         .then(response => {
             console.log(response.data)
@@ -136,7 +165,14 @@ export const addNewVersionWorkCopy = (id, no, data) => {
                              owner: dataToAdd.assessmentData.owner};
             dispatch(addWorkCopySuccess(id, draftData))
         })
-        .catch(error => dispatch(addFail()))
+        .catch(error => dispatch(addFail('new_version_work_copy')))
+    }
+}
+
+//czyszczenie danych o rezultacie dodania/usunięcia z bazy
+export const cleanAddData = () => {
+    return {
+        type: actionTypes.CLEAN_ADD_DATA
     }
 }
 

@@ -6,18 +6,18 @@ import Backdrop from '../Backdrop/Backdrop';
 class InfoBox extends React.Component {
     
     shouldComponentUpdate (nextProps, nextState) {
-        return this.props.archiveInfo !== nextProps.archiveInfo || this.props.children !== nextProps.children
+        return this.props.show !== nextProps.show || this.props.children !== nextProps.children
     }
     render() {
     return (
         <Auxiliary>
-            <Backdrop show={this.props.archiveInfo}/>
-            {this.props.archiveInfo ? 
+            <Backdrop show={this.props.show}/>
+            {this.props.show ? 
                 <div className={classes.InfoBox}></div>:null}
             <div className={classes.Box}
                 style={{
-                    opacity: this.props.archiveInfo ? '1':'0',
-                    transform: this.props.archiveInfo ? 'translateY(0)': 'translateY(-100vh)'
+                    opacity: this.props.show ? '1':'0',
+                    transform: this.props.show ? 'translateY(0)': 'translateY(-100vh)'
             }}>
                 {this.props.children}
             </div>

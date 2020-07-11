@@ -116,7 +116,7 @@ class RiskAssessmentOutput extends React.Component {
                     history={this.archiveHistoryToggle}
                     edit={() => this.editBtn(this.props.id)}
                     archive={this.archiveToggle}/>
-                <InfoBox archiveInfo={this.state.archiveInfo}>
+                <InfoBox show={this.state.archiveInfo}>
                     {infoBox}
                 </InfoBox>
                 <Modal show={this.state.archiveHistory}

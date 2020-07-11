@@ -2,7 +2,7 @@ import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
     activeBtn: 'active',
-    search: {searchValue: "",
+    search: {searchValue: '',
             searchField: false},
     pagination: {page: 1,
                 range: 3},
@@ -16,7 +16,7 @@ const initialState = {
     draftsList: {},
     loading: false,
     error: false,
-    message: ''
+    message: null
 };
 
 const userPanel = (state = initialState, action) => {
@@ -105,19 +105,39 @@ const userPanel = (state = initialState, action) => {
                                 [action.id]: action.data},
                 statistic: {...state.statistic,
                             active: state.statistic.active + 1},
-                loading: false
+                error: false,
+                loading: false,
+                message: 'Nowa ocena ryzyka została dodana'
             }
         case actionTypes.ADD_FAIL:
             return {
                 ...state,
                 loading: false,
+                error: true,
+                message: action.message
+            }
+        case actionTypes.ADD_VERSION_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                message: 'Nowa wersja oceny ryzyka zawodowego została zapisana'
             }
         case actionTypes.ADD_WORK_COPY_SUCCESS: 
             return {
                 ...state,
                 draftsList: {...state.draftsList,
                             [action.id]: action.data},
-                loading: false
+                error: false,
+                loading: false,
+                message: 'Kopia robocza została dodana do bazy.'
+            }
+        case actionTypes.CLEAN_ADD_DATA:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                message: null
             }
         case actionTypes.HAZARD_LIST_INIT:
             return {

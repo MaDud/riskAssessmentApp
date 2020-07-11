@@ -8,7 +8,8 @@ export {clearUserPanel,
         addNewVersion,
         addNewWorkCopy,
         addNewVersionWorkCopy,
-        initHazardList
+        initHazardList,
+        cleanAddData
 } from './userPanelCreations';
 
 export {inputHandler,

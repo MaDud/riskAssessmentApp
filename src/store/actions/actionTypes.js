@@ -16,6 +16,7 @@
     export const ADD_FAIL = 'ADD_FAIL';
     export const ADD_WORK_COPY_SUCCESS = 'ADD_WORK_COPY_SUCCESS';
     export const ADD_VERSION_SUCCESS = 'ADD_VERSION_SUCCESS';
+    export const CLEAN_ADD_DATA = 'CLEAN_ADD_DATA';
     //pobieranie danych z bazy
     export const HAZARD_LIST_INIT = 'HAZARD_LIST_INIT';
     export const FETCH_HAZARD_LIST_SUCCESS = 'FETCH_HAZARD_LIST_SUCCESS';

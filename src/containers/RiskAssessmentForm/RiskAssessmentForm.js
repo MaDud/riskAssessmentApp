@@ -5,10 +5,17 @@ import ErrorBoundaries from '../../hoc/ErrorBoundaries/ErrorBoundaries';
 import RiskAssessmentGeneralInfo from '../../components/RiskAssessment/RiskAssessmentGeneralInfo/RiskAssessmentGeneralInfo';
 import HazardIdentyfication from '../../components/RiskAssessment/HazardIdentyfication/HazardIdentyfication';
 import HazardForm from '../../components/RiskAssessment/HazardIdentyfication/HazardForm/HazardForm';
+import InfoBox from '../../components/UI/InfoBox/InfoBox';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import Button from '../../components/UI/Button/Button';
 import { connect } from 'react-redux';
 import * as action from '../../store/actions/index';
 
 class RiskAssessmentForm extends React.Component {
+
+    state = {
+        show: false
+    }
 
     //pobieranie zagrożeń z bazy danych i dodawanie ich do state
     componentDidMount () {
@@ -31,9 +38,16 @@ class RiskAssessmentForm extends React.Component {
         this.props.check()
     }
 
+    //InfoBox toggle
+    infoToggle = () => {
+        const show = this.state.show
+        this.setState({show: !show})
+    }
+
     //dodawanie nowej oceny ryzyka do bazy
     addNew = e => {
         e.preventDefault();
+        this.infoToggle();
 
         let hazards = Object.keys(this.props.hazardList).filter(el => {
             return this.props.hazardList[el].save && this.props.hazardList[el].valid});
@@ -51,13 +65,16 @@ class RiskAssessmentForm extends React.Component {
         } else if (this.props.RAtype === 'new_version') {
             this.props.addNewVersion(this.props.mainData.id ,versionNumber)
         }
-        
-        this.props.cleanState();
-        this.props.history.push('/userPanel')
+
+    
+        //przenieść do przycisku w InfoBox + zmiana stanu show
+        // this.props.cleanState();
+        // this.props.history.push('/userPanel')
     }
 
     addWorkCopy = e => {
         e.preventDefault();
+        this.infoToggle();
 
         let hazards = Object.keys(this.props.hazardList).filter(el => {
             return this.props.hazardList[el].save
@@ -75,9 +92,18 @@ class RiskAssessmentForm extends React.Component {
         } else if (this.props.RAtype === 'new_version') {
             this.props.addNewVersionWorkCopy(this.props.mainData.id, this.props.mainData.number, draftNumber)
         }
+    }
 
-        this.props.cleanState();
-        this.props.history.push('/userPanel')
+    infoBtn = (e) => {
+        e.preventDefault();
+        this.infoToggle();
+
+        if (!this.props.error) {
+            this.props.cleanState();
+            this.props.history.push('/userPanel');
+        };
+
+        this.props.cleanAddData()
     }
 
     dataHandler = (e) => {
@@ -126,7 +152,7 @@ class RiskAssessmentForm extends React.Component {
             })
         }
 
-        let hazardIdentyfication = "Spinner in future";
+        let hazardIdentyfication = <Spinner />
         if (this.props.hazardList !== null) {
             hazardIdentyfication = hazardArray.map( el => {
                 return <ErrorBoundaries key={el.id}>
@@ -142,8 +168,21 @@ class RiskAssessmentForm extends React.Component {
                         </ErrorBoundaries>})
         }  
 
+        let addInfoBox = <Spinner/>;
+        if (this.props.message) {
+            addInfoBox = (
+                        <Auxiliary>
+                            <h2>{this.props.message}</h2>
+                            <Button btnType= {'Submit'} clicked={this.infoBtn}>OK</Button>
+                        </Auxiliary>
+            )
+        }
+
         return (
             <Auxiliary>
+                <InfoBox show={this.state.show}>
+                    {addInfoBox}
+                </InfoBox>
                 <RiskAssessmentGeneralInfo
                     change={e => this.dataHandler(e)}
                     disabled={!(this.props.valid.hazardsValidity && this.props.valid.dataValidity)}
@@ -174,7 +213,9 @@ const mapStateToProps = state => {
         riskAssessment: state.riskAssessment.assessmentData,
         hazardList: state.riskAssessment.hazardList,
         valid: state.riskAssessment.validity,
-        RAtype: state.riskAssessment.RAtype
+        RAtype: state.riskAssessment.RAtype,
+        message: state.userPanel.message,
+        error: state.userPanel.error
     }
 };
 
@@ -192,7 +233,8 @@ const mapDispatchToProps = dispatch => {
         addNewVersionWorkCopy: (id, no, data) => dispatch(action.addNewVersionWorkCopy(id, no, data)),
         check: () => dispatch(action.check()),
         checkData: () => dispatch(action.checkData()),
-        cleanState: () => dispatch(action.cleanState())
+        cleanState: () => dispatch(action.cleanState()),
+        cleanAddData: () => dispatch(action.cleanAddData())
     }
 }
 
