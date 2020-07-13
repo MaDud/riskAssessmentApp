@@ -64,12 +64,10 @@ class RiskAssessmentForm extends React.Component {
             this.props.addNew(data);
         } else if (this.props.RAtype === 'new_version') {
             this.props.addNewVersion(this.props.mainData.id ,versionNumber)
+        } else if (this.props.RAtype === 'draft') {
+            this.props.addNewFromWorkCopy(this.props.mainData.id, this.props.mainData.number, versionNumber)
         }
 
-    
-        //przenieść do przycisku w InfoBox + zmiana stanu show
-        // this.props.cleanState();
-        // this.props.history.push('/userPanel')
     }
 
     addWorkCopy = e => {
@@ -231,6 +229,7 @@ const mapDispatchToProps = dispatch => {
         addNewVersion: (id,data) => dispatch(action.addNewVersion(id,data)),
         addNewWorkCopy: data => dispatch(action.addNewWorkCopy(data)),
         addNewVersionWorkCopy: (id, no, data) => dispatch(action.addNewVersionWorkCopy(id, no, data)),
+        addNewFromWorkCopy: (id, no, data) => dispatch(action.addNewFromWorkCopy(id, no, data)),
         check: () => dispatch(action.check()),
         checkData: () => dispatch(action.checkData()),
         cleanState: () => dispatch(action.cleanState()),

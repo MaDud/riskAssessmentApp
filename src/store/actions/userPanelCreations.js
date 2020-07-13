@@ -84,11 +84,20 @@ export const messageSwitchFail = (RAtype) => {
         case 'new_version_work_copy':
             message = 'Nie udało się zapisać kopii roboczej nowej wersji oceny ryzyka.';
             break
+        case 'add_new_from_work_copy':
+            message = 'Nie udało się zapisać nowej wersji/- oceny ryzyka. Spróbuj ponownie.';
+            break
         default:
             message = null
     }
 
     return message
+}
+
+export const addVersionSuccess = () => {
+    return {
+        type: actionTypes.ADD_VERSION_SUCCESS
+    }
 }
 
 export const addFail = (RAtype) => {
@@ -123,11 +132,11 @@ export const addNew = data => {
 //dodawanie nowej wersji do bazy
 export const addNewVersion = (id, data) => {
     const version = Object.keys(data);
-    const dataToAdd = data[version]
+    const dataToAdd = data[version];
     return dispatch => {
         dispatch(addInit());
         instance.put('/riskAssessment/' + id + '/version/' + version +'.json', dataToAdd)
-        .then(response => console.log(response))
+        .then(response => dispatch(addVersionSuccess()))
         .catch(error => {
             dispatch(addFail('new_version'))})
     }
@@ -135,7 +144,6 @@ export const addNewVersion = (id, data) => {
 
 //dodawanie nowej kopii roboczej do bazy
 export const addNewWorkCopy = (data) => {
-    console.log(data)
     return dispatch => {
         dispatch(addInit());
         Promise.all([instance.post('/riskAssessment.json', data),
@@ -154,7 +162,7 @@ export const addNewWorkCopy = (data) => {
 //dodawanie nowej wersji roboczej do bazy
 export const addNewVersionWorkCopy = (id, no, data) => {
     const version = Object.keys(data);
-    const dataToAdd = data[version]
+    const dataToAdd = data[version];
     return dispatch => {
         dispatch(addInit());
         instance.put('/riskAssessment/' + id + '/draft/' + version +'.json', dataToAdd)
@@ -166,6 +174,37 @@ export const addNewVersionWorkCopy = (id, no, data) => {
             dispatch(addWorkCopySuccess(id, draftData))
         })
         .catch(error => dispatch(addFail('new_version_work_copy')))
+    }
+}
+
+//dodawanie nowej oceny ryzyka z kopii roboczej
+export const addNewFromWorkCopy = (id, no, data) => {
+    const version = Object.keys(data);
+    const dataToAdd = data[version];
+    return dispatch => {
+        instance.get('/riskAssessment/' + id + '.json')
+        .then(response => {
+            if (response.data.status === 'active') {
+                const versionNumber = response.data.version.length;
+                Promise.all([instance.put('/riskAssessment/' + id + '/version/' + versionNumber + '.json', dataToAdd),
+                            instance.delete('/riskAssessment/' + id + '/draft.json')])
+                .then(response => dispatch(addVersionSuccess()))
+            } else if (response.data.status === 'draft') {
+                Promise.all([instance.put('/riskAssessment/' + id + '/version/0.json', dataToAdd),
+                            instance.put('/riskAssessment/' + id + '/status.json',  new String('active')),
+                            instance.delete('/riskAssessment/' + id + '/draft.json')])
+                .then(response => {
+                    const userPanel = {no: Number(no),
+                                        position: dataToAdd.assessmentData.position,
+                                        owner: dataToAdd.assessmentData.owner,
+                                        status: 'active',
+                                        review: false,
+                                        overdue: false}
+                    dispatch(addSuccess(id,userPanel))
+                })
+            }
+        })
+        .catch(error => dispatch('add_new_from_work_copy'))
     }
 }
 

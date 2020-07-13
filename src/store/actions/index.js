@@ -8,6 +8,7 @@ export {clearUserPanel,
         addNewVersion,
         addNewWorkCopy,
         addNewVersionWorkCopy,
+        addNewFromWorkCopy,
         initHazardList,
         cleanAddData
 } from './userPanelCreations';
