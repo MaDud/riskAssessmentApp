@@ -10,6 +10,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import Button from '../../components/UI/Button/Button';
 import { connect } from 'react-redux';
 import * as action from '../../store/actions/index';
+import classes from './riskAssessmentForm.module.css';
 
 class RiskAssessmentForm extends React.Component {
 
@@ -169,10 +170,10 @@ class RiskAssessmentForm extends React.Component {
         let addInfoBox = <Spinner/>;
         if (this.props.message) {
             addInfoBox = (
-                        <Auxiliary>
+                        <div className={classes.InfoBox}>
                             <h2>{this.props.message}</h2>
                             <Button btnType= {'Submit'} clicked={this.infoBtn}>OK</Button>
-                        </Auxiliary>
+                        </div>
             )
         }
 
@@ -183,7 +184,8 @@ class RiskAssessmentForm extends React.Component {
                 </InfoBox>
                 <RiskAssessmentGeneralInfo
                     change={e => this.dataHandler(e)}
-                    disabled={!(this.props.valid.hazardsValidity && this.props.valid.dataValidity)}
+                    addDisabled={!(this.props.valid.hazardsValidity && this.props.valid.dataValidity)}
+                    workCopyDisabled={!(this.props.valid.dataValidity)}
                     add={e => this.addNew(e)}
                     saveCopy= {e => this.addWorkCopy(e)}
                     cancel={e => this.discardChanges(e)}

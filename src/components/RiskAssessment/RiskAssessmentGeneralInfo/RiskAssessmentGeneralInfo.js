@@ -18,7 +18,8 @@ const riskAssessment = props => {
                        changed={props.change}
                        id='number'
                        inputPosition={classes.Number}
-                       value={props.number}/>
+                       value={props.number}
+                       disabled/>
                 <Input for='version'
                        labelPosition={classes.LabelVersion}
                        label='Wersja:'
@@ -41,7 +42,7 @@ const riskAssessment = props => {
                 <Input for='team'
                        labelPosition={classes.LabelTeam}
                        label='Zespół sprządzający:'
-                       elementType='input'
+                       elementType='textarea'
                        changed={props.change}
                        id='team'
                        inputPosition={classes.Team}
@@ -94,7 +95,7 @@ const riskAssessment = props => {
                 <Input for='owner'
                        labelPosition={classes.LabelOwner}
                        label='Właściciel:'
-                       elementType='input'
+                       elementType='textarea'
                        changed={props.change}
                        id='owner'
                        inputPosition={classes.Owner}
@@ -102,12 +103,13 @@ const riskAssessment = props => {
                 <Button clicked={props.add} 
                         btnType="Submit" 
                         btnPosition={classes.SubmitPosition}
-                        disabled={props.disabled}>
+                        disabled={props.addDisabled}>
                         {props.type === 'new' ? 'Dodaj nową ocenę' : 'Dodaj nową wersję'}
                 </Button>
                 <Button clicked={props.saveCopy}
                         btnType="Submit"
-                        btnPosition={classes.SavePosition}>
+                        btnPosition={classes.SavePosition}
+                        disabled={props.workCopyDisabled}>
                         Zapisz kopię roboczą    
                 </Button>
                 <Button clicked={props.cancel} 

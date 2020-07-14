@@ -1,0 +1,12 @@
+.InfoBox {
+    text-align: center;
+}
+
+.InfoBox h2 {
+    font-weight: normal;
+    font-size: 1.2rem;
+}
+
+.InfoBox button {
+    margin: 5px auto
+}
