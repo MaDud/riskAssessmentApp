@@ -87,7 +87,7 @@ class RiskAssessmentForm extends React.Component {
 
         if (this.props.RAtype === 'new') {
             this.props.addNewWorkCopy(data)
-        } else if (this.props.RAtype === 'new_version') {
+        } else if (this.props.RAtype === 'new_version' || this.props.RAtype === 'draft') {
             this.props.addNewVersionWorkCopy(this.props.mainData.id, this.props.mainData.number, draftNumber)
         }
     }
