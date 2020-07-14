@@ -71,13 +71,14 @@
 .Switch input:checked + .Not {
     background-color: rgb(55,125,255);
     color:  rgb(55,125,255);
-    opacity: 0.8;
 }
 
 .Switch input:checked + .Yes {
     background-color: #00c9A7;
-    color:  rgba(0,201,167,0.3);
-    opacity: 0.8;
+}
+
+.Switch input:checked + .Warning {
+    background-color: #ffc107;
 }
 
 .Switch input:checked + .Slider:before {
