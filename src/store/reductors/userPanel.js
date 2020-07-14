@@ -132,6 +132,13 @@ const userPanel = (state = initialState, action) => {
                 loading: false,
                 message: 'Kopia robocza została dodana do bazy.'
             }
+        case actionTypes.REMOVE_WORK_COPY:
+            let draftsList = state.draftsList;
+            delete draftsList[action.id];
+            return {
+                ...state,
+                draftsList: draftsList,
+            }
         case actionTypes.CLEAN_ADD_DATA:
             return {
                 ...state,

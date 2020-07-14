@@ -68,6 +68,13 @@ export const addWorkCopySuccess = (id, data) => {
     }
 }
 
+export const removeWorkCopy = (id) => {
+    return {
+        type: actionTypes.REMOVE_WORK_COPY,
+        id : id,
+    }
+}
+
 export const messageSwitchFail = (RAtype) => {
     let message;
 
@@ -188,7 +195,9 @@ export const addNewFromWorkCopy = (id, no, data) => {
                 const versionNumber = response.data.version.length;
                 Promise.all([instance.put('/riskAssessment/' + id + '/version/' + versionNumber + '.json', dataToAdd),
                             instance.delete('/riskAssessment/' + id + '/draft.json')])
-                .then(response => dispatch(addVersionSuccess()))
+                .then(response => {
+                    dispatch(addVersionSuccess());
+                    dispatch(removeWorkCopy(id))})
             } else if (response.data.status === 'draft') {
                 Promise.all([instance.put('/riskAssessment/' + id + '/version/0.json', dataToAdd),
                             instance.put('/riskAssessment/' + id + '/status.json',  new String('active')),
@@ -200,7 +209,8 @@ export const addNewFromWorkCopy = (id, no, data) => {
                                         status: 'active',
                                         review: false,
                                         overdue: false}
-                    dispatch(addSuccess(id,userPanel))
+                    dispatch(addSuccess(id,userPanel));
+                    dispatch(removeWorkCopy(id))
                 })
             }
         })
