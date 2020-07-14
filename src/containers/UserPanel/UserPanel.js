@@ -89,8 +89,11 @@ class UserPanel extends React.Component {
                 </ErrorBoundaries>
                 <div className={classes.UserNav}>
                     <UserNav clicked={(e) => this.props.changeView(e)}
-                                activeBtn= {this.props.user}
-                                submit={this.addNew}/>
+                             review={this.props.statistic.review}
+                             overdue={this.props.statistic.overdue}
+                             workCopy={Object.keys(this.props.draftsList).length}
+                             activeBtn= {this.props.user}
+                             submit={this.addNew}/>
                     <Search btnType= 'Submit'
                             search={this.props.search.searchValue}
                             changed={(e) => this.props.searchValue(e)}
