@@ -17,12 +17,12 @@
 }
 
 .Submit {
-    background-color: rgba(55, 125, 255, 0.3);
-    color: #377dff;
+    background-color: #0fa1d630;
+    color: #0fa1d6;
 }
 
 .Submit:hover, .SubmitFocus {
-    background-color: #377dff;
+    background-color: #0fa1d6;
     color: #fff;
 }
 

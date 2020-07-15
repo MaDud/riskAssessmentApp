@@ -69,8 +69,8 @@
 }
 
 .Switch input:checked + .Not {
-    background-color: rgb(55,125,255);
-    color:  rgb(55,125,255);
+    background-color: #0fa1d6;
+    color:  #0fa1d6;
 }
 
 .Switch input:checked + .Yes {

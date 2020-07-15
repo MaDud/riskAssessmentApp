@@ -1,6 +1,19 @@
+.Navigation {
+    width: 100%;
+    display: flex;
+    align-content: space-between;
+    margin: 10px auto;
+    box-shadow: 1px 1px #77838f6e;
+}
+
+.Navigation img {
+    height: 3rem;
+    margin-left: 14%;
+}
+
 .Navbar {
     width: 100%;
-    padding: 0;
+    padding: 0 15% 0 0;
     list-style-type: none;
     display: inline-flex;
     justify-content: flex-end;

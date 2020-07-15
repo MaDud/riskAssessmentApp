@@ -1,7 +1,7 @@
 import React from 'react';
 
 import classes from './riskAssessmentGeneralInfo.module.css';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Auxiliary from '../../../hoc/Auxiliary';
 import Button from '../../UI/Button/Button';
 import Input from '../../UI/Input/Input';
@@ -10,7 +10,9 @@ const riskAssessment = props => {
     return(
         <Auxiliary>
             <form className={classes.RiskAssessment}>
-                <h1>Ocena ryzyka zawodowego</h1>
+              <div className={classes.Header}>
+                     <h1>Ocena ryzyka zawodowego</h1>
+              </div>
                 <Input for='number'
                        labelPosition={classes.LabelNumber}
                        label='Numer:'
