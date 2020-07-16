@@ -18,7 +18,7 @@ const riskMatric = props => {
         case ("small|medium"):
         case ("medium|small"):
             if (type === 'td') {
-                risk = <td className={[classes.Level,classes.ExtraSmall].join(' ')}>Małe</td>
+                risk = <td className={[classes.Level,classes.Small].join(' ')}>Małe</td>
             } else {
                 risk = <div className={[classes.Level,classes.Small].join(' ')}>Małe</div>;}
             break;
