@@ -1,0 +1,25 @@
+.RegisterForm {
+    width: 70%;
+    margin: 30px auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+}
+
+.RegisterForm h3 {
+    font-family: 'Advent Pro', sans-serif;
+    color: #0fa1d6;
+    font-size: 2rem;
+}
+
+.RegisterForm input {
+    width: 30%;
+    margin: 15px 0;
+    height: 3rem;
+}
+
+.RegisterForm button {
+    width: 31%;
+    margin-top: 20px;
+}

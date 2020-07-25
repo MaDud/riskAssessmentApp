@@ -3,6 +3,7 @@ import React from 'react';
 import Navs from './Navs/Navs';
 import classes from './navbar.module.css';
 import logo from '../../../assets/logo.png';
+import Button from '../../UI/Button/Button';
 
 const navbar = props => {
     return (
@@ -10,7 +11,16 @@ const navbar = props => {
             <img src={logo} />
             <ul className={classes.Navbar}>
                 <Navs>Metoda</Navs>
-                <Navs>Autoryzacja</Navs>
+                <Navs>
+                    <div className={classes.Login}>
+                        Zaloguj się
+                    </div>
+                </Navs>
+                <Navs>
+                    <Button btnType= 'SubmitFocus' onClick={props.register}>
+                        Zarejestruj się
+                    </Button>
+                </Navs>
             </ul>
         </div>
     )

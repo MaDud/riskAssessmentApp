@@ -25,7 +25,7 @@ class UserPanel extends React.Component {
     addNew = () => {
         this.props.clearUserPanel();
         this.props.RAtype('new');
-        this.props.history.push('/')
+        this.props.history.push('/riskAssessmentForm')
     }
 
     seeRow = e => {
