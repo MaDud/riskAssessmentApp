@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const userNav = (props) => {
 
-    console.log(props.workCopy)
     return (
         <div className={classes.Box}>
             <div className={classes.Navigation}>
