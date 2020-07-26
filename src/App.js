@@ -21,10 +21,9 @@ function App() {
     <Auxiliary>
       <Layout>
         <Switch>
-          <Route path="/" exact component={LandingPage}/>
-          <Route path='/riskAssessmentForm' component={RiskAssessmentForm} />
-          <Route path="/riskAssessmentForm/:id/:version" component={RiskAssessmentForm}/>
-          <Route path="/userPanel" component={UserPanel} />
+          <Route path="/" exact component={UserPanel}/>
+          <Route path='/riskAssessmentForm' exact component={RiskAssessmentForm} />
+          <Route path="/riskAssessmentForm/:id/:version" exact component={RiskAssessmentForm}/>
           <Route path="/riskAssessment/:id" component={RiskAssessmentOutput} />
         </Switch>
       </Layout>
