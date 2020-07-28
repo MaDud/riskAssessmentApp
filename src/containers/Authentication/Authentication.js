@@ -1,8 +1,8 @@
 import React from 'react';
-import Auxiliary from '../../../hoc/Auxiliary';
-import Input from '../../../components/UI/Input/Input';
-import Button from '../../../components/UI/Button/Button';
-import classes from './signUp.module.css';
+import Auxiliary from '../../hoc/Auxiliary';
+import Input from '../../components/UI/Input/Input';
+import Button from '../../components/UI/Button/Button';
+import classes from './authentication.module.css';
 import {Link} from 'react-router-dom';
 
 class SignUp extends React.Component {
@@ -34,8 +34,9 @@ class SignUp extends React.Component {
                 },
                 valid: false
             }},
-            isValid: false
-    }
+            isValid: false,
+        isSignUp: false
+    }    
 
     inputHandler = (e, id) => {
         const controls = this.state.controls;
@@ -62,6 +63,11 @@ class SignUp extends React.Component {
         return isValid
     }
 
+    signChange = () => {
+        this.setState({isSignUp: !this.state.isSignUp});
+        console.log('jek')
+    }
+
     render () {
         console.log(this.state)
 
@@ -78,14 +84,17 @@ class SignUp extends React.Component {
         return (
             <Auxiliary>
                 <div className = {classes.RegisterForm}>
-                    <h3>Formularz rejestracji</h3>
+                    <h3>
+                        {this.state.isSignUp ? 'Formularz rejestracji' : 'Zaloguj się'}
+                    </h3>
                     {form}
                     <Button btnType = 'Submit' disabled = {!(this.state.controls.email.valid && this.state.controls.password.valid)}>
-                        Zarejestruj się
+                        {this.state.isSignUp ? 'Zarejestruj się' : 'Zaloguj się'}
                     </Button>
-                    <p>Posiadasz już konto? 
-                        <span>
-                            <Link to='/'>Zaloguj się</Link>
+                    <p>
+                        {this.state.isSignUp ? 'Posiadasz już konto?' : 'Nie posiadasz konta?'}
+                        <span onClick={() => this.signChange()}>
+                            {this.state.isSignUp ? 'Zaloguj się' : 'Zarejestruj się'}
                         </span>
                     </p>
                 </div>

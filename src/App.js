@@ -11,7 +11,7 @@ import Layout from './components/Layout/Layout';
 import RiskAssessmentForm from './containers/RiskAssessmentForm/RiskAssessmentForm';
 import UserPanel from './containers/UserPanel/UserPanel';
 import RiskAssessmentOutput from './containers/RiskAssessmentOutput/RiskAssessmentOutput';
-import SignUp from './containers/Authentication/SignUp/SignUp';
+import Authentication from './containers/Authentication/Authentication';
 
 import {Route ,Switch} from 'react-router-dom';
 
@@ -25,7 +25,7 @@ function App() {
           <Route path='/riskAssessmentForm' exact component={RiskAssessmentForm} />
           <Route path="/riskAssessmentForm/:id/:version" exact component={RiskAssessmentForm}/>
           <Route path="/riskAssessment/:id" component={RiskAssessmentOutput} />
-          <Route path='/signUp' component={SignUp} />
+          <Route path='/authentication' component={Authentication} />
         </Switch>
       </Layout>
     </Auxiliary>

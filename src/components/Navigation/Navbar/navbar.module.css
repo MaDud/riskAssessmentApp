@@ -31,12 +31,3 @@
 .Navbar button a {
     color: #fff;
 }
-
-.Login {
-    display: block;
-    cursor: pointer;
-}
-
-.Login a {
-    color: #0fa1d6;
-}

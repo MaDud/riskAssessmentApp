@@ -17,13 +17,8 @@ const navbar = props => {
             <ul className={classes.Navbar}>
                 <Navs>Metoda</Navs>
                 <Navs>
-                    <div className={classes.Login}>
-                        <Link to= '/authentication' >Zaloguj się</Link>
-                    </div>
-                </Navs>
-                <Navs>
                     <Button btnType= 'SubmitFocus'>
-                        <Link to= '/signUp'>Zarejestruj się</Link>
+                        <Link to= '/authentication'>Logowanie/ Rejestracja</Link>
                     </Button>
                 </Navs>
             </ul>
