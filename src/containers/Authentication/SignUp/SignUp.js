@@ -1,10 +1,11 @@
 import React from 'react';
-import Auxiliary from '../../hoc/Auxiliary';
-import Input from '../../components/UI/Input/Input';
-import Button from '../../components/UI/Button/Button';
-import classes from './landingPage.module.css';
+import Auxiliary from '../../../hoc/Auxiliary';
+import Input from '../../../components/UI/Input/Input';
+import Button from '../../../components/UI/Button/Button';
+import classes from './signUp.module.css';
+import {Link} from 'react-router-dom';
 
-class LandingPage extends React.Component {
+class SignUp extends React.Component {
 
     state = {
         controls: 
@@ -82,10 +83,15 @@ class LandingPage extends React.Component {
                     <Button btnType = 'Submit' disabled = {!(this.state.controls.email.valid && this.state.controls.password.valid)}>
                         Zarejestruj się
                     </Button>
+                    <p>Posiadasz już konto? 
+                        <span>
+                            <Link to='/'>Zaloguj się</Link>
+                        </span>
+                    </p>
                 </div>
             </Auxiliary>
         )
     }
 }
 
-export default LandingPage
+export default SignUp

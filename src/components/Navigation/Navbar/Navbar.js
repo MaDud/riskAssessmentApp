@@ -23,7 +23,7 @@ const navbar = props => {
                 </Navs>
                 <Navs>
                     <Button btnType= 'SubmitFocus'>
-                        <Link to= '/authentication'>Zarejestruj się</Link>
+                        <Link to= '/signUp'>Zarejestruj się</Link>
                     </Button>
                 </Navs>
             </ul>
