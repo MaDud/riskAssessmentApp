@@ -25,6 +25,7 @@ function App() {
           <Route path='/riskAssessmentForm' exact component={RiskAssessmentForm} />
           <Route path="/riskAssessmentForm/:id/:version" exact component={RiskAssessmentForm}/>
           <Route path="/riskAssessment/:id" component={RiskAssessmentOutput} />
+          <Route path='/authentication' component={LandingPage} />
         </Switch>
       </Layout>
     </Auxiliary>

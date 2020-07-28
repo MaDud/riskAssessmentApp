@@ -4,21 +4,26 @@ import Navs from './Navs/Navs';
 import classes from './navbar.module.css';
 import logo from '../../../assets/logo.png';
 import Button from '../../UI/Button/Button';
+import {Link} from 'react-router-dom';
 
 const navbar = props => {
     return (
         <div className={classes.Navigation}>
-            <img src={logo} />
+            <div className={classes.Logo}>
+                <Link to = '/'>
+                    <img src={logo} />
+                </Link>
+            </div>
             <ul className={classes.Navbar}>
                 <Navs>Metoda</Navs>
                 <Navs>
                     <div className={classes.Login}>
-                        Zaloguj się
+                        <Link to= '/authentication' >Zaloguj się</Link>
                     </div>
                 </Navs>
                 <Navs>
-                    <Button btnType= 'SubmitFocus' onClick={props.register}>
-                        Zarejestruj się
+                    <Button btnType= 'SubmitFocus'>
+                        <Link to= '/authentication'>Zarejestruj się</Link>
                     </Button>
                 </Navs>
             </ul>

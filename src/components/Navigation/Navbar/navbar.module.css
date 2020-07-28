@@ -2,26 +2,41 @@
     width: 100%;
     display: flex;
     align-content: space-between;
-    margin: 0 auto;
     box-shadow: 1px 1px #77838f6e;
+    margin-top: 3px;
 }
 
-.Navigation img {
+.Logo {
+    margin-left: 14%;
+}
+
+.Logo img {
     height: 3rem;
-    margin: auto 0 auto 14%;
-    align-items: baseline;
 }
 
 .Navbar {
     width: 100%;
-    padding: 0 15% 0 0;
-    margin: 5px 0;
+    margin: 0 14% 0 0;
     list-style-type: none;
     display: inline-flex;
     justify-content: flex-end;
     align-items: baseline;
 }
 
+.Navbar a {
+    text-decoration: none;
+    display: block;
+}
+
+.Navbar button a {
+    color: #fff;
+}
+
 .Login {
+    display: block;
+    cursor: pointer;
+}
+
+.Login a {
     color: #0fa1d6;
 }
