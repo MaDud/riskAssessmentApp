@@ -29,4 +29,6 @@ export {archiveRA,
         raOutputClean
 } from './riskAssessmentOutputCreations';
 
-export {archive} from './archiveHistory'
+export {archive} from './archiveHistory';
+
+export {signIn, logOut} from './authenticationCreations';

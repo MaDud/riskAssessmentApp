@@ -3,7 +3,8 @@ import Auxiliary from '../../hoc/Auxiliary';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import classes from './authentication.module.css';
-import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import * as action from '../../store/actions/index';
 
 class SignUp extends React.Component {
 
@@ -65,11 +66,19 @@ class SignUp extends React.Component {
 
     signChange = () => {
         this.setState({isSignUp: !this.state.isSignUp});
-        console.log('jek')
+    }
+
+    signProcess = () => {
+        const data = {email: this.state.controls.email.value, password: this.state.controls.password.value};
+
+        if (this.state.isSignUp) {
+            console.log('rejestracja')
+        } else {
+            this.props.signIn(data)
+        }
     }
 
     render () {
-        console.log(this.state)
 
         const formData = this.state.controls;
         const form = Object.keys(formData).map( control => {
@@ -88,7 +97,7 @@ class SignUp extends React.Component {
                         {this.state.isSignUp ? 'Formularz rejestracji' : 'Zaloguj się'}
                     </h3>
                     {form}
-                    <Button btnType = 'Submit' disabled = {!(this.state.controls.email.valid && this.state.controls.password.valid)}>
+                    <Button btnType = 'Submit' disabled = {!(this.state.controls.email.valid && this.state.controls.password.valid)} clicked={() => this.signProcess()}>
                         {this.state.isSignUp ? 'Zarejestruj się' : 'Zaloguj się'}
                     </Button>
                     <p>
@@ -103,4 +112,10 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp
+const mapPropsToDispatch = dispatch => {
+    return {
+        signIn: (data) => dispatch(action.signIn(data)),
+    }
+}
+
+export default connect(null, mapPropsToDispatch)(SignUp)

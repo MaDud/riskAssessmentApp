@@ -43,7 +43,6 @@ class UserPanel extends React.Component {
     }
     
     render () {
-        
         //wyszukwanie i filtrowanie wyników dla poszczególnych tabeli
         const assessmentsList = this.props.assessmentsList;
         let data= {};
