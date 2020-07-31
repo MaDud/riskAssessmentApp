@@ -23,6 +23,9 @@ class Navbar extends React.Component {
                     </div>
                     <ul className={classes.Navbar}>
                         <Navs>Opis procesu</Navs>
+                        <Navs>
+                            <Link to ='/'>Panel użytkownika</Link>
+                        </Navs>
                         { !auth.uid ? (<Auxiliary>
                                             <Navs>
                                                 <Button btnType= 'SubmitFocus'>
@@ -32,9 +35,6 @@ class Navbar extends React.Component {
                                         </Auxiliary>)
                                         : 
                                         (<Auxiliary>
-                                            <Navs>
-                                                <Link to ='/'>Panel użytkownika</Link>
-                                            </Navs>
                                             <Navs>
                                                 <Link to ='/riskAssessmentForm'>Nowa ocena</Link>
                                             </Navs>

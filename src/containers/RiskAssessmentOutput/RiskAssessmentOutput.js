@@ -112,30 +112,34 @@ class RiskAssessmentOutput extends React.Component {
         
         return (
             <div className={classes.Output}>
-                <RiskAssessmentNav 
-                    history={this.archiveHistoryToggle}
-                    edit={() => this.editBtn(this.props.id)}
-                    archive={this.archiveToggle}/>
-                <InfoBox show={this.state.archiveInfo}>
-                    {infoBox}
-                </InfoBox>
-                <Modal show={this.state.archiveHistory}
-                        clicked={this.archiveHistoryToggle}>
-                    <div className={classes.ArchiveHistory}>
-                        <p onClick={this.archiveHistoryToggle}>Zamknij</p>
-                        <h3>Historia zmian</h3>
-                        <table className={classes.Table}>
-                            <thead>
-                                <tr>
-                                    {archiveTableHeads}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {archiveTableData}
-                            </tbody>
-                        </table>
-                    </div>
-                </Modal>
+                {this.props.isAuth ? (<Auxiliary>
+                                        <RiskAssessmentNav 
+                                            history={this.archiveHistoryToggle}
+                                            edit={() => this.editBtn(this.props.id)}
+                                            archive={this.archiveToggle}/>
+                                        <InfoBox show={this.state.archiveInfo}>
+                                            {infoBox}
+                                        </InfoBox>
+                                        <Modal show={this.state.archiveHistory}
+                                            clicked={this.archiveHistoryToggle}>
+                                            <div className={classes.ArchiveHistory}>
+                                                <p onClick={this.archiveHistoryToggle}>Zamknij</p>
+                                                <h3>Historia zmian</h3>
+                                                <table className={classes.Table}>
+                                                    <thead>
+                                                        <tr>
+                                                            {archiveTableHeads}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {archiveTableData}
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </Modal>
+                                    </Auxiliary>)
+                                    :null
+                }
                 {this.props.hazardList ? (  <Auxiliary>
                                                 <div className={classes.Info}>
                                                     <h5>{'Numer: ' + this.props.number + ' wersja: ' + this.props.version} </h5>
@@ -170,7 +174,8 @@ const mapStateToProps = state => {
         data: state.riskAssessment.assessmentData,
         hazardList: state.riskAssessment.hazardList,
         raOutput: state.riskAssessmentOutput,
-        archiveHistory: state.archiveHistory
+        archiveHistory: state.archiveHistory,
+        isAuth: state.firebase.auth.uid
     }
 };
 

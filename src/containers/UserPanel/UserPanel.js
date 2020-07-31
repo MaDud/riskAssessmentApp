@@ -77,31 +77,47 @@ class UserPanel extends React.Component {
             rowData = this.props.draftsList
         }
 
+        //wyświetlanie danych w zależności od statusu logowania
+        let userNavigation = (<Auxiliary>
+                                <h1 className= {classes.RAtitle}>Rejestr ocen ryzyka zawodowego</h1>
+                                <div className={classes.UserNav}>
+                                <Search btnType= 'Submit'
+                                                search={this.props.search.searchValue}
+                                                changed={(e) => this.props.searchValue(e)}
+                                                value={this.props.search.searchValue}
+                                                closeSearch={this.props.clearSearch}
+                                                active={true}/>
+                                </div>
+                            </Auxiliary>)
+                            
+        if (this.props.isAuth) {
+            userNavigation = (<Auxiliary>
+                                <Statistic matric={this.props.statistic}
+                                    clicked={(e) => this.props.changeView(e)}
+                                    active = {this.props.statistic.active}
+                                    review = {this.props.statistic.review}
+                                    overdue ={this.props.statistic.overdue}/>
+                                <div className={classes.UserNav}>
+                                    <UserNav clicked={(e) => this.props.changeView(e)}
+                                        review={this.props.statistic.review}
+                                        overdue={this.props.statistic.overdue}
+                                        workCopy={Object.keys(this.props.draftsList).length}
+                                        activeBtn= {this.props.user}
+                                        submit={this.addNew}/>
+                                    <Search btnType= 'Submit'
+                                        search={this.props.search.searchValue}
+                                        changed={(e) => this.props.searchValue(e)}
+                                        value={this.props.search.searchValue}
+                                        closeSearch={this.props.clearSearch}
+                                        changeSearch={this.props.searchBtn}
+                                        active={this.props.search.searchField}/>
+                                </div>
+                            </Auxiliary>)
+        }
+
         return (
             <Auxiliary>
-                <ErrorBoundaries>
-                    <Statistic matric={this.props.statistic}
-                            clicked={(e) => this.props.changeView(e)}
-                            active = {this.props.statistic.active}
-                            review = {this.props.statistic.review}
-                            overdue ={this.props.statistic.overdue}/>
-                </ErrorBoundaries>
-                <div className={classes.UserNav}>
-                    <UserNav clicked={(e) => this.props.changeView(e)}
-                             review={this.props.statistic.review}
-                             overdue={this.props.statistic.overdue}
-                             workCopy={Object.keys(this.props.draftsList).length}
-                             activeBtn= {this.props.user}
-                             submit={this.addNew}/>
-                    <Search btnType= 'Submit'
-                            search={this.props.search.searchValue}
-                            changed={(e) => this.props.searchValue(e)}
-                            value={this.props.search.searchValue}
-                            closeSearch={this.props.clearSearch}
-                            changeSearch={this.props.searchBtn}
-                            active={this.props.search.searchField}
-                     />
-                </div>
+                {userNavigation}
                 <ErrorBoundaries>
                     <Table table={classes.Table}
                         columns={tableHeads}
@@ -130,7 +146,8 @@ const mapStateToProps = state => {
         sorted: state.userPanel.sorted,
         assessmentsList: state.userPanel.assessmentsList,
         statistic: state.userPanel.statistic,
-        draftsList: state.userPanel.draftsList
+        draftsList: state.userPanel.draftsList,
+        isAuth: state.firebase.auth.uid
     }
 };
 

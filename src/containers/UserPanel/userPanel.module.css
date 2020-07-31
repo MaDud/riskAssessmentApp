@@ -12,6 +12,16 @@
 .UserNav {
     width: 70%;
     display: flex;
+    justify-content: flex-end;
     margin: 0 auto;
 }
 
+.RAtitle {
+    font-family: 'Advent Pro', sans-serif;
+    color: #0fa1d6;
+    font-size: 2rem;
+    text-align: center;
+    width: 70%;
+    margin: 50px auto;
+    display: block;
+}

@@ -12,24 +12,40 @@ import RiskAssessmentForm from './containers/RiskAssessmentForm/RiskAssessmentFo
 import UserPanel from './containers/UserPanel/UserPanel';
 import RiskAssessmentOutput from './containers/RiskAssessmentOutput/RiskAssessmentOutput';
 import Authentication from './containers/Authentication/Authentication';
+import { connect } from 'react-redux';
 
-import {Route ,Switch} from 'react-router-dom';
+import {Route ,Switch, Redirect} from 'react-router-dom';
 
-function App() {
+const App = props => {
   library.add(fab, faSort, faSortUp, faSortDown, faFolderPlus, faSearch, faTimes, faAngleDoubleLeft, faAngleDoubleRight, faTrashAlt, faEdit, faFolderOpen, faBalanceScaleLeft )
+  const { auth } = props;
+  let router = (<Switch>
+                  <Route path="/" exact component={UserPanel}/>
+                  <Route path="/riskAssessment/:id" component={RiskAssessmentOutput} />
+                  <Route path='/authentication' component={Authentication} />
+                  <Redirect to= '/' />
+              </Switch>)
+  if (auth) {
+    router = (<Switch>
+                <Route path="/" exact component={UserPanel}/>
+                <Route path="/riskAssessment/:id" component={RiskAssessmentOutput} />
+                <Route path='/riskAssessmentForm' exact component={RiskAssessmentForm} />
+                <Route path="/riskAssessmentForm/:id/:version" exact component={RiskAssessmentForm}/>
+                <Redirect to= '/' />
+            </Switch>)
+  }
   return (
     <Auxiliary>
       <Layout>
-        <Switch>
-          <Route path="/" exact component={UserPanel}/>
-          <Route path='/riskAssessmentForm' exact component={RiskAssessmentForm} />
-          <Route path="/riskAssessmentForm/:id/:version" exact component={RiskAssessmentForm}/>
-          <Route path="/riskAssessment/:id" component={RiskAssessmentOutput} />
-          <Route path='/authentication' component={Authentication} />
-        </Switch>
+        {router}
       </Layout>
     </Auxiliary>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth.uid
+  }
+}
+export default connect(mapStateToProps)(App);
