@@ -21,13 +21,25 @@
     display: inline-flex;
     justify-content: flex-end;
     align-items: baseline;
+    font-size: 0.9rem;
+    text-transform: uppercase;
 }
 
 .Navbar a {
     text-decoration: none;
     display: block;
+    color: #77838f;
 }
 
-.Navbar button a {
+.Navbar a:hover {
+    color: #0fa1d6;
+    font-weight: bold;
+}
+
+.Navbar button {
+    text-transform: uppercase;
+}
+
+.Navbar button a, .Navbar button a:hover {
     color: #fff;
 }

@@ -7,6 +7,7 @@ import Button from '../../UI/Button/Button';
 import { Link } from 'react-router-dom';
 import { connect} from 'react-redux';
 import * as action from '../../../store/actions/index';
+import Auxiliary from '../../../hoc/Auxiliary';
 
 class Navbar extends React.Component {
 
@@ -21,15 +22,28 @@ class Navbar extends React.Component {
                         </Link>
                     </div>
                     <ul className={classes.Navbar}>
-                        <Navs>Metoda</Navs>
-                        <Navs>
-                            { !auth.uid ? (<Button btnType= 'SubmitFocus'>
-                                            <Link to= '/authentication'>Logowanie/ Rejestracja</Link>
-                                        </Button>)
-                                        : (<Button btnType = 'Submit' clicked= {() => this.props.logOut()} >
-                                                Wyloguj się
-                                            </Button>)}
-                        </Navs>
+                        <Navs>Opis procesu</Navs>
+                        { !auth.uid ? (<Auxiliary>
+                                            <Navs>
+                                                <Button btnType= 'SubmitFocus'>
+                                                    <Link to= '/authentication'>Logowanie/ Rejestracja</Link>
+                                                </Button>
+                                            </Navs>
+                                        </Auxiliary>)
+                                        : 
+                                        (<Auxiliary>
+                                            <Navs>
+                                                <Link to ='/'>Panel użytkownika</Link>
+                                            </Navs>
+                                            <Navs>
+                                                <Link to ='/riskAssessmentForm'>Nowa ocena</Link>
+                                            </Navs>
+                                            <Navs>
+                                                <Button btnType = 'Submit' clicked= {() => this.props.logOut()} >
+                                                    Wyloguj się
+                                                </Button>
+                                            </Navs>
+                                        </Auxiliary>)}
                     </ul>
             </div>
         )
