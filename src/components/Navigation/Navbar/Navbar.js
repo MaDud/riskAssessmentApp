@@ -4,33 +4,33 @@ import Navs from './Navs/Navs';
 import classes from './navbar.module.css';
 import logo from '../../../assets/logo.png';
 import Button from '../../UI/Button/Button';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect} from 'react-redux';
 import * as action from '../../../store/actions/index';
 
 class Navbar extends React.Component {
 
     render () {
-        const { isAuth } = this.props;
-        console.log(isAuth)
+        const { auth } = this.props;
+        
         return (
             <div className={classes.Navigation}>
-                <div className={classes.Logo}>
-                    <Link to = '/'>
-                        <img src={logo} />
-                    </Link>
-                </div>
-                <ul className={classes.Navbar}>
-                    <Navs>Metoda</Navs>
-                    <Navs>
-                        { isAuth ? (<Button btnType= 'SubmitFocus'>
-                                        <Link to= '/authentication'>Logowanie/ Rejestracja</Link>
-                                    </Button>)
-                                    : (<Button btnType = 'Submit' clicked= {() => this.props.logOut()} >
-                                            Wyloguj się
-                                        </Button>)}
-                    </Navs>
-                </ul>
+                    <div className={classes.Logo}>
+                        <Link to = '/'>
+                            <img src={logo} />
+                        </Link>
+                    </div>
+                    <ul className={classes.Navbar}>
+                        <Navs>Metoda</Navs>
+                        <Navs>
+                            { !auth.uid ? (<Button btnType= 'SubmitFocus'>
+                                            <Link to= '/authentication'>Logowanie/ Rejestracja</Link>
+                                        </Button>)
+                                        : (<Button btnType = 'Submit' clicked= {() => this.props.logOut()} >
+                                                Wyloguj się
+                                            </Button>)}
+                        </Navs>
+                    </ul>
             </div>
         )
     }
@@ -38,7 +38,7 @@ class Navbar extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        isAuth: state.firebase.auth.isEmpty
+        auth: state.firebase.auth
     }
 }
 
