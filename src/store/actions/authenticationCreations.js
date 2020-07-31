@@ -37,4 +37,13 @@ export const logOut = () => {
     }
 }
 
+export const signOn = (data) => {
+    return (dispatch, getState, {getFirebase}) => {
+        const firebase = getFirebase();
+        firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
+    }
+}
+
 

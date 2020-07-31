@@ -11,6 +11,8 @@ import * as action from '../../../store/actions/index';
 class Navbar extends React.Component {
 
     render () {
+        const { isAuth } = this.props;
+        console.log(isAuth)
         return (
             <div className={classes.Navigation}>
                 <div className={classes.Logo}>
@@ -21,12 +23,12 @@ class Navbar extends React.Component {
                 <ul className={classes.Navbar}>
                     <Navs>Metoda</Navs>
                     <Navs>
-                        <Button btnType = 'Submit' clicked= {() => this.props.logOut()} >
-                            Wyloguj się
-                        </Button>
-                        <Button btnType= 'SubmitFocus'>
-                            <Link to= '/authentication'>Logowanie/ Rejestracja</Link>
-                        </Button>
+                        { isAuth ? (<Button btnType= 'SubmitFocus'>
+                                        <Link to= '/authentication'>Logowanie/ Rejestracja</Link>
+                                    </Button>)
+                                    : (<Button btnType = 'Submit' clicked= {() => this.props.logOut()} >
+                                            Wyloguj się
+                                        </Button>)}
                     </Navs>
                 </ul>
             </div>
@@ -34,10 +36,16 @@ class Navbar extends React.Component {
     }
 };
 
+const mapStateToProps = state => {
+    return {
+        isAuth: state.firebase.auth.isEmpty
+    }
+}
+
 const mapPropsToDispatch = dispatch => {
     return {
         logOut: () => dispatch(action.logOut())
     }
 }
 
-export default connect(null, mapPropsToDispatch)(Navbar);
+export default connect(mapStateToProps, mapPropsToDispatch)(Navbar);

@@ -31,4 +31,7 @@ export {archiveRA,
 
 export {archive} from './archiveHistory';
 
-export {signIn, logOut} from './authenticationCreations';
+export {signIn, 
+        logOut, 
+        signOn
+} from './authenticationCreations';
