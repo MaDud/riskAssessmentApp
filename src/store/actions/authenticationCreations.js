@@ -1,11 +1,5 @@
 import * as actionTypes from './actionTypes';
 
-export const authenticationInit = () => {
-    return {
-        type: actionTypes.AUTHENTICATION_INIT
-    }
-};
-
 export const authenticationSuccess = () => {
     return {
         type: actionTypes.AUTHENTICATION_SUCCESS
@@ -24,7 +18,7 @@ export const signIn = (data) => {
         const firebase = getFirebase();
         firebase.auth().signInWithEmailAndPassword(data.email, data.password)
         .then(response => dispatch(authenticationSuccess()))
-        .catch(error => dispatch(authenticationFail(error)))
+        .catch(error => dispatch(authenticationFail('Nieprawidłowe dane logowania')))
     }
 }
 
@@ -41,7 +35,7 @@ export const signOn = (data) => {
     return (dispatch, getState, {getFirebase}) => {
         const firebase = getFirebase();
         firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
-        .then(response => console.log(response))
+        .then(response => dispatch(authenticationSuccess()))
         .catch(error => console.log(error))
     }
 }

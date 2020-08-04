@@ -10,7 +10,20 @@ class SignUp extends React.Component {
 
     state = {
         controls: 
-            {email: {
+            {name: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Imię'
+                },
+                value: '',
+                validation: {
+                    required: false,
+                    minLength: 1
+                },
+                valid: true
+            },
+            email: {
                 elementType: 'input',
                 elementConfig: {
                     type: 'email',
@@ -35,9 +48,9 @@ class SignUp extends React.Component {
                 },
                 valid: false
             }},
-            isValid: false,
+        isValid: false,
         isSignUp: false
-    }    
+    } 
 
     inputHandler = (e, id) => {
         const controls = this.state.controls;
@@ -45,7 +58,8 @@ class SignUp extends React.Component {
         changedField.value = e.target.value;
         changedField.valid = this.validityCheck(e.target.value, this.state.controls[id].validation);
 
-        this.setState({controls:controls})
+        this.setState({controls:controls,
+                        isValid: this.formValidationCheck()})
     }
 
     validityCheck = (value, rule) => {
@@ -64,9 +78,34 @@ class SignUp extends React.Component {
         return isValid
     }
 
-    signChange = () => {
-        this.setState({isSignUp: !this.state.isSignUp});
+    formValidationCheck = () => {
+        let isValid = true;
+
+        Object.keys(this.state.controls)
+            .filter(control => {
+                return this.state.controls[control].validation.required})
+            .forEach(control => {
+                if (this.state.controls[control].valid && isValid) {
+                    isValid = true
+                } else {
+                    isValid = false
+                }
+            })
+        return isValid
     }
+
+    signChange = () => {
+        let controls = {...this.state.controls};
+
+        controls.name = { ... this.state.controls.name,
+                            validation: {... this.state.controls.name.validation,
+                                        required: !this.state.controls.name.validation.required},
+                            valid: !this.state.controls.name.valid}
+
+        this.setState({controls: controls,
+                        isSignUp: !this.state.isSignUp,
+                        isValid: this.formValidationCheck()})
+        }
 
     signProcess = () => {
         const data = {email: this.state.controls.email.value, password: this.state.controls.password.value};
@@ -81,14 +120,18 @@ class SignUp extends React.Component {
     render () {
 
         const formData = this.state.controls;
-        const form = Object.keys(formData).map( control => {
-            return <Input elementType = {formData[control].elementType}
-                        key = {control}
-                        type = {formData[control].elementConfig.type}
-                        placeholder = {formData[control].elementConfig.placeholder}
-                        changed = {e => this.inputHandler(e, control)}
-                    />
-        })
+        const form = Object.keys(formData)
+            .filter( control => {
+                return formData[control].validation.required})
+            .map( control => {
+                return <Input elementType = {formData[control].elementType}
+                            key = {control}
+                            type = {formData[control].elementConfig.type}
+                            placeholder = {formData[control].elementConfig.placeholder}
+                            changed = {e => this.inputHandler(e, control)}
+                            value = {formData[control].value}
+                        />
+            })
 
         return (
             <Auxiliary>
@@ -97,7 +140,7 @@ class SignUp extends React.Component {
                         {this.state.isSignUp ? 'Formularz rejestracji' : 'Zaloguj się'}
                     </h3>
                     {form}
-                    <Button btnType = 'Submit' disabled = {!(this.state.controls.email.valid && this.state.controls.password.valid)} clicked={() => this.signProcess()}>
+                    <Button btnType = 'Submit' disabled = {!this.state.isValid} clicked={() => this.signProcess()}>
                         {this.state.isSignUp ? 'Zarejestruj się' : 'Zaloguj się'}
                     </Button>
                     <p>
