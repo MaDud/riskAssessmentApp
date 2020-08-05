@@ -31,11 +31,13 @@ export const logOut = () => {
     }
 }
 
-export const signOn = (data) => {
-    return (dispatch, getState, {getFirebase}) => {
+export const signUp = (data, name) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
         const firebase = getFirebase();
+        const firestore = getFirestore();
         firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
-        .then(response => dispatch(authenticationSuccess()))
+        .then( () => firebase.updateProfile({displayName: name}))
+        .then( response => console.log(response))
         .catch(error => console.log(error))
     }
 }

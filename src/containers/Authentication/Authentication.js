@@ -111,7 +111,7 @@ class SignUp extends React.Component {
         const data = {email: this.state.controls.email.value, password: this.state.controls.password.value};
 
         if (this.state.isSignUp) {
-            this.props.signOn(data)
+            this.props.signUp(data, this.state.controls.name.value)
         } else {
             this.props.signIn(data)
         }
@@ -158,7 +158,7 @@ class SignUp extends React.Component {
 const mapPropsToDispatch = dispatch => {
     return {
         signIn: data => dispatch(action.signIn(data)),
-        signOn: data => dispatch(action.signOn(data))
+        signUp: (data, name) => dispatch(action.signUp(data, name))
     }
 }
 

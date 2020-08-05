@@ -13,11 +13,13 @@ import riskAssessment from './store/reductors/riskAssessment';
 import riskAssessmentOutput from './store/reductors/riskAssessmentOutput';
 import archiveHistory from './store/reductors/archiveHistory';
 import authentication from './store/reductors/authentication';
-import { getFirestore, createFirestoreInstance, firestoreReducer} from 'redux-firestore';
+import { getFirestore, createFirestoreInstance, firestoreReducer, reduxFirestore} from 'redux-firestore';
 import { getFirebase, ReactReduxFirebaseProvider, firebaseReducer} from 'react-redux-firebase';
 import firebase from './config/fbConfig';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// const createStoreWithFirebase = compose(reduxFirestore(firebase)(createStore));
 
 const reductors = combineReducers({
     userPanel: userPanel,
@@ -29,7 +31,7 @@ const reductors = combineReducers({
     firestore: firestoreReducer,
 })
 
-const store = createStore(reductors, composeEnhancers(applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore}))));
+const store = createStore(reductors, composeEnhancers(applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})), reduxFirestore(firebase)));
 
 const rrfProps = {
     firebase,

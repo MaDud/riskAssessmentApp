@@ -33,5 +33,5 @@ export {archive} from './archiveHistory';
 
 export {signIn, 
         logOut, 
-        signOn
+        signUp
 } from './authenticationCreations';
