@@ -232,36 +232,20 @@ export const hazardListInit = () => {
     }
 }
 
-export const fetchHazardListSuccess = (RAdata, draftsData) => {
+export const fetchHazardListSuccess = (RAdata, draftsData, active, overdue, review) => {
     return {
         type: actionTypes.FETCH_HAZARD_LIST_SUCCESS,
         RAdata: RAdata,
-        draftsData: draftsData
+        draftsData: draftsData,
+        active: active,
+        overdue: overdue,
+        review: review
     }
 }
 
 export const fetchHazardListFail = () => {
     return {
         type: actionTypes.FETCH_HAZARD_LIST_FAIL
-    }
-}
-
-//licznik
-export const countUpActive = () => {
-    return {
-        type: actionTypes.COUNT_UP_ACTIVE,
-    }
-}
-
-export const countUpReview = () => {
-    return {
-        type: actionTypes.COUNT_UP_REVIEW,
-    }
-}
-
-export const countUpOverdue = () => {
-    return {
-        type: actionTypes.COUNT_UP_OVERDUE,
     }
 }
 
@@ -320,35 +304,8 @@ export const initHazardList = () => {
                     }
                 }
             };
-            dispatch(fetchHazardListSuccess(RAlist, draftsList));
-
-            let activeCount = 0;
-            let reviewCount = 0;
-            let overdueCount = 0;
-            let timer = 0;
-            if (active !== 0) {
-                timer = 2500/Math.max(active, review, overdue)
-            };
-            const interval = setInterval( () => {
-                if (activeCount < active) {
-                    activeCount += 1;
-                    dispatch(countUpActive())
-                }
-                if (reviewCount < review) {
-                    reviewCount += 1;
-                    dispatch(countUpReview())
-                }
-                if (overdueCount < overdue) {
-                    overdueCount += 1;
-                    dispatch(countUpOverdue())
-                }
-            }, timer);
-
-            if(activeCount === active && reviewCount === review && overdueCount === overdue) {
-                clearInterval(interval)
-            }
+            dispatch(fetchHazardListSuccess(RAlist, draftsList, active, overdue, review));
         }).catch(error => {
-            console.log(error);
             dispatch(fetchHazardListFail())})
     }
 }

@@ -33,9 +33,6 @@ const userPanel = (state = initialState, action) => {
                 sorted: {...state.sorted,
                         id: 'number',
                         sortType: 'asc'},
-                statistic: {active: 0, 
-                            review: 0, 
-                            overdue: 0},
             }
         case actionTypes.CHANGE_PAGE_VIEW:
             return {
@@ -94,9 +91,6 @@ const userPanel = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                statistic: {active: 0,
-                            review: 0,
-                            overdue: 0}
             }
         case actionTypes.ADD_SUCCESS:
             return {
@@ -157,29 +151,13 @@ const userPanel = (state = initialState, action) => {
                 assessmentsList: {...state.assessmentsList,
                                 ...action.RAdata},
                 draftsList: {...state.draftsList,
-                            ...action.draftsData}
-            }
-        case actionTypes.COUNT_UP_ACTIVE: {
-            return {
-                ...state,
+                            ...action.draftsData},
                 statistic: {...state.statistic,
-                            active: state.statistic.active + 1}
+                            active: action.active,
+                            overdue: action.overdue,
+                            review: action.review
+                }
             }
-        }
-        case actionTypes.COUNT_UP_REVIEW: {
-            return {
-                ...state,
-                statistic: {...state.statistic,
-                            review: state.statistic.review + 1}
-            }
-        }
-        case actionTypes.COUNT_UP_OVERDUE: {
-            return {
-                ...state,
-                statistic: {...state.statistic,
-                            overdue: state.statistic.overdue + 1}
-            }
-        }
         case actionTypes.FETCH_HAZARD_LIST_FAIL:
             return {
                 ...state,

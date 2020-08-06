@@ -14,13 +14,42 @@ import Search from '../../components/UI/Search/Search';
 
 const tableHeads = [{label:'Numer', id:'number'},
                     {label: 'Nazwa stanowiska', id: 'position'}, 
-                    {label: 'Właściciel', id:'owner'}]
+                    {label: 'Właściciel', id:'owner'}];
 
 class UserPanel extends React.Component {
 
+    state = {
+        active: 0,
+        review: 0,
+        overdue: 0,
+        interval: null
+    }
+
     componentDidMount () {
-        this.props.initHazardList();
-        this.props.cleanState()}
+        this.props.initRAList();
+        this.props.cleanState()
+
+        const interval = setInterval(this.timer, 80);
+        this.setState({interval:interval})}
+
+    timer = () => {
+        let active = this.state.active;
+        let overdue = this.state.overdue;
+        let review = this.state.review;
+
+        if (active < this.props.statistic.active) {
+            this.setState({active: active + 1})
+        if (overdue < this.props.statistic.overdue) {
+            this.setState({overdue: overdue + 1})}
+        if (review < this.props.statistic.review) {
+            this.setState({review: review + 1})}
+        } if (active === this.props.statistic.active &&
+              overdue === this.props.statistic.overdue &&
+              review === this.props.statistic.review) {
+            clearInterval(this.interval)
+        }
+
+    }
     
     addNew = () => {
         this.props.clearUserPanel();
@@ -43,6 +72,8 @@ class UserPanel extends React.Component {
     }
     
     render () {
+
+        console.log(this.state.active)
         //wyszukwanie i filtrowanie wyników dla poszczególnych tabeli
         const assessmentsList = this.props.assessmentsList;
         let data= {};
@@ -94,9 +125,9 @@ class UserPanel extends React.Component {
             userNavigation = (<Auxiliary>
                                 <Statistic matric={this.props.statistic}
                                     clicked={(e) => this.props.changeView(e)}
-                                    active = {this.props.statistic.active}
-                                    review = {this.props.statistic.review}
-                                    overdue ={this.props.statistic.overdue}/>
+                                    active = {this.state.active}
+                                    review = {this.state.review}
+                                    overdue ={this.state.overdue}/>
                                 <div className={classes.UserNav}>
                                     <UserNav clicked={(e) => this.props.changeView(e)}
                                         review={this.props.statistic.review}
@@ -160,7 +191,7 @@ const mapDispatchToProps = dispatch => {
         searchValue: (searchValue) => dispatch(action.searchValue(searchValue)),
         changePage: (page) => dispatch(action.changePage(page)),
         sortData: (event) => dispatch(action.sortData(event)),
-        initHazardList: () => dispatch(action.initHazardList()),
+        initRAList: () => dispatch(action.initHazardList()),
         cleanState: () => dispatch(action.cleanState()),
         RAtype: type => dispatch(action.RAtype(type))
     }
