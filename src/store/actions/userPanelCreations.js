@@ -9,7 +9,6 @@ export const clearUserPanel = () => {
 }
 
 export const changeView = (e) => {
-    e.preventDefault();
     return {
         type: actionTypes.CHANGE_PAGE_VIEW,
         event: e.target.id

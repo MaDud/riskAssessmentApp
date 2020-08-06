@@ -28,7 +28,6 @@ class UserPanel extends React.Component {
     componentDidMount () {
         this.props.initRAList();
         this.props.cleanState()
-
         const interval = setInterval(this.timer, 80);
         this.setState({interval:interval})}
 
@@ -68,6 +67,14 @@ class UserPanel extends React.Component {
             let num = version.match(/[0-9]{1,}$/);
             this.props.RAtype('draft')
             this.props.history.push('/riskAssessmentForm/'+ id +'/' + num)
+        }
+    }
+
+    changeView = e => {
+        const target = e.target.id;
+
+        if (this.state[target] !== 0) {
+            this.props.changeView(e)
         }
     }
     
@@ -124,7 +131,7 @@ class UserPanel extends React.Component {
         if (this.props.isAuth) {
             userNavigation = (<Auxiliary>
                                 <Statistic matric={this.props.statistic}
-                                    clicked={(e) => this.props.changeView(e)}
+                                    clicked={(e) => this.changeView(e)}
                                     active = {this.state.active}
                                     review = {this.state.review}
                                     overdue ={this.state.overdue}/>
