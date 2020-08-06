@@ -32,9 +32,8 @@ export const logOut = () => {
 }
 
 export const signUp = (data, name) => {
-    return (dispatch, getState, {getFirebase, getFirestore}) => {
+    return (dispatch, getState, {getFirebase}) => {
         const firebase = getFirebase();
-        const firestore = getFirestore();
         firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
         .then( () => firebase.updateProfile({displayName: name}))
         .then( response => console.log(response))
