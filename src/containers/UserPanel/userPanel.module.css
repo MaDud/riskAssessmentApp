@@ -6,7 +6,8 @@
 }
 
 .Table th, tbody td {
-    border: solid #77838f 1px;
+    border: solid #77838fa1 1px;
+    padding: 10px 5px;
 }
 
 .UserNav {
