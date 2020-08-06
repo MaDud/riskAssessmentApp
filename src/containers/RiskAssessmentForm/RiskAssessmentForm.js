@@ -22,8 +22,11 @@ class RiskAssessmentForm extends React.Component {
     componentDidMount () {
         const id = this.props.match.params.id;
         const version = this.props.match.params.version;
-        console.log(this.props.RAtype)
-        this.props.initRAForm(this.props.RAtype, id, version)
+        if (!id && !version) {
+            this.props.initRAForm('new', id, version)
+        } else {
+            this.props.initRAForm(this.props.RAtype, id, version)
+        }
     }
 
     //czyszczenie zapisanych danych
