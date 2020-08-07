@@ -16,7 +16,9 @@ const input = props => {
                               value={props.value}
                               type={props.type}
                               placeholder={props.placeholder}
-                              disabled={props.disabled}/>
+                              disabled={props.disabled}
+                              autoFocus={props.autoFocus}
+                              />
             break;
         case 'textarea':
             newInput = <textarea className={[classes.Style, classes.Textarea, props.inputPosition].join(' ')}

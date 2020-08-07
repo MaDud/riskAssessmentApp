@@ -156,7 +156,7 @@ export const addNewWorkCopy = (data) => {
                     instance.put('/prevNumber.json', data.number)])
         .then(response => {
             const id = response[0].data.name;
-            const draftData = {no: '#' + data.number + ' wersja 0',
+            const draftData = {no: Number(data.number),
                                 position: data.draft[0].assessmentData.position,
                                 owner: data.draft[0].assessmentData.owner};
             dispatch(addWorkCopySuccess(id, draftData))
@@ -174,7 +174,7 @@ export const addNewVersionWorkCopy = (id, no, data) => {
         instance.put('/riskAssessment/' + id + '/draft/' + version +'.json', dataToAdd)
         .then(response => {
             console.log(response.data)
-            const draftData = {no: '#' + no + ' wersja ' + version,
+            const draftData = {no: Number(no) ,
                              postion: dataToAdd.assessmentData.position,
                              owner: dataToAdd.assessmentData.owner};
             dispatch(addWorkCopySuccess(id, draftData))
@@ -289,7 +289,7 @@ export const initHazardList = () => {
                     if (data[id].status === 'active' && data[id].draft) {
                         for (let draft in data[id].draft) {
                             if (data[id].draft[draft] !== null) {
-                            draftsList[id] = {no: '#' + data[id].number + ' wersja ' + draft,
+                            draftsList[id] = {no: data[id].number ,
                                               position: data[id].draft[draft].assessmentData.position,
                                               owner: data[id].draft[draft].assessmentData.owner}    
                             }
@@ -297,7 +297,7 @@ export const initHazardList = () => {
                     }
                 } else if (data[id].status === 'draft') {
                     for (let draft in data[id].draft) {
-                        draftsList[id] = {no: '#' + data[id].number + ' wersja ' + draft,
+                        draftsList[id] = {no: data[id].number ,
                                             position: data[id].draft[draft].assessmentData.position,
                                             owner: data[id].draft[draft].assessmentData.owner}
                     }

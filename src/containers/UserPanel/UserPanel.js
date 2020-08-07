@@ -31,6 +31,11 @@ class UserPanel extends React.Component {
         const interval = setInterval(this.timer, 80);
         this.setState({interval:interval})}
 
+    componentDidUpdate (prevProps, prevState) {
+        return prevProps.searchBtn !== this.props.searchBtn
+    }
+        
+
     timer = () => {
         let active = this.state.active;
         let overdue = this.state.overdue;
@@ -77,6 +82,7 @@ class UserPanel extends React.Component {
             this.props.changeView(e)
         }
     }
+
     
     render () {
 
@@ -119,7 +125,7 @@ class UserPanel extends React.Component {
         let userNavigation = (<Auxiliary>
                                 <h1 className= {classes.RAtitle}>Rejestr ocen ryzyka zawodowego</h1>
                                 <div className={classes.UserNav}>
-                                <Search btnType= 'Submit'
+                                <Search 
                                                 search={this.props.search.searchValue}
                                                 changed={(e) => this.props.searchValue(e)}
                                                 value={this.props.search.searchValue}
@@ -142,7 +148,7 @@ class UserPanel extends React.Component {
                                         workCopy={Object.keys(this.props.draftsList).length}
                                         activeBtn= {this.props.user}
                                         submit={this.addNew}/>
-                                    <Search btnType= 'Submit'
+                                    <Search 
                                         search={this.props.search.searchValue}
                                         changed={(e) => this.props.searchValue(e)}
                                         value={this.props.search.searchValue}

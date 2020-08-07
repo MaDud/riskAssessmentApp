@@ -30,14 +30,14 @@ const userNav = (props) => {
                             </Button>)
                             :null}
                 {props.workCopy > 0 ? 
-                            (<Button btnType={'Submit'}
+                            (<Button btnType={props.activeBtn === 'drafts' ? 'SubmitFocus':'Submit'}
                                     id = 'drafts'
                                     clicked={props.clicked}>
                                     Kopie robocze
                             </Button>)
                             : null}
             </div>
-            <Button btnType="Submit" 
+            <Button btnType= 'Submit'
                     clicked= {props.submit}>
                     <FontAwesomeIcon icon='folder-plus'/>
             </Button>

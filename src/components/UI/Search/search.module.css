@@ -9,6 +9,10 @@
     border-bottom-right-radius: 0px !important;
 }
 
+.Search button svg{
+    pointer-events: none;
+}
+
 .SearchBox input {
     border: none;
     height: inherit;

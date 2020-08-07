@@ -39,13 +39,20 @@ const userPanel = (state = initialState, action) => {
                 ...state,
                 activeBtn: action.event,
                 pagination: {...state.pagination,
-                            page: 1}
+                            page: 1},
+                search: {searchValue: '',
+                        searchField: false}           
             }
         case actionTypes.SEARCH:
+            let empty = state.search.searchValue;
+            if (state.search.searchField) {
+                empty= ''
+            }
             return {
                 ...state,
                 search: {...state.search,
-                        searchField: !state.search.searchField}
+                        searchField: !state.search.searchField,
+                        searchValue: empty}
             }
         case actionTypes.SEARCH_VALUE:
             return {

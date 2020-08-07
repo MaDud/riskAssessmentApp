@@ -5,10 +5,11 @@ import Button from '../Button/Button';
 import Input from '../Input/Input';
 
 const search = (props) => {
+   
     return (
         <div className={classes.Search}>
             <Button clicked={props.changeSearch}
-                    btnType={props.btnType}>
+                    btnType={props.active ? 'SubmitFocus' : 'Submit'}>
                 <FontAwesomeIcon icon='search'/> 
             </Button>  
             {props.active? (<div className={classes.SearchBox}>
@@ -16,7 +17,9 @@ const search = (props) => {
                                     type='text'
                                     placeholder='Szukaj...'
                                     changed={props.changed}
-                                    value={props.value} />
+                                    value={props.value}
+                                    autoFocus={true}
+                                    />
                                 <div className={classes.SearchClose} onClick={props.closeSearch}>
                                     <FontAwesomeIcon icon='times' className={props.search ? classes.SearchActive : classes.SearchNotActive}/>  
                                 </div>
