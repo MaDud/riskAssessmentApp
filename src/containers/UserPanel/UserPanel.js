@@ -10,7 +10,8 @@ import Table from '../../components/UI/Table/Table';
 import Statistic from '../../components/Statistic/Statistic';
 import UserNav from '../../components/UserNav/UserNav';
 import Search from '../../components/UI/Search/Search';
-
+import register from '../../assets/register.png';
+import admin from '../../assets/admin.png';
 
 const tableHeads = [{label:'Numer', id:'number'},
                     {label: 'Nazwa stanowiska', id: 'position'}, 
@@ -29,12 +30,7 @@ class UserPanel extends React.Component {
         this.props.initRAList();
         this.props.cleanState()
         const interval = setInterval(this.timer, 80);
-        this.setState({interval:interval})}
-
-    componentDidUpdate (prevProps, prevState) {
-        return prevProps.searchBtn !== this.props.searchBtn
-    }
-        
+        this.setState({interval:interval})}        
 
     timer = () => {
         let active = this.state.active;
@@ -123,9 +119,10 @@ class UserPanel extends React.Component {
 
         //wyświetlanie danych w zależności od statusu logowania
         let userNavigation = (<Auxiliary>
-                                <h1 className= {classes.RAtitle}>Rejestr ocen ryzyka zawodowego</h1>
-                                <div className={classes.UserNav}>
-                                <Search 
+                                {/* <h1 className= {classes.RAtitle}>Rejestr ocen ryzyka zawodowego</h1> */}
+                                <img src={register} className={classes.Image}/>
+                                <div className={classes.BasicUserNav}>
+                                    <Search 
                                                 search={this.props.search.searchValue}
                                                 changed={(e) => this.props.searchValue(e)}
                                                 value={this.props.search.searchValue}
@@ -136,6 +133,7 @@ class UserPanel extends React.Component {
                             
         if (this.props.isAuth) {
             userNavigation = (<Auxiliary>
+                                <img src={admin} className={classes.Image}/>
                                 <Statistic matric={this.props.statistic}
                                     clicked={(e) => this.changeView(e)}
                                     active = {this.state.active}

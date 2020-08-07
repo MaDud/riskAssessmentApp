@@ -5,13 +5,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Auxiliary from '../../../hoc/Auxiliary';
 import Button from '../../UI/Button/Button';
 import Input from '../../UI/Input/Input';
+import riskAssessmentIMG from '../../../assets/riskAssessment.png';
 
 const riskAssessment = props => {
     return(
         <Auxiliary>
             <form className={classes.RiskAssessment}>
               <div className={classes.Header}>
-                     <h1>Ocena ryzyka zawodowego</h1>
+                     {/* <h1>Ocena ryzyka zawodowego</h1> */}
+                     <img src={riskAssessmentIMG} />
               </div>
                 <Input for='number'
                        labelPosition={classes.LabelNumber}
