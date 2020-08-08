@@ -60,5 +60,14 @@
     export const FETCH_ARCHIVE_HISTORY_FAIL = 'FETCH_ARCHIVE_HISTIRY_FAIL';
 
 //Authentication
-    export const AUTHENTICATION_SUCCESS = 'AUTHENTICATION_SUCCESS';
-    export const AUTHENTICATION_FAIL = 'AUTHENTICATION_FAIL'
+    export const INIT_LOGIN = 'INIT_LOGIN';
+    export const INIT_LOGOUT = 'INIT_LOGOUT';
+    export const INIT_SIGNUP = 'INIT_SIGNUP';
+    export const LOGIN = 'LOGIN';
+    export const LOGOUT = 'LOGOUT';
+    export const LOGOUT_ERROR = 'LOGOUT_ERROR';
+    export const LOGIN_ERROR = 'LOGIN_ERROR';
+    export const SIGNUP = 'SIGNUP';
+    export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+    export const CLEAN_ERROR = 'CLEAN_ERROR'
+

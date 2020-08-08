@@ -52,6 +52,10 @@ class SignUp extends React.Component {
         isSignUp: false
     } 
 
+    componentDidMount () {
+        this.props.cleanError()
+    }
+
     inputHandler = (e, id) => {
         const controls = this.state.controls;
         const changedField = controls[id];
@@ -97,15 +101,16 @@ class SignUp extends React.Component {
     signChange = () => {
         let controls = {...this.state.controls};
 
-        controls.name = { ... this.state.controls.name,
-                            validation: {... this.state.controls.name.validation,
+        controls.name = {...this.state.controls.name,
+                            validation: {...this.state.controls.name.validation,
                                         required: !this.state.controls.name.validation.required},
                             valid: !this.state.controls.name.valid}
 
         this.setState({controls: controls,
                         isSignUp: !this.state.isSignUp,
                         isValid: this.formValidationCheck()})
-        }
+        this.props.cleanError();
+    }
 
     signProcess = () => {
         const data = {email: this.state.controls.email.value, password: this.state.controls.password.value};
@@ -118,7 +123,7 @@ class SignUp extends React.Component {
     }
 
     render () {
-
+        
         const formData = this.state.controls;
         const form = Object.keys(formData)
             .filter( control => {
@@ -139,6 +144,7 @@ class SignUp extends React.Component {
                     <h3>
                         {this.state.isSignUp ? 'Formularz rejestracji' : 'Zaloguj się'}
                     </h3>
+                    {this.props.error ? <div>{this.props.error}</div> : null}
                     {form}
                     <Button btnType = 'Submit' disabled = {!this.state.isValid} clicked={() => this.signProcess()}>
                         {this.state.isSignUp ? 'Zarejestruj się' : 'Zaloguj się'}
@@ -155,11 +161,18 @@ class SignUp extends React.Component {
     }
 }
 
-const mapPropsToDispatch = dispatch => {
+const mapStateToProps = state => {
     return {
-        signIn: data => dispatch(action.signIn(data)),
-        signUp: (data, name) => dispatch(action.signUp(data, name))
+        error: state.authentication.error
     }
 }
 
-export default connect(null, mapPropsToDispatch)(SignUp)
+const mapPropsToDispatch = dispatch => {
+    return {
+        signIn: data => dispatch(action.signIn(data)),
+        signUp: (data, name) => dispatch(action.signUp(data, name)),
+        cleanError: () => dispatch(action.cleanError())
+    }
+}
+
+export default connect(mapStateToProps, mapPropsToDispatch)(SignUp)
