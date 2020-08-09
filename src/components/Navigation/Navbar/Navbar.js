@@ -22,14 +22,16 @@ class Navbar extends React.Component {
                         </Link>
                     </div>
                     <ul className={classes.Navbar}>
-                        <Navs>Opis procesu</Navs>
+                        <Navs>
+                            <Link to='/process'>Opis procesu</Link>
+                        </Navs>
                         <Navs>
                             <Link to ='/'>Panel użytkownika</Link>
                         </Navs>
                         { !auth.uid ? (<Auxiliary>
                                             <Navs>
                                                 <Button btnType= 'SubmitFocus'>
-                                                    <Link to= '/authentication'>Logowanie/ Rejestracja</Link>
+                                                    <Link to= '/authentication'>Logowanie / Rejestracja</Link>
                                                 </Button>
                                             </Navs>
                                         </Auxiliary>)
