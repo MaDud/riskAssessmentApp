@@ -8,6 +8,7 @@ import save from '../../assets/save.png';
 import investigate from '../../assets/investigate.png';
 import cycle from '../../assets/cycle.png';
 import calculate from '../../assets/calculate.png';
+import { connect } from 'react-redux';
 
 const DATA = {
             0 : {title: 'zbierz informacje...',
@@ -37,6 +38,18 @@ const landingpage = (props) => {
                             key = {box}
                 />
     })
+
+    let redirectBox = (<Auxiliary>
+                            <h3>Zaloguj lub zarejestruj się, aby móc korzystać:</h3>
+                            <Button btnType = 'SubmitFocus' clicked = {() => props.history.push('/authentication')}>Zaloguj się / Zarejestruj się</Button>
+                        </Auxiliary>);
+    if (props.isAuth) {
+        redirectBox = (<Auxiliary>
+                            <h3>Przejdź do panelu administratora</h3>
+                            <Button btnType = 'SubmitFocus' clicked = {() => props.history.push('/')}>Panel administratora</Button>
+                        </Auxiliary>)
+    }
+    
     
     return (
         <div className={classes.LandingPage}>
@@ -51,12 +64,15 @@ const landingpage = (props) => {
             </div>
             <h1>W jednym dokumencie:</h1>
             {box}
-            <Auxiliary>
-                <h3>Zarejestruj się, aby móc korzystać:</h3>
-                <Button btnType = 'SubmitFocus' clicked = {() => props.history.push('/authentication')}>Zarejestruj się</Button>
-            </Auxiliary>
+            {redirectBox}
         </div>
     )
 }
 
-export default landingpage
+const mapStateToProps = state => {
+    return {
+        isAuth: state.firebase.auth.uid
+    }
+}
+
+export default connect(mapStateToProps)(landingpage)
