@@ -1,0 +1,37 @@
+.Box {
+    display: flex;
+    border-bottom: solid #0fa1d677 3px;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.Box img {
+    width: 28%;
+    height: 23%;
+}
+
+.Right {
+    flex-direction: row-reverse;
+}
+
+.TextBox {
+    width: 50%;
+}
+
+.TextBox h2 {
+    text-transform: uppercase;
+    font-family: 'Advent Pro', sans-serif;
+    color: #0fa1d6;
+    margin: 0.5rem 0;
+    font-size: 2rem;
+}
+
+.TextBox p {
+    text-align: justify !important;
+    color: #77838f !important;
+    margin: 0;
+    font-size: 1.3rem !important;
+    text-transform: none !important;
+}
+
