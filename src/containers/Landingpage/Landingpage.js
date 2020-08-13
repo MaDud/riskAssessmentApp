@@ -56,7 +56,7 @@ const landingpage = (props) => {
             <div className={classes.Banner}>
                 <h1>Ryzyko zawodowe</h1>
                 <p>to prawdopodobieństwo wystąpienia niepożądanych zdarzeń związanych z wykonywaną pracą, powodujących straty, w szczególności wystąpienia u pracowników niekorzystnych skutków zdrowotnych w wyniku zagrożeń zawodowych występujących w środowisku pracy lub sposobu wykonywania pracy</p>
-                <span>§ 2 pkt 7 Rozporządzenia Ministra Pracy i Polityki Socjalnej z dnia 26 września 1997 r. w sprawie ogólnych przepisów bhp, z późn. zm. (t.j.Dz.U. 2003 nr 169 poz. 1650 ze zm.</span>
+                <p>§ 2 pkt 7 Rozporządzenia Ministra Pracy i Polityki Socjalnej z dnia 26 września 1997 r. w sprawie ogólnych przepisów bhp, z późn. zm. (t.j.Dz.U. 2003 nr 169 poz. 1650 ze zm.</p>
                 <div className={classes.Decor}>
                     <span></span>
                     <span></span>

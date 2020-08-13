@@ -6,8 +6,10 @@
 .LandingPage h1 {
     color: #ffc107;
     font-family: 'Advent Pro', sans-serif;
-    font-size: 3.5rem;
+    font-size: 2.4rem;
     text-align: center;
+    margin-bottom: 0;
+    margin-top: 1vw
 }
 
 .LandingPage h3 {
@@ -16,22 +18,27 @@
     text-align: center;
     text-transform: uppercase;
     font-family: 'Advent Pro', sans-serif;
-    font-size: 2rem;
+    font-size: 1.4rem;
 }
 
 .LandingPage button {
     margin: 0 auto;
-    width: 40%;
+    width: 50%;
     margin-bottom: 8%;
-    font-size: 1.3rem;
+}
+
+.LandingPage p {
+    font-size: 0.9rem;
+    margin: 0.6rem 0;
+    text-align: justify;
 }
 
 .Banner {
     background-color: #0fa1d6e5;
-    padding: 5rem 5rem;
+    padding: 2rem 4rem;
     text-align: justify;
     color: #fff;
-    border-radius: 0 0 30px 30px;
+    border-radius: 0 0 2vw 2vw;
     position: relative;
 }
 
@@ -43,8 +50,8 @@
     color: #fff
 }
 
-.Banner p {
-    font-size: 1.3rem;
+.Banner p:last-of-type {
+    font-size: 0.6rem;
 }
 
 .Decor {
@@ -58,10 +65,71 @@
 
 .Decor span{
     display: block;
-    width: 40px;
-    height: 40px;
+    width: 20px;
+    height: 20px;
     background-color: rgba(255, 255, 255, 0.616);
-    border-radius: 50%;
+    border-radius: 30px;
+}
+
+@media (max-width: 900px) {
+    .LandingPage {
+        width: 85%;
+    }
+
+    .LandingPage h1 {
+        font-size: 2.2rem;
+    }
+
+    .LandingPage h3 {
+        font-size: 1.2rem;
+    }
+
+    .LandingPage button {
+        width: 70%;
+    }
+
+    .Banner {
+        padding: 2rem 3rem
+    }
+
+    .Banner p:last-of-type {
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .LandingPage {
+        width: 99%;
+    }
+
+    .LandingPage h1 {
+        font-size: 2rem;
+    }
+
+    .LandingPage h3 {
+        font-size: 1rem;
+    }
+
+    .LandingPage button {
+        width: 70%;
+    }
+
+    .LandingPage p {
+        font-size: 0.8rem;
+    }
+
+    .Banner {
+        padding: 2rem
+    }
+
+    .Banner p:last-of-type {
+        font-size: 0.6rem;
+    }
+
+    .Decor span {
+        height: 15px;
+        width: 15px;
+    }
 }
 
 

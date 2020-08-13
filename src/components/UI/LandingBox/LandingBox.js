@@ -10,7 +10,7 @@ const landingBox = (props) => {
     return (
         <div className={[classes.Box, textSide].join(' ')}>
             <div className={classes.TextBox}>
-                <h2>{props.title}</h2>
+                <h3>{props.title}</h3>
                 <p>{props.text}</p>
             </div>
             <img src={props.img} alt='Ups.. Nie udało się otworzyć obrazka' />

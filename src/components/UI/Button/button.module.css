@@ -1,10 +1,10 @@
 .Button {
     display: block;
     border: none;
-    border-radius: 4px;
-    padding: 10px;
+    border-radius: 3px;
+    padding: 7px;
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 1rem;
     cursor: pointer;
 }
 
@@ -63,4 +63,16 @@
 
 .Icon:hover {
     color: #377dff;
+}
+
+@media (max-width: 900px) {
+    .Button {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .Button {
+        font-size: 0.8rem;
+    }
 }

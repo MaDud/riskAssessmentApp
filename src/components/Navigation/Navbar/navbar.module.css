@@ -3,26 +3,34 @@
     display: flex;
     align-content: space-between;
     box-shadow: 1px 1px #77838f6e;
-    margin-top: 3px;
+    margin: 3px 0;
 }
 
 .Logo {
-    margin-left: 14.3%;
+    margin-left: 15%;
+    display: flex;
+    align-content: flex-end;
+}
+
+.Logo a {
+   display: flex;
+   align-items: center;
 }
 
 .Logo img {
-    height: 3rem;
+    height: 2.5rem;
 }
 
 .Navbar {
     width: 100%;
-    margin: 0 14.3% 0 0;
+    margin: 0 15% 0 0;
     list-style-type: none;
     display: inline-flex;
     justify-content: flex-end;
     align-items: baseline;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .Navbar a {
@@ -37,8 +45,23 @@
 
 .Navbar button {
     text-transform: uppercase;
+    font-size: 0.7rem !important;
 }
 
 .Navbar button a, .Navbar button a:hover {
     color: #fff;
+}
+
+@media (max-width: 900px) {
+    .Logo {
+        margin-left: 7.5%;
+    }
+
+    .Navbar {
+        margin: 0 7.5% 0 0;
+    }
+}
+
+@media (max-width: 550px) {
+  
 }

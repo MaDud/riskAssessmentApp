@@ -3,12 +3,12 @@
     border-bottom: solid #0fa1d677 3px;
     justify-content: space-around;
     align-items: center;
-    padding: 2rem 0;
+    padding: 20px 0;
 }
 
 .Box img {
-    width: 28%;
-    height: 23%;
+    width: 200px;
+    height: auto
 }
 
 .Right {
@@ -19,19 +19,36 @@
     width: 50%;
 }
 
-.TextBox h2 {
+.TextBox h3 {
     text-transform: uppercase;
     font-family: 'Advent Pro', sans-serif;
     color: #0fa1d6;
-    margin: 0.5rem 0;
-    font-size: 2rem;
+    margin: 10px 0 !important;
+    text-align: left !important;
 }
 
 .TextBox p {
-    text-align: justify !important;
     color: #77838f !important;
     margin: 0;
-    font-size: 1.3rem !important;
     text-transform: none !important;
+}
+
+@media (max-width: 500px) {
+    .Box {
+        flex-direction: column-reverse;
+    }
+
+    .Box img {
+        width: 100px;
+        height: auto
+    }
+
+    .TextBox {
+        width: 90%;
+    }
+
+    .TextBox h3 {
+        text-align: center !important;
+    }
 }
 

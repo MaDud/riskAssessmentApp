@@ -1,7 +1,6 @@
 import React from 'react';
 
 import classes from './riskAssessmentGeneralInfo.module.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Auxiliary from '../../../hoc/Auxiliary';
 import Button from '../../UI/Button/Button';
 import Input from '../../UI/Input/Input';

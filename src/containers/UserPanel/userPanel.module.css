@@ -36,6 +36,6 @@
 
 .Image {
     display: block;
-    height: 13rem;
-    margin: 15px auto;
+    width: 25%;
+    margin: 2% auto;
 }
