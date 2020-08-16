@@ -2,7 +2,7 @@
     width: 70%;
     margin: 0 auto 3rem;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.05rem;
+    font-size: 0.9rem;
     color: #1e2022;
     display: grid;
     align-items: center;
@@ -33,12 +33,11 @@
     text-transform: uppercase;
     border-radius: 4px;
     height: auto;
-    margin: 2rem auto;
+    margin: 2% auto;
 }
 
 .Header img {
-    height: 13rem;
-    width: auto;
+    width: 400px;
 }
 
 .Header h1 {
@@ -139,19 +138,43 @@
 
 .SubmitPosition {
     grid-area: add;
+    height: 100%;
 }
 
 .CancelPosition {
     grid-area: cancel;
+    height: 100%;
 }
 
 .SavePosition {
-    grid-area: save
+    grid-area: save;
+    height: 100%;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 900px) {
     .RiskAssessment {
-        width: 80%;
+        width: 85%;
+        grid-gap: 0.4rem;
+        grid-template-areas: "title         title       title       title       title       title"
+                         "label-11      input-11    space       label-12    input-12    input-12"
+                         "label-21      input-21    space       label-22    input-22    input-22"
+                         "label-3       label-3     label-3     label-3     label-3     label-3"
+                         "textarea-3    teaxtarea-3 teaxtarea-3 teaxtarea-3 teaxtarea-3 teaxtarea-3"
+                         "label-4       label-4     label-4     label-4     label-4     label-4"
+                         "textarea-4    teaxtarea-4 teaxtarea-4 teaxtarea-4 teaxtarea-4 teaxtarea-4"
+                         "label-5       label-5     label-5     label-5     label-5     label-5"
+                         "textarea-5    teaxtarea-5 teaxtarea-5 teaxtarea-5 teaxtarea-5 teaxtarea-5"
+                         "hazards       hazards     hazards     hazards     hazards     hazards"
+                         "label-6       label-6     label-6     label-6     label-6     label-6"
+                         "textarea-6    textarea-6  textarea-6  textarea-6  textarea-6  textarea-6"
+                         "label-71      input-71    space2      space2      label-72    input-72"
+                         "btn           btn         btn         add         save        cancel"   
+    }
+}
+
+@media (max-width: 570px) {
+    .RiskAssessment {
+        width: 85%;
         font-size: 0.9rem;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 0.5rem;
@@ -175,6 +198,11 @@
                              "save       save"
                              "cancel     cancel";
     }
+
+    .Header img {
+        width: 260px;
+    }
 }
+
 
 

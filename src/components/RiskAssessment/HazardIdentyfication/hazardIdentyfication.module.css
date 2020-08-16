@@ -1,5 +1,5 @@
 .HazardIdentyfication {
-    width: 90%;
+    width: 95%;
     margin: auto;
     font-family: 'Poppins', sans-serif;
     display: flex;
@@ -9,7 +9,7 @@
 .HazardIdentyfication h2 {
     color: #1e2022;
     font-weight: normal;
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 /* toggle style */
 
@@ -38,7 +38,7 @@
     border-radius: 20px;
     text-align: right;
     padding-right: 7px;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .Not {

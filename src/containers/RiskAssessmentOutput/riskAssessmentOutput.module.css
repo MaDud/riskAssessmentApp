@@ -5,14 +5,21 @@
 
 .Info {
     padding: 2% 0;
+    font-size: 0.9rem;
 }
 
 .Info h5 {
-    text-align: right
+    text-align: right;
+    font-size: 0.9rem;
 }
 
 .Info h2 {
     text-align: center;
+    font-size: 2.4rem
+}
+
+.Info p {
+    text-align: justify;
 }
 
 .Table {
@@ -20,13 +27,22 @@
     margin: auto;
     text-align: center;
     border-collapse: collapse;
-    table-layout: fixed;
+    font-size: 0.9rem;
 }
 
 .Table th {
     text-transform: uppercase;
     font-weight: normal;
     border: solid #77838f 1px;
+}
+
+.Table tbody td {
+    text-align: justify;
+    padding: 8px;
+}
+
+.Table tbody td:first-of-type, .Table tbody td:last-of-type {
+    text-align: center;
 }
 
 
@@ -58,4 +74,52 @@
     text-transform: capitalize;
     text-align: center;
     padding: 10px 0;
+}
+
+@media (max-width: 900px) {
+    .Output {
+        width: 85%;
+    }
+
+    .Info h2 {
+        font-size: 2.2rem
+    }
+}
+
+@media (max-width: 530px) {
+    .Info h2 {
+        font-size: 2rem
+    }
+
+    .Output {
+        width: 95%;
+    }
+
+    .Table thead{
+        display: none
+    }
+
+    .Table tr {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+    .Table td {
+        display: block;
+        font-size: .8rem;
+        text-align: justify;
+    }
+
+    .Table td::before {
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        width: 100%;
+    }
+
+    .Table td:nth-of-type(1):before { content: "ZAGROŻENIE:"; width: auto; }
+    .Table td:nth-of-type(2):before { content: "ŹRÓDŁO ZAGROŻENIA: "; }
+    .Table td:nth-of-type(3):before { content: "MOŻLIWE SKUTKI ZAGROŻENIA: "; }
+    .Table td:nth-of-type(4):before { content: "ŚRODKI OCHRONY PRZED ZAGROŻENIEM: ";}
+    .Table td:nth-of-type(5):before { content: "RYZYKO: "; width: auto}
 }

@@ -15,7 +15,9 @@
 }
 
 @media (max-width: 500px) {
-    
+    .Box > button:last-child {
+        display: none;
+    }
 }
 
 

@@ -3,7 +3,7 @@
     display: block;
     margin: auto;
     font-family: 'Poppins', sans-serif;
-    font-size: 1rem;
+    font-size: 0.8rem;
     border: #0fa1d6 solid 1px;
     border-radius: 4px;
     color: #77838f;
@@ -50,7 +50,7 @@
     margin-left: 10px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 530px) {
 
     .HazardForm {
         font-size: 0.8rem;

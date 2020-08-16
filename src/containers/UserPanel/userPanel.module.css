@@ -2,7 +2,8 @@
     width: 70%;
     border: solid #77838f 1px;
     border-radius: 4px;
-    opacity: 0.9
+    opacity: 0.9;
+    font-size: 0.9rem;
 }
 
 .Table th, tbody td {
@@ -24,18 +25,24 @@
     justify-content: flex-end;
 }
 
-.RAtitle {
-    font-family: 'Advent Pro', sans-serif;
-    color: #0fa1d6;
-    font-size: 2rem;
-    text-align: center;
-    width: 70%;
-    margin: 50px auto;
-    display: block;
-}
-
 .Image {
     display: block;
-    width: 25%;
+    width: 400px;
     margin: 2% auto;
+}
+
+@media (max-width: 900px) {
+    .Table {
+        width: 85%;
+    }
+}
+
+@media (max-width: 530px) {
+    .Image {
+        width: 260px;
+    }
+
+    .Table {
+        width: 99%;
+    }
 }

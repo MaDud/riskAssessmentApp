@@ -1,6 +1,6 @@
 .StatisticBox {
     width: 70%;
-    margin: 60px auto;
+    margin: 30px auto;
     display: flex;
     flex-direction: row;
     font-family: 'Poppins', sans-serif;  
@@ -10,9 +10,8 @@
 .StatisticBox h1 {
     display: flex;
     flex-direction: column;
-    /* color: #377dff; */
     font-weight: normal;
-    font-size: 4rem;
+    font-size: 2.6rem;
     text-align: center;
     margin: 5px 20px;
     flex: 1;
@@ -33,14 +32,37 @@
 
 .StatisticBox span {
     color: #77838f;
-    font-size: 1rem;
+    font-size: 0.9rem;
     text-transform: uppercase;
     text-align: center;
     pointer-events: none;
 }
 
-@media (max-width:500px) {
+@media (max-width: 530px) {
     .StatisticBox {
         flex-direction: column;
+        width: 99%;
+    }
+
+    .StatisticBox h1 {
+        flex-direction: row;
+        width: 100%;
+        margin: 3px auto;
+        align-items: center;
+    }
+
+    .StatisticBox span {
+        padding-left: 20px;
+        text-align: left;
+    }
+}
+
+@media (max-width: 900px) {
+    .StatisticBox {
+        width: 85%;
+    }
+
+    .StatisticBox span {
+        font-size: 0.8rem;
     }
 }

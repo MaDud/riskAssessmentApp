@@ -2,7 +2,6 @@
     margin: auto;
     text-align: center;
     border-collapse: collapse;
-    table-layout: fixed;
 }
 
 .Table th {
@@ -17,6 +16,7 @@
 .Head {
     display: flex;
     pointer-events: none;
+    align-items: center;
 }
 
 .Text {

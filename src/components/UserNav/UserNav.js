@@ -3,7 +3,6 @@ import classes from './userNav.module.css';
 
 import Button from '../UI/Button/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { connect } from 'react-redux';
 
 const userNav = (props) => {
 

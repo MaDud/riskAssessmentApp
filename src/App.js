@@ -5,7 +5,7 @@ import Auxiliary from './hoc/Auxiliary';
 //fontawsome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fab } from '@fortawesome/free-brands-svg-icons'
-import { faSort, faSortUp, faSortDown, faFolderPlus, faSearch, faTimes, faAngleDoubleLeft, faAngleDoubleRight, faTrashAlt, faEdit, faFolderOpen, faBalanceScaleLeft } from '@fortawesome/free-solid-svg-icons'
+import { faSort, faSortUp, faSortDown, faFolderPlus, faSearch, faTimes, faAngleDoubleLeft, faAngleDoubleRight, faTrashAlt, faEdit, faFolderOpen, faBalanceScaleLeft, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
 import Layout from './components/Layout/Layout';
 import RiskAssessmentForm from './containers/RiskAssessmentForm/RiskAssessmentForm';
@@ -18,7 +18,7 @@ import { connect } from 'react-redux';
 import {Route ,Switch, Redirect} from 'react-router-dom';
 
 const App = props => {
-  library.add(fab, faSort, faSortUp, faSortDown, faFolderPlus, faSearch, faTimes, faAngleDoubleLeft, faAngleDoubleRight, faTrashAlt, faEdit, faFolderOpen, faBalanceScaleLeft )
+  library.add(fab, faSort, faSortUp, faSortDown, faFolderPlus, faSearch, faTimes, faAngleDoubleLeft, faAngleDoubleRight, faTrashAlt, faEdit, faFolderOpen, faBalanceScaleLeft, faEllipsisV )
   const { auth } = props;
   let router = (<Switch>
                   <Route path="/" exact component={UserPanel}/>

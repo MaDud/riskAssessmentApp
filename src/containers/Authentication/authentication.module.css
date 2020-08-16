@@ -54,9 +54,9 @@
 
 }
 
-@media (max-width: 500px) {
+@media (max-width: 530px) {
     .RegisterForm {
-        width: 70% ;
+        width: 80% ;
     }
 
     .RegisterForm h3 {

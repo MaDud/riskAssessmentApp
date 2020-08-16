@@ -14,7 +14,7 @@ import register from '../../assets/register.png';
 import admin from '../../assets/admin.png';
 
 const tableHeads = [{label:'Numer', id:'number'},
-                    {label: 'Nazwa stanowiska', id: 'position'}, 
+                    {label: 'Stanowisko', id: 'position'}, 
                     {label: 'Właściciel', id:'owner'}];
 
 class UserPanel extends React.Component {
@@ -82,7 +82,6 @@ class UserPanel extends React.Component {
     
     render () {
 
-        console.log(this.state.active)
         //wyszukwanie i filtrowanie wyników dla poszczególnych tabeli
         const assessmentsList = this.props.assessmentsList;
         let data= {};
@@ -119,7 +118,6 @@ class UserPanel extends React.Component {
 
         //wyświetlanie danych w zależności od statusu logowania
         let userNavigation = (<Auxiliary>
-                                {/* <h1 className= {classes.RAtitle}>Rejestr ocen ryzyka zawodowego</h1> */}
                                 <img src={register} className={classes.Image}/>
                                 <div className={classes.BasicUserNav}>
                                     <Search 
