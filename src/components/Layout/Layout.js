@@ -1,31 +1,70 @@
 import React from 'react';
 
 import Auxiliary from '../../hoc/Auxiliary';
-import Navbar from '../Navigation/Navbar/Navbar';
+import Toolbar from '../Navigation/Toolbar/Toolbar';
+import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux'
 import { isLoaded } from 'react-redux-firebase';
+import * as action from '../../store/actions/index';
 
-const layout = props => {
-    const { auth } = props;
 
-    return(
-        <Auxiliary>
-            { isLoaded(auth) ?
-            (<Auxiliary>
-                <Navbar/>
-                <main>
-                    {props.children}
-                </main>
-            </Auxiliary>)
-            : null }
-        </Auxiliary>
-    )
+class Layout extends React.Component {
+
+    state = {
+        sideDrawerVisible: false
+    }
+
+    OpenSideDrawer = () => {
+        this.setState({sideDrawerVisible: true})
+    }
+
+    CloseSideDrawer = () => {
+        this.setState({sideDrawerVisible: false})
+    }
+
+    addNew = () => {
+        this.props.clearUserPanel();
+        this.props.RAtype('new');
+    }
+
+    render() {
+        const { auth, isAuth, logOut} = this.props;
+
+        return(
+            <Auxiliary>
+                { isLoaded(auth) ?
+                (<Auxiliary>
+                    <Toolbar auth = {isAuth} 
+                            logStatus = {() => logOut()}
+                            clicked = {this.OpenSideDrawer}
+                            new = {this.addNew}/>
+                    <SideDrawer open = {this.state.sideDrawerVisible}
+                                clicked = {this.CloseSideDrawer}
+                                auth = {isAuth}
+                                new = {this.addNew}/>
+                    <main>
+                        {this.props.children}
+                    </main>
+                </Auxiliary>)
+                : null }
+            </Auxiliary>
+        )
+    }
 };
 
 const mapStateToProps = state => {
     return {
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        isAuth: state.firebase.auth.uid
     }
 }
 
-export default connect(mapStateToProps)(layout);
+const mapPropsToDispatch = dispatch => {
+    return {
+        logOut: () => dispatch(action.logOut()),
+        clearUserPanel: () => dispatch(action.clearUserPanel()),
+        RAtype: type => dispatch(action.RAtype(type))
+    }
+}
+
+export default connect(mapStateToProps, mapPropsToDispatch)(Layout);

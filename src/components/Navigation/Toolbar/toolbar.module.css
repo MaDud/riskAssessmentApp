@@ -1,0 +1,67 @@
+.Navigation {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 1px 1px #77838f6e;
+    margin: 3px 0;
+}
+
+.Navigation nav {
+    margin-right: 15%;
+}
+
+.Logo {
+    margin-left: 15%;
+    display: flex;
+    align-content: flex-end;
+}
+
+.Logo a {
+   display: flex;
+   align-items: center;
+}
+
+.Logo img {
+    height: 2.5rem;
+}
+
+.SideMenu {
+    display: none;
+    width: 3rem;
+    text-align: center;
+    height: 3rem;
+    font-size: 1.3rem;
+    margin-right: 1%;
+}
+
+.SideMenu svg {
+    height: 100%;
+    pointer-events: none;
+    color: #77838f
+}
+
+@media (max-width: 900px) {
+    .Logo {
+        margin-left: 7.5%;
+    }
+
+    .Navigation nav {
+        margin-right: 7.5%;
+    }
+    
+}
+
+@media (max-width: 530px) {
+    .SideMenu {
+        display: block;
+    }
+
+    .Navigation nav {
+        display: none;
+    }
+
+    .Logo {
+        margin-left: 1%;
+    }
+}
