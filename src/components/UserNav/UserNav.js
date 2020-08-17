@@ -2,9 +2,21 @@ import React from 'react';
 import classes from './userNav.module.css';
 
 import Button from '../UI/Button/Button';
+import Input from '../UI/Input/Input';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const userNav = (props) => {
+
+    let selectOptions = [{value: 'active', displayValue: 'Aktywne'}];
+    if (props.review > 0 ) {
+        selectOptions.push({value: 'review', displayValue: 'Do przeglądu'})
+    }
+    if (props.overdue > 0 ) {
+        selectOptions.push({value: 'overdue', displayValue: 'Przeterminowane'})
+    }
+    if (props.workCopy > 0 ) {
+        selectOptions.push({value: 'drafts', displayValue: 'Kopie robocze'})
+    }
 
     return (
         <div className={classes.Box}>
@@ -35,6 +47,9 @@ const userNav = (props) => {
                                     Kopie robocze
                             </Button>)
                             : null}
+                <Input elementType = 'select'
+                        options =  {selectOptions}
+                        changed = {props.changed} />
             </div>
             <Button btnType= 'Submit'
                     clicked= {props.submit}>

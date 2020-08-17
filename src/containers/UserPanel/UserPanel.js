@@ -64,22 +64,19 @@ class UserPanel extends React.Component {
             this.props.RAtype('preview')
             this.props.history.push('/riskAssessment/' + id)   
         } else {
-            let version = this.props.draftsList[id].no;
-            let num = version.match(/[0-9]{1,}$/);
             this.props.RAtype('draft')
-            this.props.history.push('/riskAssessmentForm/'+ id +'/' + num)
+            this.props.history.push('/riskAssessmentForm/'+ id)
         }
     }
 
     changeView = e => {
-        const target = e.target.id;
-
-        if (this.state[target] !== 0) {
-            this.props.changeView(e)
+        if ((e.target.tagName === 'BUTTON' || e.target.tagName === 'H1') && this.state[e.target.id] !== 0) {
+            this.props.changeView(e.target.id)
+        } else {
+            this.props.changeView(e.target.value)
         }
     }
 
-    
     render () {
 
         //wyszukwanie i filtrowanie wyników dla poszczególnych tabeli
@@ -138,12 +135,13 @@ class UserPanel extends React.Component {
                                     review = {this.state.review}
                                     overdue ={this.state.overdue}/>
                                 <div className={classes.UserNav}>
-                                    <UserNav clicked={(e) => this.props.changeView(e)}
+                                    <UserNav clicked={(e) => this.changeView(e)}
                                         review={this.props.statistic.review}
                                         overdue={this.props.statistic.overdue}
                                         workCopy={Object.keys(this.props.draftsList).length}
                                         activeBtn= {this.props.user}
-                                        submit={this.addNew}/>
+                                        submit={this.addNew}
+                                        changed= {e => this.changeView(e)}/>
                                     <Search 
                                         search={this.props.search.searchValue}
                                         changed={(e) => this.props.searchValue(e)}
@@ -172,6 +170,14 @@ class UserPanel extends React.Component {
                         view={(e) => this.seeRow(e)}
                     />
                 </ErrorBoundaries>
+                <div className = {classes.Search}>
+                    <Search 
+                        search={this.props.search.searchValue}
+                        changed={(e) => this.props.searchValue(e)}
+                        value={this.props.search.searchValue}
+                        closeSearch={this.props.clearSearch}
+                        active={true}/>
+                </div>
             </Auxiliary>
         )
     }
@@ -194,7 +200,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         clearUserPanel: () => dispatch(action.clearUserPanel()),
-        changeView: (event) => dispatch(action.changeView(event)),
+        changeView: (path) => dispatch(action.changeView(path)),
         searchBtn: () => dispatch(action.search()),
         clearSearch: () => dispatch({type: 'CLEAR_SEARCH'}),
         searchValue: (searchValue) => dispatch(action.searchValue(searchValue)),

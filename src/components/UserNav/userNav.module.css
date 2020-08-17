@@ -14,9 +14,27 @@
     flex-direction: row;
 }
 
-@media (max-width: 500px) {
+.Navigation select {
+    display: none;
+}
+
+@media (max-width: 530px) {
+    .Box {
+        justify-content: flex-end;
+        height: 2rem;
+        margin-bottom: 10px;
+    }
+    
     .Box > button:last-child {
         display: none;
+    }
+
+    .Navigation button {
+        display: none;
+    }
+
+    .Navigation select {
+        display: block;
     }
 }
 

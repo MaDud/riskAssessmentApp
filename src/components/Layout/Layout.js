@@ -41,7 +41,8 @@ class Layout extends React.Component {
                     <SideDrawer open = {this.state.sideDrawerVisible}
                                 clicked = {this.CloseSideDrawer}
                                 auth = {isAuth}
-                                new = {this.addNew}/>
+                                new = {this.addNew}
+                                logStatus = {() => logOut()}/>
                     <main>
                         {this.props.children}
                     </main>

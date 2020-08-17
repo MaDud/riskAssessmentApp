@@ -16,7 +16,7 @@
 .SearchBox input {
     border: none;
     height: inherit;
-    width: auto;
+    /* width: auto; */
     outline: none;
 }
 

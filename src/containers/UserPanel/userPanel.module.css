@@ -31,8 +31,20 @@
     margin: 2% auto;
 }
 
+.Search {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .Table {
+        width: 85%;
+    }
+
+    .UserNav {
+        width: 85%;
+    }
+
+    .BasicUserNav {
         width: 85%;
     }
 }
@@ -45,4 +57,38 @@
     .Table {
         width: 99%;
     }
+
+    .UserNav {
+        width: 99%;
+    }
+
+    .UserNav div:last-child {
+        display: none;
+    }
+
+    .Search {
+        display: flex;
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        height: 2rem;
+    }
+
+    .Search button {
+        width: 2rem;
+    }
+
+    .Search div {
+        flex: 1;
+        background-color: #fff;
+    }
+
+    .Search div input {
+        width: 90%;
+    }
+
+    .BasicUserNav {
+        display: none;
+    }
+
 }

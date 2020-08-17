@@ -8,10 +8,10 @@ export const clearUserPanel = () => {
     }
 }
 
-export const changeView = (e) => {
+export const changeView = (path) => {
     return {
         type: actionTypes.CHANGE_PAGE_VIEW,
-        event: e.target.id
+        event: path
     }
 }
 
@@ -297,7 +297,7 @@ export const initHazardList = () => {
                     }
                 } else if (data[id].status === 'draft') {
                     for (let draft in data[id].draft) {
-                        draftsList[id] = {no: data[id].number ,
+                        draftsList[id] = {no: data[id].number,
                                             position: data[id].draft[draft].assessmentData.position,
                                             owner: data[id].draft[draft].assessmentData.owner}
                     }

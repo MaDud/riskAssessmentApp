@@ -42,3 +42,17 @@
     color: #fff;
     padding: 3px;
 }
+
+@media (max-width: 530px) {
+    .RANav {
+        flex-direction: row;
+        width: 100%;
+        margin: 0;
+        top: auto;
+        bottom: 0;
+        justify-content: space-evenly;
+        background-color: #d6d4d4;
+        border-radius: 0;
+        z-index: 250;
+    }
+}

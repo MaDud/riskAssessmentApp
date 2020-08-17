@@ -29,7 +29,7 @@ const input = props => {
             break;
         case 'select':
             let optionArray = props.options.map( el => {
-                return <option key={el.value} value={el.value}>{el.displayValue}</option>
+                return <option key={el.value} value={el.value} id={el.value}>{el.displayValue}</option>
                 });
             newInput = <select className={[classes.Style, props.inputPosition].join(' ')}
                                 onChange={props.changed}

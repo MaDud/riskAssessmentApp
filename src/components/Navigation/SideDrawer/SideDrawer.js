@@ -16,7 +16,8 @@ const sideDrawer = props => {
             <Backdrop show = {props.open} clicked = {props.clicked}/>
             <div className = {sideDraweStyle.join(' ')} onClick = {props.clicked}>
                 <Navbar auth = {props.auth}
-                        new = {props.new} />
+                        new = {props.new}
+                        clicked = {props.logStatus} />
             </div>
         </Auxiliary>
     )
