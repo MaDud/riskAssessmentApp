@@ -18,6 +18,16 @@
     display: none;
 }
 
+@media (max-width: 900px) {
+    .Navigation button {
+        display: none;
+    }
+
+    .Navigation select {
+        display: inline-block;
+    }
+}
+
 @media (max-width: 530px) {
     .Box {
         justify-content: flex-end;
@@ -25,11 +35,7 @@
         margin-bottom: 10px;
     }
     
-    .Box > button:last-child {
-        display: none;
-    }
-
-    .Navigation button {
+    .Box button{
         display: none;
     }
 
