@@ -289,7 +289,7 @@ export const initHazardList = () => {
                     if (data[id].status === 'active' && data[id].draft) {
                         for (let draft in data[id].draft) {
                             if (data[id].draft[draft] !== null) {
-                            draftsList[id] = {no: data[id].number ,
+                            draftsList[id + '/' + draft] = {no: data[id].number,
                                               position: data[id].draft[draft].assessmentData.position,
                                               owner: data[id].draft[draft].assessmentData.owner}    
                             }
@@ -297,7 +297,7 @@ export const initHazardList = () => {
                     }
                 } else if (data[id].status === 'draft') {
                     for (let draft in data[id].draft) {
-                        draftsList[id] = {no: data[id].number,
+                        draftsList[id + '/' + draft] = {no: data[id].number,
                                             position: data[id].draft[draft].assessmentData.position,
                                             owner: data[id].draft[draft].assessmentData.owner}
                     }
