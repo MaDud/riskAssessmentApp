@@ -28,7 +28,7 @@ class UserPanel extends React.Component {
 
     componentDidMount () {
         this.props.initRAList();
-        this.props.cleanState()
+        this.props.cleanState();
         const interval = setInterval(this.timer, 80);
         this.setState({interval:interval})}        
 
@@ -52,14 +52,14 @@ class UserPanel extends React.Component {
     }
     
     addNew = () => {
-        this.props.clearUserPanel();
+        this.props.cleanUserPanel();
         this.props.RAtype('new');
         this.props.history.push('/riskAssessmentForm')
     }
 
     seeRow = e => {
         let id = e.target.parentElement.id;
-        this.props.clearUserPanel();
+        this.props.cleanUserPanel();
         if (this.props.user !== 'drafts') {
             this.props.RAtype('preview')
             this.props.history.push('/riskAssessment/' + id)   
@@ -199,7 +199,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        clearUserPanel: () => dispatch(action.clearUserPanel()),
+        cleanUserPanel: () => dispatch(action.cleanUserPanel()),
         changeView: (path) => dispatch(action.changeView(path)),
         searchBtn: () => dispatch(action.search()),
         clearSearch: () => dispatch({type: 'CLEAR_SEARCH'}),

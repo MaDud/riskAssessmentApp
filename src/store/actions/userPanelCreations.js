@@ -2,9 +2,9 @@ import * as actionTypes from './actionTypes';
 import instance from '../../instance';
 
 
-export const clearUserPanel = () => {
+export const cleanUserPanel = () => {
     return {
-        type: actionTypes.CLEAR_SORT_PANEL
+        type: actionTypes.CLEAN_SORT_PANEL
     }
 }
 

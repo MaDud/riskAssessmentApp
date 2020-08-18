@@ -23,26 +23,32 @@ class Layout extends React.Component {
     }
 
     addNew = () => {
-        this.props.clearUserPanel();
+        this.props.cleanUserPanel();
         this.props.RAtype('new');
+    }
+    
+
+    exit = () => {
+        this.props.logOut();
+        this.props.changeView('active')
     }
 
     render() {
-        const { auth, isAuth, logOut} = this.props;
+        const { auth, isAuth} = this.props;
 
         return(
             <Auxiliary>
                 { isLoaded(auth) ?
                 (<Auxiliary>
                     <Toolbar auth = {isAuth} 
-                            logStatus = {() => logOut()}
+                            logStatus = {() => this.exit()}
                             clicked = {this.OpenSideDrawer}
                             new = {this.addNew}/>
                     <SideDrawer open = {this.state.sideDrawerVisible}
                                 clicked = {this.CloseSideDrawer}
                                 auth = {isAuth}
                                 new = {this.addNew}
-                                logStatus = {() => logOut()}/>
+                                logStatus = {() => this.exit()}/>
                     <main>
                         {this.props.children}
                     </main>
@@ -63,7 +69,8 @@ const mapStateToProps = state => {
 const mapPropsToDispatch = dispatch => {
     return {
         logOut: () => dispatch(action.logOut()),
-        clearUserPanel: () => dispatch(action.clearUserPanel()),
+        changeView: (path) => dispatch(action.changeView(path)),
+        cleanUserPanel: () => dispatch(action.cleanUserPanel()),
         RAtype: type => dispatch(action.RAtype(type))
     }
 }

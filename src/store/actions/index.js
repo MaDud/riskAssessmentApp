@@ -1,4 +1,4 @@
-export {clearUserPanel,
+export {cleanUserPanel,
         changeView,
         searchValue,
         search,

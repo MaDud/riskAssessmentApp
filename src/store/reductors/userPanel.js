@@ -22,7 +22,7 @@ const initialState = {
 const userPanel = (state = initialState, action) => {
 
     switch (action.type) {
-        case actionTypes.CLEAR_SORT_PANEL:
+        case actionTypes.CLEAN_SORT_PANEL:
             return {
                 ...state,
                 activeBtn: 'active',
