@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/riskAssessmentApp/static/css/main.f70c3300.chunk.css",
+    "main.js": "/riskAssessmentApp/static/js/main.4b94d085.chunk.js",
+    "main.js.map": "/riskAssessmentApp/static/js/main.4b94d085.chunk.js.map",
+    "runtime-main.js": "/riskAssessmentApp/static/js/runtime-main.04de77c7.js",
+    "runtime-main.js.map": "/riskAssessmentApp/static/js/runtime-main.04de77c7.js.map",
+    "static/js/2.82d2f6b4.chunk.js": "/riskAssessmentApp/static/js/2.82d2f6b4.chunk.js",
+    "static/js/2.82d2f6b4.chunk.js.map": "/riskAssessmentApp/static/js/2.82d2f6b4.chunk.js.map",
+    "index.html": "/riskAssessmentApp/index.html",
+    "precache-manifest.b86fd04255799d86531d4bb8d8016392.js": "/riskAssessmentApp/precache-manifest.b86fd04255799d86531d4bb8d8016392.js",
+    "service-worker.js": "/riskAssessmentApp/service-worker.js",
+    "static/css/main.f70c3300.chunk.css.map": "/riskAssessmentApp/static/css/main.f70c3300.chunk.css.map",
+    "static/js/2.82d2f6b4.chunk.js.LICENSE.txt": "/riskAssessmentApp/static/js/2.82d2f6b4.chunk.js.LICENSE.txt",
+    "static/media/admin.png": "/riskAssessmentApp/static/media/admin.1f725f87.png",
+    "static/media/calculate.png": "/riskAssessmentApp/static/media/calculate.9d10bf58.png",
+    "static/media/cycle.png": "/riskAssessmentApp/static/media/cycle.4b60de92.png",
+    "static/media/investigate.png": "/riskAssessmentApp/static/media/investigate.d8ab603d.png",
+    "static/media/logo.png": "/riskAssessmentApp/static/media/logo.30f34fd5.png",
+    "static/media/register.png": "/riskAssessmentApp/static/media/register.3da8fc15.png",
+    "static/media/riskAssessment.png": "/riskAssessmentApp/static/media/riskAssessment.e52fd1a7.png",
+    "static/media/save.png": "/riskAssessmentApp/static/media/save.155e9994.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.04de77c7.js",
+    "static/js/2.82d2f6b4.chunk.js",
+    "static/css/main.f70c3300.chunk.css",
+    "static/js/main.4b94d085.chunk.js"
+  ]
+}
