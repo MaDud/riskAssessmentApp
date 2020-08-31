@@ -16,6 +16,9 @@ This is my first project in which I tried to use my knowlegde gained during cour
 * Enzyme 3.11.0
 * JEST 4.2.4
 
+## Demo
+Open this page to see demo: https://madud.github.io/riskAssessmentApp/
+
 ## Setup
 Clone this repo to your desktop and run npm install to install all the dependencies.
 Use npm start to open project.
