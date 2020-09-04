@@ -6,6 +6,7 @@ import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
 import { connect } from 'react-redux'
 import { isLoaded } from 'react-redux-firebase';
 import * as action from '../../store/actions/index';
+import NavigationContext from '../../context/NavigationContext';
 
 
 class Layout extends React.Component {
@@ -40,15 +41,22 @@ class Layout extends React.Component {
             <Auxiliary>
                 { isLoaded(auth) ?
                 (<Auxiliary>
-                    <Toolbar auth = {isAuth} 
-                            logStatus = {() => this.exit()}
-                            clicked = {this.OpenSideDrawer}
-                            new = {this.addNew}/>
-                    <SideDrawer open = {this.state.sideDrawerVisible}
-                                clicked = {this.CloseSideDrawer}
-                                auth = {isAuth}
-                                new = {this.addNew}
-                                logStatus = {() => this.exit()}/>
+                    <NavigationContext.Provider value = {{isAuth: isAuth,
+                                                        logOut: this.exit,
+                                                        addNew: this.addNew}}>
+                        <Toolbar 
+                        // auth = {isAuth} 
+                                // logStatus = {() => this.exit()}
+                                clicked = {this.OpenSideDrawer}
+                                // new = {this.addNew}
+                                />
+                        <SideDrawer open = {this.state.sideDrawerVisible}
+                                    clicked = {this.CloseSideDrawer}
+                                    // auth = {isAuth}
+                                    // new = {this.addNew}
+                                    // logStatus = {() => this.exit()}
+                                    />
+                    </NavigationContext.Provider>
                     <main>
                         {this.props.children}
                     </main>

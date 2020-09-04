@@ -4,6 +4,7 @@ import Navs from './Navs/Navs';
 import classes from './navbar.module.css';
 import Button from '../../UI/Button/Button';
 import { Link } from 'react-router-dom';
+import NavigationContext from '../../../context/NavigationContext';
 
 import Auxiliary from '../../../hoc/Auxiliary';
 
@@ -17,24 +18,29 @@ const navbar = props => {
                     <Navs>
                         <Link to ='/'>Panel użytkownika</Link>
                     </Navs>
-                    { !props.auth ? (<Auxiliary>
-                                        <Navs>
-                                            <Button btnType= 'SubmitFocus'>
-                                                <Link to= '/authentication'>Logowanie / Rejestracja</Link>
-                                            </Button>
-                                        </Navs>
-                                    </Auxiliary>)
-                                    : 
-                                    (<Auxiliary>
-                                        <Navs onClick= {props.new}>
-                                            <Link to ='/riskAssessmentForm'>Nowa ocena</Link>
-                                        </Navs>
-                                        <Navs>
-                                            <Button btnType = 'Submit' clicked= {props.clicked} >
-                                                Wyloguj się
-                                            </Button>
-                                        </Navs>
-                                    </Auxiliary>)}
+                    <NavigationContext.Consumer>
+                        { context => (
+                            !context.isAuth ? 
+                                (<Auxiliary>
+                                    <Navs>
+                                        <Button btnType= 'SubmitFocus'>
+                                            <Link to= '/authentication'>Logowanie / Rejestracja</Link>
+                                        </Button>
+                                    </Navs>
+                                </Auxiliary>)   
+                                : 
+                                (<Auxiliary>
+                                    <Navs onClick= {context.addNew}>
+                                        <Link to ='/riskAssessmentForm'>Nowa ocena</Link>
+                                    </Navs>
+                                    <Navs>
+                                        <Button btnType = 'Submit' clicked= {context.logOut} >
+                                            Wyloguj się
+                                        </Button>
+                                    </Navs>
+                                </Auxiliary>)
+                        )}
+                    </NavigationContext.Consumer>
                 </ul>
          
         )

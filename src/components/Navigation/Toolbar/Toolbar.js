@@ -15,9 +15,11 @@ const toolbar = props => {
                 </Link>
             </div>
             <nav>
-                <Navbar auth = {props.auth}
-                        clicked = {props.logStatus}
-                        new = {props.new}/>
+                <Navbar 
+                // auth = {props.auth}
+                //         clicked = {props.logStatus}
+                //         new = {props.new}
+                        />
             </nav>
             <div className={classes.SideMenu} onClick = {props.clicked}>
                 <FontAwesomeIcon icon = 'ellipsis-v' />
