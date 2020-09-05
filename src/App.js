@@ -8,32 +8,45 @@ import { fab } from '@fortawesome/free-brands-svg-icons'
 import { faSort, faSortUp, faSortDown, faFolderPlus, faSearch, faTimes, faAngleDoubleLeft, faAngleDoubleRight, faTrashAlt, faEdit, faFolderOpen, faBalanceScaleLeft, faEllipsisV } from '@fortawesome/free-solid-svg-icons'
 
 import Layout from './components/Layout/Layout';
-import RiskAssessmentForm from './containers/RiskAssessmentForm/RiskAssessmentForm';
 import UserPanel from './containers/UserPanel/UserPanel';
-import RiskAssessmentOutput from './containers/RiskAssessmentOutput/RiskAssessmentOutput';
-import Authentication from './containers/Authentication/Authentication';
-import LandingPage from './containers/Landingpage/Landingpage';
-import { connect } from 'react-redux';
+import asyncComponent from './hoc/AsyncComponent';
 
+import { connect } from 'react-redux';
 import {Route ,Switch, Redirect} from 'react-router-dom';
+
+const AsyncRiskAssessmentOutput = asyncComponent( () => {
+  return import('./containers/RiskAssessmentOutput/RiskAssessmentOutput')
+})
+
+const AsyncAuthentication = asyncComponent( () => {
+  return import('./containers/Authentication/Authentication')
+})
+
+const AsyncLandingPage = asyncComponent( () => {
+  return import('./containers/Landingpage/Landingpage')
+})
+
+const AsyncRiskAssessmentForm = asyncComponent( () => {
+  return import('./containers/RiskAssessmentForm/RiskAssessmentForm')
+})
 
 const App = props => {
   library.add(fab, faSort, faSortUp, faSortDown, faFolderPlus, faSearch, faTimes, faAngleDoubleLeft, faAngleDoubleRight, faTrashAlt, faEdit, faFolderOpen, faBalanceScaleLeft, faEllipsisV )
   const { auth } = props;
   let router = (<Switch>
                   <Route path="/" exact component={UserPanel}/>
-                  <Route path="/riskAssessment/:id" component={RiskAssessmentOutput} />
-                  <Route path='/authentication' component={Authentication} />
-                  <Route path='/process' component={LandingPage} />
+                  <Route path="/riskAssessment/:id" component={AsyncRiskAssessmentOutput} />
+                  <Route path='/authentication' component={AsyncAuthentication} />
+                  <Route path='/process' component={AsyncLandingPage} />
                   <Redirect to= '/' />
               </Switch>)
   if (auth) {
     router = (<Switch>
                 <Route path="/" exact component={UserPanel}/>
-                <Route path="/riskAssessment/:id" component={RiskAssessmentOutput} />
-                <Route path='/riskAssessmentForm' exact component={RiskAssessmentForm} />
-                <Route path="/riskAssessmentForm/:id/:version" exact component={RiskAssessmentForm}/>
-                <Route path='/process' component={LandingPage} />
+                <Route path="/riskAssessment/:id" component={AsyncRiskAssessmentOutput} />
+                <Route path='/riskAssessmentForm' exact component={AsyncRiskAssessmentForm} />
+                <Route path="/riskAssessmentForm/:id/:version" exact component={AsyncRiskAssessmentForm}/>
+                <Route path='/process' component={AsyncLandingPage} />
                 <Redirect to= '/' />
             </Switch>)
   }
