@@ -26,7 +26,10 @@ export {inputHandler,
 } from './riskAssessmentCreations';
 
 export {archiveRA,
-        raOutputClean
+        raOutputClean,
+        archiveInit,
+        archiveSuccess,
+        archiveFail
 } from './riskAssessmentOutputCreations';
 
 export {archive} from './archiveHistory';

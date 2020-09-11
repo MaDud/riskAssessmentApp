@@ -20,11 +20,9 @@ export const archiveFail = () => {
 }
 
 export const archiveRA = (id) => {
-    return dispatch => {
-        dispatch(archiveInit());
-        instance.put('/riskAssessment/'+ id + '/status.json', new String('archive'))
-        .then(response => dispatch(archiveSuccess()))
-        .catch(error => dispatch(archiveFail()))
+    return {
+        type: actionTypes.ARCHIVE_PROCESS,
+        id: id
     }
 }
 

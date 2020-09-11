@@ -53,6 +53,7 @@
     export const ARCHIVE_SUCCESS = 'ARCHIVE_SUCCESS';
     export const ARCHIVE_FAIL = 'ARCHIVE_FAIL';
     export const RA_OUTPUT_CLEAN = 'RA_OUTPUT_CLEAN';
+    export const ARCHIVE_PROCESS = 'ARCHIVE_PROCESS';
 
 //ArchiveHistory
     export const ARCHIVE_HISTORY_INIT = 'ARCHIVE_HISTORY_INIT';
