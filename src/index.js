@@ -35,7 +35,7 @@ const reductors = combineReducers({
 })
 
 const store = createStore(reductors, 
-                    composeEnhancers(applyMiddleware(thunk.withExtraArgument({getFirebase})), sagaMiddleware()));
+                    composeEnhancers(applyMiddleware(thunk.withExtraArgument({getFirebase}), sagaMiddleware)));
 
 sagaMiddleware.run(archiveWatcher);
 
