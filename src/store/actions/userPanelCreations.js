@@ -317,9 +317,10 @@ export const archiveInit = () => {
     }
 }
 
-export const archiveSuccess = () => {
+export const archiveSuccess = (id) => {
     return {
-        type: actionTypes.ARCHIVE_SUCCESS
+        type: actionTypes.ARCHIVE_SUCCESS,
+        id: id
     }
 }
 

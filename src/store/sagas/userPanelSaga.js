@@ -8,9 +8,10 @@ export function* archiveRASaga (action) {
     try {
         const token = yield getFirebase().auth().currentUser.getIdToken(true).then( token => {return token});
         yield instance.put('/riskAssessment/'+ action.id + '/status.json?auth='+token, new String('archive'));
-        yield put(actions.archiveSuccess())
+        yield put(actions.archiveSuccess(action.id))
     } catch (error) {
-        yield put(actions.archiveFail())
+        yield put(actions.archiveFail());
+        console.log(error)
     }
 }
 

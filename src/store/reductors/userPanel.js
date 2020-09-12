@@ -176,11 +176,18 @@ const userPanel = (state = initialState, action) => {
                 loading: true
             }
         case actionTypes.ARCHIVE_SUCCESS:
+            let assessmentsList= {};
+            const filteredList = Object.keys(state.assessmentsList).filter( id => {
+                return id !== action.id
+            });
+            filteredList.forEach( id => assessmentsList[id] = state.assessmentsList[id])
+            
             return {
                 ...state,
                 loading: false,
                 error: false,
-                message: 'Ocena ryzyka została przeniesiona do archiwum'
+                message: 'Ocena ryzyka została przeniesiona do archiwum',
+                assessmentsList: assessmentsList
             }
         case actionTypes.ARCHIVE_FAIL:
             return {
