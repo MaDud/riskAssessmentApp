@@ -10,7 +10,12 @@ export {cleanUserPanel,
         addNewVersionWorkCopy,
         addNewFromWorkCopy,
         initHazardList,
-        cleanAddData
+        cleanAddData,
+        archiveRA,
+        raOutputClean,
+        archiveInit,
+        archiveSuccess,
+        archiveFail
 } from './userPanelCreations';
 
 export {inputHandler,
@@ -24,13 +29,6 @@ export {inputHandler,
         cleanState,
         RAtype
 } from './riskAssessmentCreations';
-
-export {archiveRA,
-        raOutputClean,
-        archiveInit,
-        archiveSuccess,
-        archiveFail
-} from './riskAssessmentOutputCreations';
 
 export {archive} from './archiveHistory';
 

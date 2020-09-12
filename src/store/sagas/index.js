@@ -3,6 +3,6 @@ import * as actionTypes from '../actions/actionTypes';
 
 import {archiveRASaga} from './riskAssessmentOutputSaga';
 
-export function* archiveWatcher () {
+export function* userPanelWatcher () {
     yield takeEvery(actionTypes.ARCHIVE_PROCESS, archiveRASaga)
 }

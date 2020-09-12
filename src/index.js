@@ -9,16 +9,14 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import {archiveWatcher} from './store/sagas/index';
+import {archiveWatcher, userPanelWatcher} from './store/sagas/index';
 import userPanel from './store/reductors/userPanel';
 import riskAssessment from './store/reductors/riskAssessment';
-import riskAssessmentOutput from './store/reductors/riskAssessmentOutput';
 import archiveHistory from './store/reductors/archiveHistory';
 import authentication from './store/reductors/authentication';
 import {createFirestoreInstance} from 'redux-firestore';
 import { getFirebase, ReactReduxFirebaseProvider, firebaseReducer} from 'react-redux-firebase';
 import firebase from './config/fbConfig';
-import { archiveSuccess } from './store/actions';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
@@ -28,7 +26,6 @@ const sagaMiddleware = createSagaMiddleware();
 const reductors = combineReducers({
     userPanel: userPanel,
     riskAssessment: riskAssessment,
-    riskAssessmentOutput: riskAssessmentOutput,
     archiveHistory: archiveHistory,
     authentication: authentication,
     firebase: firebaseReducer,
@@ -37,7 +34,7 @@ const reductors = combineReducers({
 const store = createStore(reductors, 
                     composeEnhancers(applyMiddleware(thunk.withExtraArgument({getFirebase}), sagaMiddleware)));
 
-sagaMiddleware.run(archiveWatcher);
+sagaMiddleware.run(userPanelWatcher);
 
 const rrfProps = {
     firebase,

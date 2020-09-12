@@ -173,7 +173,7 @@ const mapStateToProps = state => {
         id: state.riskAssessment.id,
         data: state.riskAssessment.assessmentData,
         hazardList: state.riskAssessment.hazardList,
-        raOutput: state.riskAssessmentOutput,
+        raOutput: state.userPanel,
         archiveHistory: state.archiveHistory,
         isAuth: state.firebase.auth.uid
     }

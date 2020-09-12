@@ -63,7 +63,7 @@ export const signIn = (data) => {
         const firebase = getFirebase();
         firebase.auth().signInWithEmailAndPassword(data.email, data.password)
         .then( () => dispatch(login()))
-        .catch(error => dispatch(loginError(error.message)))
+        .catch(error => dispatch(loginError(error.message)));
     }
 }
 
