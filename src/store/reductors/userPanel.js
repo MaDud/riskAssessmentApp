@@ -102,10 +102,6 @@ const userPanel = (state = initialState, action) => {
         case actionTypes.ADD_SUCCESS:
             return {
                 ...state,
-                assessmentsList: {...state.assessmentsList,
-                                [action.id]: action.data},
-                statistic: {...state.statistic,
-                            active: state.statistic.active + 1},
                 error: false,
                 loading: false,
                 message: 'Nowa ocena ryzyka została dodana'
@@ -127,8 +123,6 @@ const userPanel = (state = initialState, action) => {
         case actionTypes.ADD_WORK_COPY_SUCCESS: 
             return {
                 ...state,
-                draftsList: {...state.draftsList,
-                            [action.id]: action.data},
                 error: false,
                 loading: false,
                 message: 'Kopia robocza została dodana do bazy.'

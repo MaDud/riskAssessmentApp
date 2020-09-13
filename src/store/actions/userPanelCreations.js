@@ -1,6 +1,4 @@
 import * as actionTypes from './actionTypes';
-import instance from '../../instance';
-
 
 export const cleanUserPanel = () => {
     return {
@@ -51,19 +49,15 @@ export const addInit = () => {
     }
 }
 
-export const addSuccess = (id, data) => {
+export const addSuccess = () => {
     return {
         type: actionTypes.ADD_SUCCESS,
-        id: id,
-        data: data
     }
 }
 
-export const addWorkCopySuccess = (id, data) => {
+export const addWorkCopySuccess = () => {
     return {
         type: actionTypes.ADD_WORK_COPY_SUCCESS,
-        id: id,
-        data: data
     }
 }
 
@@ -115,105 +109,55 @@ export const addFail = (RAtype) => {
 }
 
 export const addNew = data => {
-    return dispatch => {
-        dispatch(addInit());
-        Promise.all([instance.post('/riskAssessment.json', data),
-                    instance.put('/prevNumber.json', data.number)])        
-        .then(response => {
-            const id = response[0].data.name;
-            const assessmentData = data.version[0].assessmentData;
-            const userPanel = {no: Number(data.number),
-                                position: assessmentData.position,
-                                owner: assessmentData.owner,
-                                status: data.status,
-                                review: false,
-                                overdue: false}
-            dispatch(addSuccess(id,userPanel))
-        })
-        .catch(error => {
-            dispatch(addFail('new'))})
+    return {
+        type: actionTypes.ADD_NEW_PROCESS,
+        data: data
     }
+        
 }
 
 //dodawanie nowej wersji do bazy
 export const addNewVersion = (id, data) => {
-    const version = Object.keys(data);
-    const dataToAdd = data[version];
-    return dispatch => {
-        dispatch(addInit());
-        instance.put('/riskAssessment/' + id + '/version/' + version +'.json', dataToAdd)
-        .then(response => dispatch(addVersionSuccess()))
-        .catch(error => {
-            dispatch(addFail('new_version'))})
+    const version = Object.keys(data)
+    return {
+        type: actionTypes.ADD_NEW_VERSION_PROCESS,
+        id: id,
+        version: version,
+        dataToAdd: data[version]  
     }
 }
 
 //dodawanie nowej kopii roboczej do bazy
 export const addNewWorkCopy = (data) => {
-    return dispatch => {
-        dispatch(addInit());
-        Promise.all([instance.post('/riskAssessment.json', data),
-                    instance.put('/prevNumber.json', data.number)])
-        .then(response => {
-            const id = response[0].data.name;
-            const draftData = {no: Number(data.number),
-                                position: data.draft[0].assessmentData.position,
-                                owner: data.draft[0].assessmentData.owner};
-            dispatch(addWorkCopySuccess(id, draftData))
-        })
-        .catch(error => dispatch(addFail('new_work_copy')))
+    return {
+        type: actionTypes.ADD_WORK_COPY_PROCESS,
+        data: data
     }
 }
 
 //dodawanie nowej wersji roboczej do bazy
 export const addNewVersionWorkCopy = (id, no, data) => {
-    const version = Object.keys(data);
-    const dataToAdd = data[version];
-    return dispatch => {
-        dispatch(addInit());
-        instance.put('/riskAssessment/' + id + '/draft/' + version +'.json', dataToAdd)
-        .then(response => {
-            console.log(response.data)
-            const draftData = {no: Number(no) ,
-                             postion: dataToAdd.assessmentData.position,
-                             owner: dataToAdd.assessmentData.owner};
-            dispatch(addWorkCopySuccess(id, draftData))
-        })
-        .catch(error => dispatch(addFail('new_version_work_copy')))
+    const version = Object.keys(data)
+    return {
+        type: actionTypes.ADD_VERSION_WORK_COPY_PROCESS,
+        id: id,
+        no: no,
+        data: data,
+        version: version,
+        dataToAdd: data[version]
     }
 }
 
 //dodawanie nowej oceny ryzyka z kopii roboczej
 export const addNewFromWorkCopy = (id, no, data) => {
-    const version = Object.keys(data);
-    const dataToAdd = data[version];
-    return dispatch => {
-        instance.get('/riskAssessment/' + id + '.json')
-        .then(response => {
-            if (response.data.status === 'active') {
-                const versionNumber = response.data.version.length;
-                Promise.all([instance.put('/riskAssessment/' + id + '/version/' + versionNumber + '.json', dataToAdd),
-                            instance.delete('/riskAssessment/' + id + '/draft.json')])
-                .then(response => {
-                    dispatch(addVersionSuccess());
-                    dispatch(removeWorkCopy(id))})
-            } else if (response.data.status === 'draft') {
-                Promise.all([instance.put('/riskAssessment/' + id + '/version/0.json', dataToAdd),
-                            instance.put('/riskAssessment/' + id + '/status.json',  new String('active')),
-                            instance.delete('/riskAssessment/' + id + '/draft.json')])
-                .then(response => {
-                    const userPanel = {no: Number(no),
-                                        position: dataToAdd.assessmentData.position,
-                                        owner: dataToAdd.assessmentData.owner,
-                                        status: 'active',
-                                        review: false,
-                                        overdue: false}
-                    dispatch(addSuccess(id,userPanel));
-                    dispatch(removeWorkCopy(id))
-                })
-            }
-        })
-        .catch(error => dispatch('add_new_from_work_copy'))
+    const version = Object.keys(data)
+    return {
+        type: actionTypes.ADD_NEW_FROM_WORK_COPY_PROCESS,
+        id: id,
+        no: no,
+        data: data,
+        version: version,
+        dataToAdd: data[version]
     }
 }
 
@@ -249,64 +193,10 @@ export const fetchHazardListFail = () => {
 }
 
 export const initHazardList = () => {
-    return dispatch => {
-        hazardListInit();
-        instance.get('/riskAssessment.json')
-        .then(response => {
-            const data = response.data;
-            const date = new Date();
-            let RAlist = {};
-            let draftsList = {};
-            let active = 0;
-            let review = 0;
-            let overdue = 0;
-                
-            for (let id in data) {
-                
-                if (data[id].status === 'active') {
-                    const active_version = data[id].version.length -1;
-                    const target = data[id].version[active_version].assessmentData;
-                    const reviewDate = new Date(target.reviewDate);
-                    const timeDiffrence= reviewDate-date;
-                    const days= Math.floor(timeDiffrence/(1000 * 60 * 60 * 24));
-                    RAlist[id] = {no: Number(data[id].number),
-                            position: target.position,
-                            owner: target.owner,
-                            nextReview: reviewDate,
-                            status: data[id].status,
-                            review: days <= 30 ? true:false,
-                            overdue: days < 0 ? true:false};
-                    
-                    active += 1;
-
-                    if (RAlist[id].review) {
-                        review += 1
-                    } 
-                    if (RAlist[id].overdue) {
-                        overdue += 1
-                    }
-                    
-                    if (data[id].status === 'active' && data[id].draft) {
-                        for (let draft in data[id].draft) {
-                            if (data[id].draft[draft] !== null) {
-                            draftsList[id + '/' + draft] = {no: data[id].number,
-                                              position: data[id].draft[draft].assessmentData.position,
-                                              owner: data[id].draft[draft].assessmentData.owner}    
-                            }
-                        }
-                    }
-                } else if (data[id].status === 'draft') {
-                    for (let draft in data[id].draft) {
-                        draftsList[id + '/' + draft] = {no: data[id].number,
-                                            position: data[id].draft[draft].assessmentData.position,
-                                            owner: data[id].draft[draft].assessmentData.owner}
-                    }
-                }
-            };
-            dispatch(fetchHazardListSuccess(RAlist, draftsList, active, overdue, review));
-        }).catch(error => {
-            dispatch(fetchHazardListFail())})
+    return {
+        type: actionTypes.HAZARD_LIST_INIT_PROCESS
     }
+        
 }
 
 //proces archiwizacji

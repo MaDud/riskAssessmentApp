@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import {archiveWatcher, userPanelWatcher} from './store/sagas/index';
+import {userPanelWatcher} from './store/sagas/index';
 import userPanel from './store/reductors/userPanel';
 import riskAssessment from './store/reductors/riskAssessment';
 import archiveHistory from './store/reductors/archiveHistory';

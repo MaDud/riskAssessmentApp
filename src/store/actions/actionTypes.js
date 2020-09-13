@@ -11,14 +11,20 @@
     export const PAGE = 'PAGE';
     export const SORT = 'SORT';
     //dodawanie nowej oceny do bazy
+    export const ADD_NEW_PROCESS = 'ADD_NEW_PROCESS';
     export const ADD_INIT = 'ADD_INIT';
     export const ADD_SUCCESS = 'ADD_SUCCESS';
     export const ADD_FAIL = 'ADD_FAIL';
+    export const ADD_WORK_COPY_PROCESS = 'ADD_WORK_COPY_PROCESS';
     export const ADD_WORK_COPY_SUCCESS = 'ADD_WORK_COPY_SUCCESS';
+    export const ADD_NEW_VERSION_PROCESS = 'ADD_NEW_VERSION_PROCESS';
+    export const ADD_VERSION_WORK_COPY_PROCESS = 'ADD_VERSION_WORK_COPY_PROCESS';
     export const ADD_VERSION_SUCCESS = 'ADD_VERSION_SUCCESS';
+    export const ADD_NEW_FROM_WORK_COPY_PROCESS = 'ADD_NEW_FROM_WORK_COPY_SUCCESS';
     export const REMOVE_WORK_COPY = 'REMOVE_WORK_COPY';
     export const CLEAN_ADD_DATA = 'CLEAN_ADD_DATA';
     //pobieranie danych z bazy
+    export const HAZARD_LIST_INIT_PROCESS = 'HAZARD_LIST_INIT_PROCESS';
     export const HAZARD_LIST_INIT = 'HAZARD_LIST_INIT';
     export const FETCH_HAZARD_LIST_SUCCESS = 'FETCH_HAZARD_LIST_SUCCESS';
     export const FETCH_HAZARD_LIST_FAIL = 'FETCH_HAZARD_LIST_FAIL';
