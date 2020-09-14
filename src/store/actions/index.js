@@ -41,8 +41,17 @@ export {inputHandler,
 
 export {archive} from './archiveHistory';
 
-export {signIn, 
-        logOut, 
+export {initLogin,
+        login,
+        loginError,
+        signIn, 
+        initLogout,
+        logout,
+        logoutError,
+        logOut,
+        initSignup,
+        signup, 
         signUp,
+        signupError,
         cleanError
 } from './authenticationCreations';

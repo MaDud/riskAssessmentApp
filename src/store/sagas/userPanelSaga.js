@@ -69,10 +69,8 @@ export function* addNewFromWorkCopySaga (action) {
         const data = yield instance.get('/riskAssessment/' + action.id + '.json');
         if (data.data.status === 'active') {
             const versionNumber = data.data.version.length;
-            const [add, remove] = yield all([instance.put('/riskAssessment/' + action.id + '/version/' + versionNumber + '.json?auth=' + token, action.dataToAdd),
-                                instance.delete('/riskAssessment/' + action.id + '/draft.json?auth=' + token)]);
-            console.log(add);
-            console.log(remove)
+            yield all([instance.put('/riskAssessment/' + action.id + '/version/' + versionNumber + '.json?auth=' + token, action.dataToAdd),
+                    instance.delete('/riskAssessment/' + action.id + '/draft.json?auth=' + token)]);
             yield put(actions.addVersionSuccess());
             yield put(actions.removeWorkCopy(action.id + '/' + action.version))
         } else if (data.data.status === 'draft') {

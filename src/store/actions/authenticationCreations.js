@@ -58,33 +58,23 @@ export const signupError = (error) => {
 }
 
 export const signIn = (data) => {
-    return (dispatch, getState, {getFirebase}) => {
-        dispatch(initLogin());
-        const firebase = getFirebase();
-        firebase.auth().signInWithEmailAndPassword(data.email, data.password)
-        .then( () => dispatch(login()))
-        .catch(error => dispatch(loginError(error.message)));
+    return {
+        type: action.SIGN_IN_PROCESS,
+        data: data
     }
 }
 
 export const logOut = () => {
-    return (dispatch, getState, {getFirebase}) => {
-        initLogout();
-        const firebase = getFirebase();
-        firebase.auth().signOut()
-        .then( () => dispatch(logout()))
-        .catch(error => dispatch(logoutError(error.message)))
+    return {
+        type: action.LOG_OUT_PROCESS
     }
 }
 
 export const signUp = (data, name) => {
-    return (dispatch, getState, {getFirebase}) => {
-        dispatch(initSignup())
-        const firebase = getFirebase();
-        firebase.auth().createUserWithEmailAndPassword(data.email, data.password)
-        .then( () => firebase.updateProfile({displayName: name}))
-        .then( () => dispatch(signup()))
-        .catch(error => dispatch(signupError(error.message)))
+    return {
+        type: action.SIGN_UP_PROCESS,
+        data: data,
+        name: name
     }
 }
 

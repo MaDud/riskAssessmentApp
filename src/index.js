@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
-import {userPanelWatcher} from './store/sagas/index';
+import {userPanelWatcher, authenticationWatcher} from './store/sagas/index';
 import userPanel from './store/reductors/userPanel';
 import riskAssessment from './store/reductors/riskAssessment';
 import archiveHistory from './store/reductors/archiveHistory';
@@ -35,6 +35,7 @@ const store = createStore(reductors,
                     composeEnhancers(applyMiddleware(thunk.withExtraArgument({getFirebase}), sagaMiddleware)));
 
 sagaMiddleware.run(userPanelWatcher);
+sagaMiddleware.run(authenticationWatcher)
 
 const rrfProps = {
     firebase,
