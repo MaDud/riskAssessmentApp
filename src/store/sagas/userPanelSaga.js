@@ -69,16 +69,18 @@ export function* addNewFromWorkCopySaga (action) {
         const data = yield instance.get('/riskAssessment/' + action.id + '.json');
         if (data.data.status === 'active') {
             const versionNumber = data.data.version.length;
-            yield all([instance.put('/riskAssessment/' + action.id + '/version/' + versionNumber + '.json?auth=' + token, action.dataToAdd),
-                    instance.delete('/riskAssessment/' + action.id + '/draft.json')]);
+            const [add, remove] = yield all([instance.put('/riskAssessment/' + action.id + '/version/' + versionNumber + '.json?auth=' + token, action.dataToAdd),
+                                instance.delete('/riskAssessment/' + action.id + '/draft.json?auth=' + token)]);
+            console.log(add);
+            console.log(remove)
             yield put(actions.addVersionSuccess());
-            yield put(actions.removeWorkCopy(action.id))
+            yield put(actions.removeWorkCopy(action.id + '/' + action.version))
         } else if (data.data.status === 'draft') {
-            yield all([instance.put('/riskAssessment/' + action.id + '/version/0.json?auth' + token, action.dataToAdd),
+            yield all([instance.put('/riskAssessment/' + action.id + '/version/0.json?auth=' + token, action.dataToAdd),
                     instance.put('/riskAssessment/' + action.id + '/status.json?auth=' + token,  new String('active')),
                     instance.delete('/riskAssessment/' + action.id + '/draft.json?auth=' + token)]);
             yield put(actions.addSuccess());
-            yield put(actions.removeWorkCopy(action.id))
+            yield put(actions.removeWorkCopy(action.id + '/0'))
         }
     } catch (error) {
         yield put(actions.addFail('add_new_from_work_copy'))
@@ -97,7 +99,6 @@ export function* initHazardListSaga (action) {
         let review = 0;
         let overdue = 0;
         for (let id in data) {
-                
             if (data[id].status === 'active') {
                 const active_version = data[id].version.length -1;
                 const target = data[id].version[active_version].assessmentData;

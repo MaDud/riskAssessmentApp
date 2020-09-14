@@ -64,7 +64,7 @@ export const addWorkCopySuccess = () => {
 export const removeWorkCopy = (id) => {
     return {
         type: actionTypes.REMOVE_WORK_COPY,
-        id : id,
+        id: id
     }
 }
 
