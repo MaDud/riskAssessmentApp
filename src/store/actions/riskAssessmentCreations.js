@@ -48,93 +48,97 @@ export const RApreview = (id, data) => {
 }
 
 export const initRAForm = (type, id, version) => {
-    return dispatch => {
+    return (dispatch, getState, {getFirebase}) => {
         let hazardsData, RAdata; 
         let hazardsList = {};
-        if (type === 'new') {
-            Promise.all([instance.get('/hazardList.json'),
-                        instance.get('/prevNumber.json')])
-            .then(response => {
-                hazardsData = response[0].data;
-                for (let el in hazardsData) {
-                    hazardsList['hazard'+el] = {value: hazardsData[el], 
-                        checked:false,
-                        source: "",
-                        possibleEffects: "",
-                        protection: "",
-                        effect: "",
-                        propability: "",
-                        save: false,
-                        clean: true,
-                        valid: false};
-                };
-                dispatch(setHazards(hazardsList));
-                dispatch(setNumber(response[1].data + 1)) 
-            })
-            .catch(error => console.log(error))        
-        }
-        else if (type === 'preview') {
-            instance.get('/riskAssessment/' + id + '.json')
-            .then(response => { 
-                RAdata = response.data;
-                let lastSavedVersion = RAdata.version[RAdata.version.length - 1];
+        
+        getFirebase().auth().currentUser.getIdToken(true).then( token => {
+            if (type === 'new') {
+                Promise.all([instance.get('/hazardList.json?auth='+token),
+                            instance.get('/prevNumber.json?auth='+token)])
+                .then(response => {
+                    hazardsData = response[0].data;
+                    for (let el in hazardsData) {
+                        hazardsList['hazard'+el] = {value: hazardsData[el], 
+                            checked:false,
+                            source: "",
+                            possibleEffects: "",
+                            protection: "",
+                            effect: "",
+                            propability: "",
+                            save: false,
+                            clean: true,
+                            valid: false};
+                    };
+                    dispatch(setHazards(hazardsList));
+                    dispatch(setNumber(response[1].data + 1)) 
+                })
+                .catch(error => console.log(error))        
+            }
+            else if (type === 'preview') {
+                instance.get('/riskAssessment/' + id + '.json')
+                .then(response => { 
+                    RAdata = response.data;
+                    let lastSavedVersion = RAdata.version[RAdata.version.length - 1];
 
-                let data = {...RAdata,
-                            version: RAdata.version.length -1,
-                            assessmentData: lastSavedVersion.assessmentData,
-                            hazardList: lastSavedVersion.hazardList}
-                
-                dispatch(RApreview(id,data))
-            })
-            .catch(error => console.log(error))   
-        }
-        else if (type === 'new_version' || type === 'draft') {
-            Promise.all([instance.get('/hazardList.json'),
-                        instance.get('/riskAssessment/' + id + '.json')])
-            .then(response => { 
-                const date = new Date();
-                const year = date.getFullYear() + 1;
-                const month = date.getMonth();
-                const day = date.getDate();
-                const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
-                let assessmentData;
-                hazardsData = response[0].data;
-                RAdata = response[1].data;
-                for (let el in hazardsData) {
-                    hazardsList['hazard'+el] = {value:hazardsData[el], 
-                        checked:false,
-                        source: "",
-                        possibleEffects: "",
-                        protection: "",
-                        effect: "",
-                        propability: "",
-                        save: false,
-                        clean: true,
-                        valid: false};
-                };
-                
-                if (type === 'new_version') {
-                    assessmentData = RAdata.version[Number(version) - 1];
-                } else if (type === 'draft') {
-                    assessmentData = RAdata.draft[version]
-                }
+                    let data = {...RAdata,
+                                version: RAdata.version.length -1,
+                                assessmentData: lastSavedVersion.assessmentData,
+                                hazardList: lastSavedVersion.hazardList}
+                    
+                    dispatch(RApreview(id,data))
+                })
+                .catch(error => console.log(error))   
+            }
+            else if (type === 'new_version' || type === 'draft') {
+                Promise.all([instance.get('/hazardList.json'),
+                            instance.get('/riskAssessment/' + id + '.json')])
+                .then(response => { 
+                    const date = new Date();
+                    const year = date.getFullYear() + 1;
+                    const month = date.getMonth();
+                    const day = date.getDate();
+                    const reviewDate = new Date(year, month, day).toISOString().substring(0,10);
+                    let assessmentData;
+                    hazardsData = response[0].data;
+                    RAdata = response[1].data;
+                    for (let el in hazardsData) {
+                        hazardsList['hazard'+el] = {value:hazardsData[el], 
+                            checked:false,
+                            source: "",
+                            possibleEffects: "",
+                            protection: "",
+                            effect: "",
+                            propability: "",
+                            save: false,
+                            clean: true,
+                            valid: false};
+                    };
+                    
+                    if (type === 'new_version') {
+                        assessmentData = RAdata.version[Number(version) - 1];
+                    } else if (type === 'draft') {
+                        assessmentData = RAdata.draft[version]
+                    }
 
-                for (let el in assessmentData.hazardList) {
-                    hazardsList[el] = {...assessmentData.hazardList[el],
-                                        checked: true}
-                }
+                    for (let el in assessmentData.hazardList) {
+                        hazardsList[el] = {...assessmentData.hazardList[el],
+                                            checked: true}
+                    }
 
-                let data = {...RAdata,
-                            version: version,
-                            assessmentData: {...assessmentData.assessmentData,
-                                            date: new Date().toISOString().substring(0,10),
-                                            reviewDate: reviewDate},
-                            hazardList: hazardsList}
-                
-                dispatch(RApreview(id,data))
-            })
-                .catch(error => console.log(error))
-        }
+                    let data = {...RAdata,
+                                version: version,
+                                assessmentData: {...assessmentData.assessmentData,
+                                                date: new Date().toISOString().substring(0,10),
+                                                reviewDate: reviewDate},
+                                hazardList: hazardsList}
+                    
+                    dispatch(RApreview(id,data))
+                })
+                    .catch(error => console.log(error))
+            }
+        })
+        .catch(error => console.log(error))
     }
 }
 
